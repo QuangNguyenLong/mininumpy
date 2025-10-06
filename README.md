@@ -1,2 +1,2 @@
-"# mininumpy" 
+# MiniNumpy
 
