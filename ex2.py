@@ -1,7 +1,6 @@
-from mininumpy.array import *
-from mininumpy.minilinalg import *
+import mininumpy as mnp
 
-points = Array([
+points = mnp.array([
     [1, 1],
     [2, 3],
     [4, 2],
@@ -9,25 +8,27 @@ points = Array([
     [5, 4]
 ])
 
-scale = Array([[2, 0],
-               [0, 0.5]])
+scale = mnp.array([[2, 0],
+                   [0, 0.5]])
 
-rotate = Array([[0, -1],
-                [1, 0]])
+rotate = mnp.array([[0, -1],
+                    [1, 0]])
 
 a = 2
 b = 0.5
-shear = Array([[1 + a * b, a],
-               [b, 1]])
+shear = mnp.array([[1 + a * b, a],
+                   [b, 1]])
 
-#-------------scale-------------#
+# -------------scale-------------#
 
 print(points @ scale)
 
-#-------------rotate-------------#
+# -------------rotate-------------#
 
 print(points @ rotate)
 
-#-------------shear-------------#
+# -------------shear-------------#
 
 print(points @ shear)
+
+print(mnp.zeros((3, 2)))

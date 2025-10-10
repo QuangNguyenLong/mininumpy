@@ -257,7 +257,6 @@ def abs(array):
 
 # ---------------------------PART 2----------------------------------#
 
-
 def array(list):
     return Array(list)
 

@@ -1,6 +1,5 @@
 from PIL import Image
-from mininumpy.array import *
-from mininumpy.minilinalg import *
+import mininumpy as mnp
 
 def read_image(path):
     img = Image.open(path).convert("RGB")
@@ -16,10 +15,10 @@ def read_image(path):
     flat = R + G + B
 
     # Now shape is (3, h, w)
-    return Array(flat, shape=(3, h, w))
+    return mnp.Array(flat, shape=(3, h, w))
 
 def save_image(array, path):
-    if not isinstance(array, Array):
+    if not isinstance(array, mnp.Array):
         raise TypeError("Expected an Array instance.")
     if array.shape[0] != 3:
         raise ValueError(f"Expected shape (3, h, w), got {array.shape}")
@@ -42,7 +41,7 @@ def save_image(array, path):
     img.save(path)
 
 image = read_image('./sample.jpg')
-grey = Array([(0.299 * image[0] + 0.587 * image[1] + 0.114 * image[2])._data for _ in range(image.shape[0])], 
+grey = mnp.Array([(0.299 * image[0] + 0.587 * image[1] + 0.114 * image[2])._data for _ in range(image.shape[0])], 
              shape = image.shape, element_type=int)
 save_image(grey, './grey.jpg')
 
