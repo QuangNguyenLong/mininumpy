@@ -243,18 +243,14 @@ def _elementwise(array, func):
         ans._data[i] = func(array._data[i])
     return ans
 
-
 def exp(array):
     return _elementwise(array, math.exp)
-
 
 def log(array):
     return _elementwise(array, math.log)
 
-
 def sqrt(array):
     return _elementwise(array, math.sqrt)
-
 
 def abs(array):
     return _elementwise(array, math.fabs)
