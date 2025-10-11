@@ -1,0 +1,4 @@
+# pillow==11.3.0
+# ipykernel
+# numpy
+setuptools

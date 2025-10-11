@@ -2,3 +2,5 @@
 __pycache__
 grey.jpg
 old*
+del.*
+*.egg-info

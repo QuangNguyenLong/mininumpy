@@ -4,10 +4,12 @@ import math
 
 # ----------------------------my stuff---------------------------------#
 # O(size * ndim) --> need improvement
+
+
 def flatten(lst):
     if not isinstance(lst, list):
         return lst
-    
+
     flat = lst
     # O(size * ndim)
     while isinstance(flat[0], list):
@@ -20,6 +22,7 @@ def flatten(lst):
 
     lst = flat
     return lst
+
 
 class Array:
     _data = []
@@ -79,7 +82,8 @@ class Array:
             for s in shape:
                 size *= s
             if len(self._data) != size:
-                raise ValueError(f"Error: Can not change size. From {len(self._data)} to {size}.")
+                raise ValueError(
+                    f"Error: Can not change size. From {len(self._data)} to {size}.")
             self.shape = shape
         else:
             self.shape = self._shape()
@@ -133,10 +137,11 @@ class Array:
         if isinstance(other, Array) and self.shape != other.shape:
             return
         ans = self
-        for i in range(self.size):
-            if isinstance(other, Array):
+        if isinstance(other, Array):
+            for i in range(self.size):
                 ans._data[i] += other._data[i]
-            else:
+        else:
+            for i in range(self.size):
                 ans._data[i] += other
         return ans
 
@@ -149,13 +154,14 @@ class Array:
         if isinstance(other, Array) and self.shape != other.shape:
             return
         ans = self
-        for i in range(self.size):
-            if isinstance(other, Array):
+        if isinstance(other, Array):
+            for i in range(self.size):
                 ans._data[i] *= other._data[i]
-            else:
+        else:
+            for i in range(self.size):
                 ans._data[i] *= other
         return ans
-    
+
     def __rmul__(self, other):
         return self.__mul__(other)
 
@@ -166,10 +172,11 @@ class Array:
         if isinstance(other, Array) and self.shape != other.shape:
             return
         ans = self
-        for i in range(self.size):
-            if isinstance(other, Array):
+        if isinstance(other, Array):
+            for i in range(self.size):
                 ans._data[i] /= other._data[i]
-            else:
+        else:
+            for i in range(self.size):
                 ans._data[i] /= other
         return ans
 
@@ -186,11 +193,11 @@ class Array:
             ans = []
             if isinstance(self[0], Array):
                 for i in range(start, stop, step):
-                        ans.append(self[i]._data)
+                    ans.append(self[i]._data)
             else:
                 ans = self._data[idx]
             sh = list(self.shape)
-            sh[0] = int((stop - start) / step) 
+            sh[0] = int((stop - start) / step)
 
             return Array(ans, shape=tuple(sh))
 
@@ -198,10 +205,10 @@ class Array:
             return self._data[idx]
         if idx >= self.shape[0]:
             raise IndexError("Array index out of range!!!")
-        
+
         block = int(self.size / self.shape[0])
-        return Array(self._data[block * idx : block * (idx + 1)],
-                    shape=self.shape[1:])
+        return Array(self._data[block * idx: block * (idx + 1)],
+                     shape=self.shape[1:])
 
     def mean(self):
         return sum(self._data) / self.size
@@ -226,8 +233,8 @@ class Array:
         if self.shape[-1] != other.shape[0]:
             return
         if self.ndim > 2 or other.ndim > 2:
-            return # this is confusing, pass :v
-        
+            return  # this is confusing, pass :v
+
         otherT = other.transpose()
         ans = []
         for i in range(self.shape[0]):
@@ -237,25 +244,31 @@ class Array:
             ans.append(row)
         return Array(ans)
 
+
 def _elementwise(array, func):
     ans = array
     for i in range(array.size):
         ans._data[i] = func(array._data[i])
     return ans
 
+
 def exp(array):
     return _elementwise(array, math.exp)
+
 
 def log(array):
     return _elementwise(array, math.log)
 
+
 def sqrt(array):
     return _elementwise(array, math.sqrt)
+
 
 def abs(array):
     return _elementwise(array, math.fabs)
 
 # ---------------------------PART 2----------------------------------#
+
 
 def array(list):
     return Array(list)
