@@ -9,7 +9,7 @@ PROJECT_NUMBER         =
 PROJECT_BRIEF          =
 PROJECT_LOGO           =
 PROJECT_ICON           =
-OUTPUT_DIRECTORY       = ${PROJECT_SOURCE_DIR}/docs
+OUTPUT_DIRECTORY       = $(PROJECT_SOURCE_DIR)/docs
 CREATE_SUBDIRS         = NO
 CREATE_SUBDIRS_LEVEL   = 8
 ALLOW_UNICODE_NAMES    = NO
@@ -130,7 +130,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = ${PROJECT_SOURCE_DIR}/mininumpy
+INPUT                  = $(PROJECT_SOURCE_DIR)/mininumpy
 INPUT_ENCODING         = UTF-8
 INPUT_FILE_ENCODING    =
 FILE_PATTERNS          = *.c \
