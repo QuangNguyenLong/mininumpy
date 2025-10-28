@@ -1,0 +1,14 @@
+digraph "mininumpy.array.Array.data"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="mininumpy.array.Array.data",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="mininumpy.array.Array.\l__str__",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classmininumpy_1_1array_1_1Array.html#aad51652e321a583cf458595e8d0136cd",tooltip=" "];
+  Node2 -> Node2 [id="edge2_Node000002_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 -> Node3 [id="edge3_Node000001_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="mininumpy.array.Array.tolist",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classmininumpy_1_1array_1_1Array.html#af074bb8aff0d96d0dba677d221dfd388",tooltip=" "];
+}
