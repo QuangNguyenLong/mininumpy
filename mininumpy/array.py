@@ -3,10 +3,69 @@
 import math
 
 # ----------------------------my stuff---------------------------------#
+
+def transpose_new_index(index, shape, axis):
+    """
+    @brief 
+    @param 
+    @param 
+    @param 
+    @return 
+    """
+    vec = flat_index_to_shaped(index, shape)
+
+    new_vec = list(vec)
+    new_shape = list(shape)
+    for i in range(len(axis)):
+        new_vec[i] = vec[axis[i]]
+        new_shape[i] = shape[axis[i]] 
+
+    return shaped_to_flat_index(new_vec, new_shape)
+
+def shaped_to_flat_index(vec, shape):
+    """
+    @brief 
+    @param 
+    @param 
+    @return 
+    """
+    ndim = len(shape)
+    ans = 0
+    for i in range(ndim):
+        prod = 1
+        for j in range(i + 1, ndim):
+            prod *= shape[j]
+        ans += prod * vec[i]
+        
+    return ans
+
+def flat_index_to_shaped(index, shape):
+    """
+    @brief 
+    @param index
+    @param shape
+    @return 
+    """
+    ndim = len(shape)
+    ans = [0 for _ in range(ndim)]
+    
+    for i in range(ndim):
+        prod = 1
+        for j in range(i + 1, ndim):
+            prod *= shape[j]
+        ans[i] = int(index / prod)
+        index -= int(index / prod) * prod 
+    
+    return ans
+
 # O(size * ndim) --> need improvement
 
-
 def flatten(lst):
+    """
+    @brief 
+    @param 
+    @return 
+    """
     if not isinstance(lst, list):
         return lst
 
@@ -28,7 +87,7 @@ class Array:
     _data = []
 
     element_type = None
-    current = 0
+
     shape = ()
     ndim = 0
     size = 0
@@ -118,19 +177,23 @@ class Array:
 
         return self
 
-    def transpose(self):
-        if self.ndim != 2:
-            return
+    def transpose(self, axis=None):
+        if axis == None:
+            axis = range(self.ndim)[::-1]
 
-        new_data = []
-        for i in range(self.shape[1]):
-            row = []
-            for j in range(self.shape[0]):
-                row.append(self[j][i])
-            new_data.append(row)
+        new_data = list(self._data)
 
-        return Array(new_data)
+        new_shape = list(self.shape)
+        for i in range(len(axis)):
+            new_shape[i] = self.shape[axis[i]]
 
+        for i in range(self.size):
+            new_data[i] = self._data[transpose_new_index(i, self.shape, axis)]
+
+        return Array(lst=new_data, shape=new_shape)
+    
+    def tolist(self):
+         return self.data
 # ---------------------------PART 3----------------------------------#
 
     def __add__(self, other):
