@@ -178,6 +178,9 @@ class Array:
         return self
 
     def transpose(self, axis=None):
+        """
+        https://numpy.org/doc/2.3/reference/generated/numpy.ndarray.transpose.html
+        """
         if axis == None:
             axis = range(self.ndim)[::-1]
 
@@ -272,9 +275,19 @@ class Array:
         block = int(self.size / self.shape[0])
         return Array(self._data[block * idx: block * (idx + 1)],
                      shape=self.shape[1:])
+    
+        
+    def sum(self, axis=None, dtype=None, out=None, keepdims=False, initial=0, where=True):
+        return
 
-    def mean(self):
+    def mean(self, axis=None, dtype=None, out=None, keepdims=False, *, where=True):
         return sum(self._data) / self.size
+
+    def min(self):
+        return
+    
+    def max(self):
+        return
 
     def argmax(self):
         max_idx = 0
@@ -307,6 +320,7 @@ class Array:
             ans.append(row)
         return Array(ans)
 
+    
 
 def _elementwise(array, func):
     ans = array
@@ -330,11 +344,12 @@ def sqrt(array):
 def abs(array):
     return _elementwise(array, math.fabs)
 
+
 # ---------------------------PART 2----------------------------------#
 
 
-def array(list):
-    return Array(list)
+def array(object):
+    return Array(object)
 
 # O(len(shape) + prod(shape))
 
