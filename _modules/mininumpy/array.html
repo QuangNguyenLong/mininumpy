@@ -1,0 +1,776 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mininumpy.array &mdash; Mininumpy 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mininumpy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">mininumpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Mininumpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">mininumpy.array</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for mininumpy.array</h1><div class="highlight"><pre>
+<span></span><span class="c1"># ---------------------------PART 1----------------------------------#</span>
+<span class="c1"># this class is not meant for logging and printing :v</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="c1"># ----------------------------my stuff---------------------------------#</span>
+
+<div class="viewcode-block" id="transpose_new_index">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.transpose_new_index">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">transpose_new_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        index:</span>
+<span class="sd">        shape:</span>
+<span class="sd">        axis:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vec</span> <span class="o">=</span> <span class="n">flat_index_to_shaped</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
+
+    <span class="n">new_vec</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+    <span class="n">new_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">axis</span><span class="p">)):</span>
+        <span class="n">new_vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">vec</span><span class="p">[</span><span class="n">axis</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+        <span class="n">new_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> 
+
+    <span class="k">return</span> <span class="n">shaped_to_flat_index</span><span class="p">(</span><span class="n">new_vec</span><span class="p">,</span> <span class="n">new_shape</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="shaped_to_flat_index">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.shaped_to_flat_index">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">shaped_to_flat_index</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        vec:</span>
+<span class="sd">        shape:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+        <span class="n">prod</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
+            <span class="n">prod</span> <span class="o">*=</span> <span class="n">shape</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">ans</span> <span class="o">+=</span> <span class="n">prod</span> <span class="o">*</span> <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+    <span class="k">return</span> <span class="n">ans</span></div>
+
+
+
+<div class="viewcode-block" id="flat_index_to_shaped">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.flat_index_to_shaped">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">flat_index_to_shaped</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        index:</span>
+<span class="sd">        shape:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">)]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+        <span class="n">prod</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
+            <span class="n">prod</span> <span class="o">*=</span> <span class="n">shape</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span> <span class="o">/</span> <span class="n">prod</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">-=</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span> <span class="o">/</span> <span class="n">prod</span><span class="p">)</span> <span class="o">*</span> <span class="n">prod</span> 
+    
+    <span class="k">return</span> <span class="n">ans</span></div>
+
+
+
+<div class="viewcode-block" id="flatten">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.flatten">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">flatten</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lst:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">lst</span>
+
+    <span class="n">flat</span> <span class="o">=</span> <span class="n">lst</span>
+    <span class="k">while</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">flat</span><span class="p">:</span>
+            <span class="n">ans</span> <span class="o">+=</span> <span class="n">e</span>
+        <span class="n">flat</span> <span class="o">=</span> <span class="n">ans</span>
+
+    <span class="n">lst</span> <span class="o">=</span> <span class="n">flat</span>
+    <span class="k">return</span> <span class="n">lst</span></div>
+
+
+
+<div class="viewcode-block" id="Array">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add class description.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">element_type</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">ndim</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="nb">next</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">curr</span><span class="p">)</span> <span class="o">/</span> <span class="n">c</span><span class="p">)):</span>
+                <span class="nb">next</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">c</span><span class="p">:</span> <span class="n">i</span> <span class="o">*</span> <span class="n">c</span> <span class="o">+</span> <span class="n">c</span><span class="p">])</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="nb">next</span>
+        <span class="k">return</span> <span class="n">curr</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">),</span> <span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">while</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">shape</span> <span class="o">+=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="p">)</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">shape</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lst</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">element_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lst:</span>
+<span class="sd">            shape:</span>
+<span class="sd">            element_type:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;wtf bro&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">lst</span>
+        <span class="k">if</span> <span class="n">shape</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">:</span>
+                <span class="n">size</span> <span class="o">*=</span> <span class="n">s</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Error: Can not change size. From </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">element_type</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">element_type</span> <span class="o">=</span> <span class="n">element_type</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">element_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">element_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Array.reshape">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.reshape">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reshape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newshape</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            newshape:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">newshape</span><span class="p">:</span>
+            <span class="n">size</span> <span class="o">*=</span> <span class="n">c</span>
+        <span class="k">if</span> <span class="n">size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">newshape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="Array.transpose">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.transpose">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transpose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            axis:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">axis</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">new_data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+        <span class="n">new_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">axis</span><span class="p">)):</span>
+            <span class="n">new_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+            <span class="n">new_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">transpose_new_index</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">axis</span><span class="p">)]</span>
+
+        <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">lst</span><span class="o">=</span><span class="n">new_data</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">new_shape</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Array.tolist">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.tolist">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Array</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="n">ans</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="n">ans</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="n">ans</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">other</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Array</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="n">ans</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="n">other</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="n">ans</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="n">ans</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="n">other</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+            <span class="n">ans</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**=</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="n">ans</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span> <span class="o">**</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            idx:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Array</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
+                    <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="n">sh</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">sh</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">step</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">sh</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Array index out of range!!!&quot;</span><span class="p">)</span>
+
+        <span class="n">block</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">block</span> <span class="o">*</span> <span class="n">idx</span><span class="p">:</span> <span class="n">block</span> <span class="o">*</span> <span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span>
+                     <span class="n">shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    
+<div class="viewcode-block" id="Array.sum">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.sum">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="Array.mean">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.mean">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span></div>
+
+
+<div class="viewcode-block" id="Array.min">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.min">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span></div>
+
+    
+<div class="viewcode-block" id="Array.max">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.max">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="Array.argmax">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.argmax">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">argmax</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">max_idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">max_idx</span><span class="p">]:</span>
+                <span class="n">max_idx</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">return</span> <span class="n">max_idx</span></div>
+
+
+<div class="viewcode-block" id="Array.argmin">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.argmin">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">argmin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">max_idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">max_idx</span><span class="p">]:</span>
+                <span class="n">max_idx</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">return</span> <span class="n">max_idx</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Add description.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">other</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">otherT</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">otherT</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">otherT</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+            <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_elementwise</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        array:</span>
+<span class="sd">        func:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">array</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="n">ans</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">ans</span>
+
+
+<div class="viewcode-block" id="exp">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.exp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        array:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_elementwise</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="log">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.log">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        array:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_elementwise</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="sqrt">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.sqrt">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        array:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_elementwise</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="abs">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.abs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">abs</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        array:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_elementwise</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">fabs</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="array">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.array">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">array</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        object:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="zeros">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.zeros">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        shape:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">:</span>
+        <span class="n">size</span> <span class="o">*=</span> <span class="n">s</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">size</span>
+    <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ones">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.ones">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        shape:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">:</span>
+        <span class="n">size</span> <span class="o">*=</span> <span class="n">s</span>
+    <span class="n">one</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">size</span>
+    <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="eye">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.eye">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">eye</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        n:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">iden</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">iden</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">iden</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="arange">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.arange">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        start:</span>
+<span class="sd">        stop:</span>
+<span class="sd">        step:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">step</span><span class="p">)):</span>
+        <span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">step</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="linspace">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.linspace">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Add description.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        start:</span>
+<span class="sd">        stop:</span>
+<span class="sd">        num:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Long Quang NGUYEN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

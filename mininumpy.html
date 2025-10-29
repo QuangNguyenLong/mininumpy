@@ -46,9 +46,34 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">mininumpy</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">mininumpy package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mininumpy-array-module">mininumpy.array module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mininumpy-minilinalg-module">mininumpy.minilinalg module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mininumpy.array">mininumpy.array module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.Array"><code class="docutils literal notranslate"><span class="pre">Array</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.abs"><code class="docutils literal notranslate"><span class="pre">abs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.arange"><code class="docutils literal notranslate"><span class="pre">arange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.array"><code class="docutils literal notranslate"><span class="pre">array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.exp"><code class="docutils literal notranslate"><span class="pre">exp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.eye"><code class="docutils literal notranslate"><span class="pre">eye()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.flat_index_to_shaped"><code class="docutils literal notranslate"><span class="pre">flat_index_to_shaped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.flatten"><code class="docutils literal notranslate"><span class="pre">flatten()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.linspace"><code class="docutils literal notranslate"><span class="pre">linspace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.log"><code class="docutils literal notranslate"><span class="pre">log()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.ones"><code class="docutils literal notranslate"><span class="pre">ones()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.shaped_to_flat_index"><code class="docutils literal notranslate"><span class="pre">shaped_to_flat_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.sqrt"><code class="docutils literal notranslate"><span class="pre">sqrt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.transpose_new_index"><code class="docutils literal notranslate"><span class="pre">transpose_new_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.array.zeros"><code class="docutils literal notranslate"><span class="pre">zeros()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mininumpy.minilinalg">mininumpy.minilinalg module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.det"><code class="docutils literal notranslate"><span class="pre">det()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.dot"><code class="docutils literal notranslate"><span class="pre">dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.eig"><code class="docutils literal notranslate"><span class="pre">eig()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.inv"><code class="docutils literal notranslate"><span class="pre">inv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.matmul"><code class="docutils literal notranslate"><span class="pre">matmul()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.norm"><code class="docutils literal notranslate"><span class="pre">norm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mininumpy">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -85,14 +110,338 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="mininumpy-array-module">
-<h2>mininumpy.array module<a class="headerlink" href="#mininumpy-array-module" title="Link to this heading"></a></h2>
+<section id="module-mininumpy.array">
+<span id="mininumpy-array-module"></span><h2>mininumpy.array module<a class="headerlink" href="#module-mininumpy.array" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mininumpy.array.Array">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">Array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>TODO: Add class description.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.argmax">
+<span class="sig-name descname"><span class="pre">argmax</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.argmax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.argmax" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.argmin">
+<span class="sig-name descname"><span class="pre">argmin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.argmin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.argmin" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mininumpy.array.Array.data">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#mininumpy.array.Array.data" title="Link to this definition"></a></dt>
+<dd><p>Add description.</p>
+<p>Returns:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TODO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mininumpy.array.Array.element_type">
+<span class="sig-name descname"><span class="pre">element_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mininumpy.array.Array.element_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.max">
+<span class="sig-name descname"><span class="pre">max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.max" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">where</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.mean" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.min">
+<span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.min" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mininumpy.array.Array.ndim">
+<span class="sig-name descname"><span class="pre">ndim</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#mininumpy.array.Array.ndim" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.reshape">
+<span class="sig-name descname"><span class="pre">reshape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newshape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.reshape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.reshape" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newshape</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mininumpy.array.Array.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#mininumpy.array.Array.shape" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mininumpy.array.Array.size">
+<span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#mininumpy.array.Array.size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.sum">
+<span class="sig-name descname"><span class="pre">sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.sum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.sum" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.tolist">
+<span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.tolist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.tolist" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.transpose">
+<span class="sig-name descname"><span class="pre">transpose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.transpose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.transpose" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>axis</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.abs">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">abs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#abs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.abs" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.arange">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">arange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#arange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.arange" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong></p></li>
+<li><p><strong>stop</strong></p></li>
+<li><p><strong>step</strong></p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.array">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.array" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>object</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.exp">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.exp" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.eye">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">eye</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#eye"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.eye" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>n</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.flat_index_to_shaped">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">flat_index_to_shaped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#flat_index_to_shaped"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.flat_index_to_shaped" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong></p></li>
+<li><p><strong>shape</strong></p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.flatten">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.flatten" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lst</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.linspace">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">linspace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#linspace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.linspace" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong></p></li>
+<li><p><strong>stop</strong></p></li>
+<li><p><strong>num</strong></p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.log">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.log" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.ones">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">ones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#ones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.ones" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>shape</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.shaped_to_flat_index">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">shaped_to_flat_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#shaped_to_flat_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.shaped_to_flat_index" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vec</strong></p></li>
+<li><p><strong>shape</strong></p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.sqrt">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">sqrt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#sqrt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.sqrt" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.transpose_new_index">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">transpose_new_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#transpose_new_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.transpose_new_index" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong></p></li>
+<li><p><strong>shape</strong></p></li>
+<li><p><strong>axis</strong></p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.array.zeros">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#zeros"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.zeros" title="Link to this definition"></a></dt>
+<dd><p>TODO: Add description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>shape</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
 </section>
-<section id="mininumpy-minilinalg-module">
-<h2>mininumpy.minilinalg module<a class="headerlink" href="#mininumpy-minilinalg-module" title="Link to this heading"></a></h2>
+<section id="module-mininumpy.minilinalg">
+<span id="mininumpy-minilinalg-module"></span><h2>mininumpy.minilinalg module<a class="headerlink" href="#module-mininumpy.minilinalg" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.det">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.dot">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#dot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.dot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.eig">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">eig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#eig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.eig" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.inv">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">inv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#inv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.inv" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.matmul">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">matmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#matmul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.matmul" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.norm">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.norm" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="module-mininumpy">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mininumpy" title="Link to this heading"></a></h2>
 </section>
 </section>
 
