@@ -6,11 +6,14 @@ import math
 
 def transpose_new_index(index, shape, axis):
     """
-    @brief 
-    @param 
-    @param 
-    @param 
-    @return 
+    TODO: Add description.
+
+    Args:
+        index:
+        shape:
+        axis:
+
+    Returns:
     """
     vec = flat_index_to_shaped(index, shape)
 
@@ -22,12 +25,16 @@ def transpose_new_index(index, shape, axis):
 
     return shaped_to_flat_index(new_vec, new_shape)
 
+
 def shaped_to_flat_index(vec, shape):
     """
-    @brief 
-    @param 
-    @param 
-    @return 
+    TODO: Add description.
+
+    Args:
+        vec:
+        shape:
+
+    Returns:
     """
     ndim = len(shape)
     ans = 0
@@ -39,12 +46,16 @@ def shaped_to_flat_index(vec, shape):
         
     return ans
 
+
 def flat_index_to_shaped(index, shape):
     """
-    @brief 
-    @param index
-    @param shape
-    @return 
+    TODO: Add description.
+
+    Args:
+        index:
+        shape:
+
+    Returns:
     """
     ndim = len(shape)
     ans = [0 for _ in range(ndim)]
@@ -58,24 +69,23 @@ def flat_index_to_shaped(index, shape):
     
     return ans
 
-# O(size * ndim) --> need improvement
 
 def flatten(lst):
     """
-    @brief 
-    @param 
-    @return 
+    TODO: Add description.
+
+    Args:
+        lst:
+
+    Returns:
     """
     if not isinstance(lst, list):
         return lst
 
     flat = lst
-    # O(size * ndim)
     while isinstance(flat[0], list):
         ans = []
-        # O(size)
         for e in flat:
-            # O(len(e))
             ans += e
         flat = ans
 
@@ -84,53 +94,69 @@ def flatten(lst):
 
 
 class Array:
+    """
+    TODO: Add class description.
+    """
+
     _data = []
-
     element_type = None
-
     shape = ()
     ndim = 0
     size = 0
 
-    # ----------------------------end---------------------------------#
-
-    # O(size * ndim)
     @property
     def data(self):
-        # O(size * ndim)
+        """
+        TODO: Add description.
+
+        Returns:
+        """
         curr = self._data
-        # O(product(shape) * ndim) = O(size * ndim)
         for c in self.shape[:0:-1]:
             next = []
-            # O(product(shape)) = O(size)
             for i in range(int(len(curr) / c)):
                 next.append(curr[i * c: i * c + c])
             curr = next
         return curr
 
-    # O(1)
     def _size(self):
+        """
+        TODO: Add description.
+
+        Returns:
+        """
         return len(self._data)
 
-    # O(ndim)
     def _shape(self):
-        # O(1)
+        """
+        TODO: Add description.
+
+        Returns:
+        """
         shape = (len(self._data), )
         e = self._data[0]
-
-        # O(ndim)
         while isinstance(e, list):
-            # O(1)
             shape += (len(e), )
             e = e[0]
         return shape
 
-    # O(1)
     def _ndim(self):
+        """
+        TODO: Add description.
+
+        Returns:
+        """
         return len(self.shape)
 
-    # O(ndim * size), O(1) if list is flat
     def __init__(self, lst, shape=None, element_type=None):
+        """
+        TODO: Add description.
+
+        Args:
+            lst:
+            shape:
+            element_type:
+        """
         if not isinstance(lst, list):
             raise ValueError("wtf bro")
 
@@ -159,13 +185,23 @@ class Array:
             self.element_type = type(self._data[0])
         return
 
-    # O(ndim * size)
     def __str__(self):
+        """
+        TODO: Add description.
+
+        Returns:
+        """
         return self.data.__str__()
 
-    # O(ndim)
     def reshape(self, newshape):
-        # O(ndim)
+        """
+        TODO: Add description.
+
+        Args:
+            newshape:
+
+        Returns:
+        """
         size = 1
         for c in newshape:
             size *= c
@@ -174,18 +210,21 @@ class Array:
 
         self.shape = newshape
         self.ndim = self._ndim()
-
         return self
 
     def transpose(self, axis=None):
         """
-        https://numpy.org/doc/2.3/reference/generated/numpy.ndarray.transpose.html
+        TODO: Add description.
+
+        Args:
+            axis:
+
+        Returns:
         """
         if axis == None:
             axis = range(self.ndim)[::-1]
 
         new_data = list(self._data)
-
         new_shape = list(self.shape)
         for i in range(len(axis)):
             new_shape[i] = self.shape[axis[i]]
@@ -196,10 +235,22 @@ class Array:
         return Array(lst=new_data, shape=new_shape)
     
     def tolist(self):
-         return self.data
-# ---------------------------PART 3----------------------------------#
+        """
+        TODO: Add description.
+
+        Returns:
+        """
+        return self.data
 
     def __add__(self, other):
+        """
+        TODO: Add description.
+
+        Args:
+            other:
+
+        Returns:
+        """
         if isinstance(other, Array) and self.shape != other.shape:
             return
         ans = self
@@ -212,11 +263,27 @@ class Array:
         return ans
 
     def __radd__(self, other):
+        """
+        TODO: Add description.
+
+        Args:
+            other:
+
+        Returns:
+        """
         if other == 0:
             return self
         return self.__add__(other)
 
     def __mul__(self, other):
+        """
+        TODO: Add description.
+
+        Args:
+            other:
+
+        Returns:
+        """
         if isinstance(other, Array) and self.shape != other.shape:
             return
         ans = self
@@ -229,31 +296,62 @@ class Array:
         return ans
 
     def __rmul__(self, other):
+        """
+        TODO: Add description.
+
+        Args:
+            other:
+
+        Returns:
+        """
         return self.__mul__(other)
 
     def __sub__(self, other):
+        """
+        TODO: Add description.
+
+        Args:
+            other:
+
+        Returns:
+        """
         return self + other * (-1)
 
-    def __truediv__(self, other):
-        if isinstance(other, Array) and self.shape != other.shape:
-            return
-        ans = self
-        if isinstance(other, Array):
-            for i in range(self.size):
-                ans._data[i] /= other._data[i]
-        else:
-            for i in range(self.size):
-                ans._data[i] /= other
-        return ans
-
     def __pow__(self, other):
+        """
+        TODO: Add description.
+
+        Args:
+            other:
+
+        Returns:
+        """
         ans = self
         for i in range(self.size):
             ans._data[i] **= other
         return ans
 
-    # O(1) if idx is int, but this is stupid because it is returning an entire new Array.
+    def __truediv__(self, other):
+        """
+        TODO: Add description.
+
+        Args:
+            other:
+
+        Returns:
+        """
+        return self.__mul__(other ** -1)
+
+
     def __getitem__(self, idx):
+        """
+        TODO: Add description.
+
+        Args:
+            idx:
+
+        Returns:
+        """
         if isinstance(idx, slice):
             start, stop, step = idx.indices(self.shape[0])
             ans = []
@@ -276,20 +374,36 @@ class Array:
         return Array(self._data[block * idx: block * (idx + 1)],
                      shape=self.shape[1:])
     
-        
     def sum(self, axis=None, dtype=None, out=None, keepdims=False, initial=0, where=True):
+        """
+        TODO: Add description.
+        """
         return
 
     def mean(self, axis=None, dtype=None, out=None, keepdims=False, *, where=True):
+        """
+        TODO: Add description.
+        """
         return sum(self._data) / self.size
 
     def min(self):
+        """
+        TODO: Add description.
+        """
         return
     
     def max(self):
+        """
+        TODO: Add description.
+        """
         return
 
     def argmax(self):
+        """
+        TODO: Add description.
+
+        Returns:
+        """
         max_idx = 0
         for i in range(self.size):
             if self._data[i] > self._data[max_idx]:
@@ -297,6 +411,11 @@ class Array:
         return max_idx
 
     def argmin(self):
+        """
+        TODO: Add description.
+
+        Returns:
+        """
         max_idx = 0
         for i in range(self.size):
             if self._data[i] < self._data[max_idx]:
@@ -304,12 +423,20 @@ class Array:
         return max_idx
 
     def __matmul__(self, other):
+        """
+        TODO: Add description.
+
+        Args:
+            other:
+
+        Returns:
+        """
         if not isinstance(other, Array):
             return
         if self.shape[-1] != other.shape[0]:
             return
         if self.ndim > 2 or other.ndim > 2:
-            return  # this is confusing, pass :v
+            return
 
         otherT = other.transpose()
         ans = []
@@ -320,9 +447,17 @@ class Array:
             ans.append(row)
         return Array(ans)
 
-    
 
 def _elementwise(array, func):
+    """
+    TODO: Add description.
+
+    Args:
+        array:
+        func:
+
+    Returns:
+    """
     ans = array
     for i in range(array.size):
         ans._data[i] = func(array._data[i])
@@ -330,41 +465,90 @@ def _elementwise(array, func):
 
 
 def exp(array):
+    """
+    TODO: Add description.
+
+    Args:
+        array:
+
+    Returns:
+    """
     return _elementwise(array, math.exp)
 
 
 def log(array):
+    """
+    TODO: Add description.
+
+    Args:
+        array:
+
+    Returns:
+    """
     return _elementwise(array, math.log)
 
 
 def sqrt(array):
+    """
+    TODO: Add description.
+
+    Args:
+        array:
+
+    Returns:
+    """
     return _elementwise(array, math.sqrt)
 
 
 def abs(array):
+    """
+    TODO: Add description.
+
+    Args:
+        array:
+
+    Returns:
+    """
     return _elementwise(array, math.fabs)
 
 
-# ---------------------------PART 2----------------------------------#
-
-
 def array(object):
-    return Array(object)
+    """
+    TODO: Add description.
 
-# O(len(shape) + prod(shape))
+    Args:
+        object:
+
+    Returns:
+    """
+    return Array(object)
 
 
 def zeros(shape):
+    """
+    TODO: Add description.
+
+    Args:
+        shape:
+
+    Returns:
+    """
     size = 1
     for s in shape:
         size *= s
     zero = [0] * size
     return Array(zero, shape=shape)
 
-# O(len(shape) + prod(shape))
-
 
 def ones(shape):
+    """
+    TODO: Add description.
+
+    Args:
+        shape:
+
+    Returns:
+    """
     size = 1
     for s in shape:
         size *= s
@@ -373,6 +557,14 @@ def ones(shape):
 
 
 def eye(n):
+    """
+    TODO: Add description.
+
+    Args:
+        n:
+
+    Returns:
+    """
     iden = [[0] * n for _ in range(n)]
     for i in range(n):
         iden[i][i] = 1
@@ -380,6 +572,16 @@ def eye(n):
 
 
 def arange(start, stop, step=1):
+    """
+    TODO: Add description.
+
+    Args:
+        start:
+        stop:
+        step:
+
+    Returns:
+    """
     arr = []
     for i in range(int((stop - start) / step)):
         arr.append(start + i * step)
@@ -387,5 +589,15 @@ def arange(start, stop, step=1):
 
 
 def linspace(start, stop, num=50):
+    """
+    TODO: Add description.
+
+    Args:
+        start:
+        stop:
+        num:
+
+    Returns:
+    """
     step = (stop - start) / (num - 1)
     return arange(start, stop + step, step)
