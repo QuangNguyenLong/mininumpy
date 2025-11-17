@@ -154,20 +154,25 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.flatten">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">flatten</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TODO: Add description.</span>
+<span class="sd">    TODO: Helper function to flat a nested list.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        lst:</span>
+<span class="sd">        lst: nested list to be flatten.</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Time complexity: O(size * ndim)</span>
+<span class="sd">    Space complexity: O(size)</span>
+<span class="sd">    Returns: flatten list.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">lst</span>
 
     <span class="n">flat</span> <span class="o">=</span> <span class="n">lst</span>
+    <span class="c1"># O(size * ndim)</span>
     <span class="k">while</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># O(size)</span>
         <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">flat</span><span class="p">:</span>
+            <span class="c1"># O(len(e))</span>
             <span class="n">ans</span> <span class="o">+=</span> <span class="n">e</span>
         <span class="n">flat</span> <span class="o">=</span> <span class="n">ans</span>
 
@@ -180,7 +185,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TODO: Add class description.</span>
+<span class="sd">    Numpy-like array. Store the data in a flatten array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -192,23 +197,27 @@
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TODO: Add description.</span>
+<span class="sd">        Method to get the original data.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Time complexity: O(size * ndim)</span>
+<span class="sd">        Space complexity: O(size)</span>
+<span class="sd">        Returns: The original data in a (nested) list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
-        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># ndim</span>
             <span class="nb">next</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">curr</span><span class="p">)</span> <span class="o">/</span> <span class="n">c</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">curr</span><span class="p">)</span> <span class="o">/</span> <span class="n">c</span><span class="p">)):</span> <span class="c1"># size / shape[i] = size</span>
                 <span class="nb">next</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">c</span><span class="p">:</span> <span class="n">i</span> <span class="o">*</span> <span class="n">c</span> <span class="o">+</span> <span class="n">c</span><span class="p">])</span>
             <span class="n">curr</span> <span class="o">=</span> <span class="nb">next</span>
         <span class="k">return</span> <span class="n">curr</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TODO: Add description.</span>
+<span class="sd">        Method to get the number of elements in the array.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Time complexity: O(1)</span>
+<span class="sd">        Space complexity: O(1)</span>
+<span class="sd">        Returns: The number of elements in integer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
 

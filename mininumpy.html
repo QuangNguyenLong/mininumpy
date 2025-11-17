@@ -116,7 +116,7 @@
 <dt class="sig sig-object py" id="mininumpy.array.Array">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">Array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>TODO: Add class description.</p>
+<p>Numpy-like array. Store the data in a flatten array.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mininumpy.array.Array.argmax">
 <span class="sig-name descname"><span class="pre">argmax</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.argmax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.argmax" title="Link to this definition"></a></dt>
@@ -134,13 +134,10 @@
 <dl class="py property">
 <dt class="sig sig-object py" id="mininumpy.array.Array.data">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#mininumpy.array.Array.data" title="Link to this definition"></a></dt>
-<dd><p>Add description.</p>
-<p>Returns:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>TODO</p>
-</dd>
-</dl>
+<dd><p>Method to get the original data.</p>
+<p>Time complexity: O(size * ndim)
+Space complexity: O(size)
+Returns: The original data in a (nested) list.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -302,13 +299,15 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.array.flatten">
 <span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.flatten" title="Link to this definition"></a></dt>
-<dd><p>TODO: Add description.</p>
+<dd><p>TODO: Helper function to flat a nested list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lst</strong></p>
+<dd class="field-odd"><p><strong>lst</strong> – nested list to be flatten.</p>
 </dd>
 </dl>
-<p>Returns:</p>
+<p>Time complexity: O(size * ndim)
+Space complexity: O(size)
+Returns: flatten list.</p>
 </dd></dl>
 
 <dl class="py function">
