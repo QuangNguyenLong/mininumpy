@@ -72,20 +72,25 @@ def flat_index_to_shaped(index, shape):
 
 def flatten(lst):
     """
-    TODO: Add description.
+    TODO: Helper function to flat a nested list.
 
     Args:
-        lst:
+        lst: nested list to be flatten.
 
-    Returns:
+    Time complexity: O(size * ndim)
+    Space complexity: O(size)
+    Returns: flatten list.
     """
     if not isinstance(lst, list):
         return lst
 
     flat = lst
+    # O(size * ndim)
     while isinstance(flat[0], list):
         ans = []
+        # O(size)
         for e in flat:
+            # O(len(e))
             ans += e
         flat = ans
 
@@ -95,7 +100,7 @@ def flatten(lst):
 
 class Array:
     """
-    TODO: Add class description.
+    Numpy-like array. Store the data in a flatten array.
     """
 
     _data = []
@@ -107,23 +112,27 @@ class Array:
     @property
     def data(self):
         """
-        TODO: Add description.
+        Method to get the original data.
 
-        Returns:
+        Time complexity: O(size * ndim)
+        Space complexity: O(size)
+        Returns: The original data in a (nested) list.
         """
         curr = self._data
-        for c in self.shape[:0:-1]:
+        for c in self.shape[:0:-1]: # ndim
             next = []
-            for i in range(int(len(curr) / c)):
+            for i in range(int(len(curr) / c)): # size / shape[i] = size
                 next.append(curr[i * c: i * c + c])
             curr = next
         return curr
 
     def _size(self):
         """
-        TODO: Add description.
+        Method to get the number of elements in the array.
 
-        Returns:
+        Time complexity: O(1)
+        Space complexity: O(1)
+        Returns: The number of elements in integer.
         """
         return len(self._data)
 
