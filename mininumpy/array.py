@@ -78,7 +78,9 @@ def flatten(lst):
         lst: nested list to be flatten.
 
     Time complexity: O(size * ndim)
+
     Space complexity: O(size)
+
     Returns: flatten list.
     """
     if not isinstance(lst, list):
@@ -115,7 +117,9 @@ class Array:
         Method to get the original data.
 
         Time complexity: O(size * ndim)
+
         Space complexity: O(size)
+
         Returns: The original data in a (nested) list.
         """
         curr = self._data
@@ -131,7 +135,9 @@ class Array:
         Method to get the number of elements in the array.
 
         Time complexity: O(1)
+
         Space complexity: O(1)
+        
         Returns: The number of elements in integer.
         """
         return len(self._data)
