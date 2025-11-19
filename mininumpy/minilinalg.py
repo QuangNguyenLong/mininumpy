@@ -1,5 +1,5 @@
 from mininumpy.array import *
-
+import cmath
 def dot(a, b):
     return a @ b
 
@@ -21,15 +21,17 @@ def det(a):
     if n == 1:
         return a._data[0]
     
+    data = a.data
+
     ans = 0
     for i in range(n):
         cooef = Array([
-            a[x][y]
+            data[x][y]
             for x in range(n)
             for y in range(1, n)
             if x != i
         ], shape = (n - 1, n - 1))
-        ans += (-1)**i * a[i][0] * det(cooef)
+        ans += (-1)**i * data[i][0] * det(cooef)
     return ans
 
 def inv(a):
@@ -52,4 +54,23 @@ def inv(a):
     return cofactor.transpose() / det(a)
 
 def eig(a):
-    return
+    if not isinstance(a, Array):
+        return
+    if a.ndim != 2 or a.shape[0] != a.shape[1]:
+        return
+    n = a.shape[0]
+
+    eig = [i for i in range(n)]  # making sure they start differently
+
+    for _ in range(100):
+        
+        prod = [
+            math.prod(eig[i] - eig[j] for j in range(n) if i != j)
+            for i in range(n)]
+        
+        f = [det(a - eye(n) * eig[i]) for i in range(n)]
+    
+        for i in range(n):
+            eig[i] -= f[i] / prod[i]
+
+    return eig

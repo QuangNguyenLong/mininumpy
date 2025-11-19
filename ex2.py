@@ -32,3 +32,7 @@ print(points @ rotate)
 print(points @ shear)
 
 print(mnp.zeros((3, 2)))
+
+print(mnp.eig(scale))
+
+

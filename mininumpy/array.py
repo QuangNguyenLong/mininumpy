@@ -245,7 +245,7 @@ class Array:
             new_shape[i] = self.shape[axis[i]]
 
         for i in range(self.size):
-            new_data[i] = self._data[transpose_new_index(i, self.shape, axis)]
+            new_data[transpose_new_index(i, self.shape, axis)] = self._data[i]
 
         return Array(lst=new_data, shape=new_shape)
     
@@ -268,14 +268,14 @@ class Array:
         """
         if isinstance(other, Array) and self.shape != other.shape:
             return
-        ans = self
+        ans = self._data.copy()
         if isinstance(other, Array):
             for i in range(self.size):
-                ans._data[i] += other._data[i]
+                ans[i] += other._data[i]
         else:
             for i in range(self.size):
-                ans._data[i] += other
-        return ans
+                ans[i] += other
+        return Array(ans, shape=self.shape)
 
     def __radd__(self, other):
         """
@@ -357,49 +357,29 @@ class Array:
         """
         return self.__mul__(other ** -1)
 
-
-    def __getitem__(self, idx):
-        """
-        TODO: Add description.
-
-        Args:
-            idx:
-
-        Returns:
-        """
-        if isinstance(idx, slice):
-            start, stop, step = idx.indices(self.shape[0])
-            ans = []
-            if isinstance(self[0], Array):
-                for i in range(start, stop, step):
-                    ans.append(self[i]._data)
-            else:
-                ans = self._data[idx]
-            sh = list(self.shape)
-            sh[0] = int((stop - start) / step)
-
-            return Array(ans, shape=tuple(sh))
-
-        if self.ndim == 1:
-            return self._data[idx]
-        if idx >= self.shape[0]:
-            raise IndexError("Array index out of range!!!")
-
-        block = int(self.size / self.shape[0])
-        return Array(self._data[block * idx: block * (idx + 1)],
-                     shape=self.shape[1:])
     
     def sum(self, axis=None, dtype=None, out=None, keepdims=False, initial=0, where=True):
         """
         TODO: Add description.
         """
-        return
+        
+        tmp = self.transpose((axis,) + tuple(i for i in range(self.ndim) if i != axis))
+
+        element_shape = tmp.shape[1:]
+        element_size = int(tmp.size / tmp.shape[0])
+        ans = zeros(element_shape)
+
+        for i in range(tmp.shape[0]):
+            element_ith = tmp._data[i * element_size: (i + 1) * element_size]
+            ans += Array(element_ith, element_shape)
+        return ans
 
     def mean(self, axis=None, dtype=None, out=None, keepdims=False, *, where=True):
         """
         TODO: Add description.
         """
-        return sum(self._data) / self.size
+
+        return self.sum(axis) / self.shape[axis]
 
     def min(self):
         """
@@ -458,7 +438,7 @@ class Array:
         for i in range(self.shape[0]):
             row = []
             for j in range(otherT.shape[0]):
-                row.append(sum(self[i] * otherT[j]))
+                row += (Array(self.data[i]) * Array(otherT.data[j])).sum(0).data
             ans.append(row)
         return Array(ans)
 

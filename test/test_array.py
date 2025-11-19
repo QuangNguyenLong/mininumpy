@@ -1,45 +1,99 @@
 import mininumpy as mnp
 import numpy as np
+import random
 
-sample_lst = [list(range(1_000_000)),
-              [[[[[0, 1], [-100, 1]]]]],
-              [[1, 2, 3], 
-               [4, 5, 6], 
-               [7, 0, 9]]
+sample_lst = [[[random.random() for _ in range(7)] for _ in range(123)]
+              ,[[random.random() for _ in range(6)] for _ in range(7)]
+              ,[[[random.random() for _ in range(2)] for _ in range(5)] for _ in range(8)]
+              ,[[1, 2, 3], 
+                [4, 5, 6], 
+                [7, 0, 9]]
               ]
 
-def _test_array(attr, params=None):
-    for l in sample_lst:
-        if params == None:
-            a = getattr(mnp.array(l), attr)
-            b = getattr(np.array(l), attr)
-        else:
-            a = getattr(mnp.array(l), attr)(*params)
-            b = getattr(np.array(l), attr)(*params)
-        if isinstance(a, mnp.Array) and isinstance(b, np.ndarray):
-            a = a.tolist()
-            b = b.tolist()
-        if a != b:
-            return False
-    return True
-
-
 def test_array_shape():
-    assert _test_array('shape')
+    for sample in sample_lst:
+        a = mnp.array(sample).shape
+        b = np.array(sample).shape
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+            assert False
+        else:
+            assert True
 
 def test_array_ndim():
-    assert _test_array('ndim')
+    for sample in sample_lst:
+        a = mnp.array(sample).ndim
+        b = np.array(sample).ndim
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+            assert False
+        else:
+            assert True
+
 
 def test_array_size():
-    assert _test_array('size')
+    for sample in sample_lst:
+        a = mnp.array(sample).size
+        b = np.array(sample).size
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
 
-def test_array_size():
-    assert _test_array('size')
+            assert False
+        else:
+            assert True
 
 def test_array_data():
-    assert _test_array('tolist', params=())
+    for sample in sample_lst:
+        a = mnp.array(sample).tolist()
+        b = np.array(sample).tolist()
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+
+            assert False
+        else:
+            assert True
 
 def test_array_transpose():
-    assert _test_array('transpose', params=())
-    
+    for sample in sample_lst:
+        a = mnp.array(sample).transpose().tolist()
+        b = np.array(sample).transpose().tolist()
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
 
+            assert False
+        else:
+            assert True
+
+def test_array_sum():
+    for sample in sample_lst:
+        a = mnp.array(sample).sum(0).tolist()
+        b = np.array(sample).sum(0).tolist()
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+            assert False
+        else:
+            assert True
+
+        
+def test_array_mean():
+    for sample in sample_lst:
+        a = mnp.array(sample).mean(0).tolist()
+        b = np.array(sample).mean(0).tolist()
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+            assert False
+        else:
+            assert True
+
+def test_array_matmul():
+        a1 = mnp.array(sample_lst[0])
+        a2 = mnp.array(sample_lst[1])
+        a = (a1 @ a2).tolist()
+        b1 = np.array(sample_lst[0])
+        b2 = np.array(sample_lst[1])
+        b = (b1 @ b2).tolist()
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+            assert False
+        else:
+            assert True
