@@ -357,6 +357,10 @@ class Array:
         """
         return self.__mul__(other ** -1)
 
+    def is_square(self):
+        if self.ndim != 2:
+            return False
+        return self.shape[0] == self.shape[1]
     
     def sum(self, axis=None, dtype=None, out=None, keepdims=False, initial=0, where=True):
         """
@@ -381,18 +385,21 @@ class Array:
 
         return self.sum(axis) / self.shape[axis]
 
+    # TODO: add `n` smallest
     def min(self):
         """
         TODO: Add description.
         """
         return
     
+    # TODO: add `n` biggest
     def max(self):
         """
         TODO: Add description.
         """
         return
 
+    # TODO: add `n` biggest
     def argmax(self):
         """
         TODO: Add description.
@@ -405,6 +412,7 @@ class Array:
                 max_idx = i
         return max_idx
 
+    # TODO: add `n` smallest
     def argmin(self):
         """
         TODO: Add description.
@@ -417,6 +425,7 @@ class Array:
                 max_idx = i
         return max_idx
 
+    # TODO: Optimize PLS
     def __matmul__(self, other):
         """
         TODO: Add description.
