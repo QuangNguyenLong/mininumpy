@@ -65,10 +65,15 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-mininumpy.minilinalg">mininumpy.minilinalg module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.LU_decomposition"><code class="docutils literal notranslate"><span class="pre">LU_decomposition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.backward_sub_inverse_LU"><code class="docutils literal notranslate"><span class="pre">backward_sub_inverse_LU()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.det"><code class="docutils literal notranslate"><span class="pre">det()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.det_LU"><code class="docutils literal notranslate"><span class="pre">det_LU()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.dot"><code class="docutils literal notranslate"><span class="pre">dot()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.eig"><code class="docutils literal notranslate"><span class="pre">eig()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.forward_sub_inverse_LU"><code class="docutils literal notranslate"><span class="pre">forward_sub_inverse_LU()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.inv"><code class="docutils literal notranslate"><span class="pre">inv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.inverse_LU"><code class="docutils literal notranslate"><span class="pre">inverse_LU()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.matmul"><code class="docutils literal notranslate"><span class="pre">matmul()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.norm"><code class="docutils literal notranslate"><span class="pre">norm()</span></code></a></li>
 </ul>
@@ -143,6 +148,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mininumpy.array.Array.element_type">
 <span class="sig-name descname"><span class="pre">element_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mininumpy.array.Array.element_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.is_square">
+<span class="sig-name descname"><span class="pre">is_square</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.is_square"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.is_square" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -409,8 +419,23 @@
 <section id="module-mininumpy.minilinalg">
 <span id="mininumpy-minilinalg-module"></span><h2>mininumpy.minilinalg module<a class="headerlink" href="#module-mininumpy.minilinalg" title="Link to this heading"></a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.LU_decomposition">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">LU_decomposition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#LU_decomposition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.LU_decomposition" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.backward_sub_inverse_LU">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">backward_sub_inverse_LU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">U</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#backward_sub_inverse_LU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.backward_sub_inverse_LU" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.minilinalg.det">
 <span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.det_LU">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det_LU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det_LU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det_LU" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -420,12 +445,22 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.minilinalg.eig">
-<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">eig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#eig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.eig" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">eig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#eig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.eig" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.forward_sub_inverse_LU">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">forward_sub_inverse_LU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#forward_sub_inverse_LU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.forward_sub_inverse_LU" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.minilinalg.inv">
 <span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">inv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#inv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.inv" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.inverse_LU">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">inverse_LU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#inverse_LU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.inverse_LU" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
