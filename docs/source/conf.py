@@ -29,6 +29,14 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = []
 
+# Show type hints in the description instead of the signature
+autodoc_typehints = "description"
+
+# Show long paths like mininumpy.core.Array
+typehints_fully_qualified = True
+
+# Always show parameter types even if napoleon-style docstrings exist
+always_document_param_types = True
 
 
 # -- Options for HTML output -------------------------------------------------
