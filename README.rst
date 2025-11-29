@@ -1,4 +1,4 @@
-.. |ci-badge| image:: ../../actions/workflows/ci.yml/badge.svg
+.. |ci-badge| image:: https://github.com/QuangNguyenLong/mininumpy/actions/workflows/ci.yml/badge.svg
    :alt: CI Status
 
 Build Your Own MiniNumPy Library |ci-badge|
@@ -50,33 +50,33 @@ Part 3: Elementwise Operations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Overload Python operators (`__add__ <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__add__>`_, `__sub__ <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__sub__>`_, `__mul__ <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__mul__>`_, `__truefiv__ <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__truefiv__>`_, `__pow__ <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__pow__>`_).
 - Implement elementwise functions:
-   - exp, Log, sart, abs.
+   - `exp <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.exp>`_, `log <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.log>`_, `sqrt <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.sqrt>`_, `abs <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.abs>`_.
 - Implement reductions:
-   - sum, mean, min, max, argmin, argmax.
+   - `sum <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.sum>`_, `mean <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.mean>`_, `min <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.min>`_, `max <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.max>`_, `argmin <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.argmin>`_, `argmax <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.argmax>`_.
 
-Part 4: Linear Algebra Module (`minilinalg`)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Part 4: Linear Algebra Module (`minilinalg <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#module-mininumpy.minilinalg>`_)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Implement matrix/vector operations:
-   - dot (a, b)  - dot product / matrix multiply.
-   - matmul (a, b)  - general matrix multiplication (@ operator).
-   - norm (a) - vector/matrix norm.
+   - `dot(a, b) <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.minilinalg.dot>`_  - dot product / matrix multiply.
+   - `matmul(a, b) <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.minilinalg.matmul>`_  - general matrix multiplication (@ operator).
+   - `norm(a) <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.minilinalg.norm>`_ - vector/matrix norm.
 
 - Implement basic factorizations/solvers:
-   - det (a)  - determinant (via recursion or LU).
-   - inv (a)  - matrix inverse.
-   - eig (a)  - eigenvalues and eigenvectors (bonus).
+   - `det(a) <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.minilinalg.det>`_  - determinant (via recursion or LU).
+   - `inv(a) <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.minilinalg.inv>`_  - matrix inverse.
+   - `eig(a) <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.minilinalg.eig>`_  - eigenvalues and eigenvectors (bonus).
    
 Part 5: Applications (Mini-Projects)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Students must demonstrate their library with **practical applications**:
-   1. Image manipulation (grayscale filter or rotation using matrices).
-   2. 2D transformation: scale, rotate, and shear a set of points.
+   1. `Image manipulation <https://github.com/QuangNguyenLong/mininumpy/blob/main/ex1.py>`_ (grayscale filter or rotation using matrices).
+   2. `2D transformation <https://github.com/QuangNguyenLong/mininumpy/blob/main/ex2.py>`_: scale, rotate, and shear a set of points.
 
 Deliverables
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    1. Source code of MiniNumPy (mininumpy/array.py, mininumpy/linalg.py).
    2. A **report (5-10 pages)** explaining design choices and algorithms.
-   3. A **demo notebook** showing use cases and comparisons with real NumPy.
+   3. A `demo notebook <https://github.com/QuangNguyenLong/mininumpy/blob/main/sample.ipynb>`_ showing use cases and comparisons with real NumPy.
