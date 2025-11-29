@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mininumpy documentation &mdash; Mininumpy 0.1.0 documentation</title>
+  <title>Build Your Own MiniNumPy Library &mdash; Mininumpy 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -60,7 +60,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Mininumpy documentation</li>
+      <li class="breadcrumb-item active">Build Your Own MiniNumPy Library</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -70,20 +70,103 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="mininumpy-documentation">
-<h1>Mininumpy documentation<a class="headerlink" href="#mininumpy-documentation" title="Link to this heading"></a></h1>
-<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
-documentation for details.</p>
+  <section id="build-your-own-mininumpy-library">
+<h1>Build Your Own MiniNumPy Library<a class="headerlink" href="#build-your-own-mininumpy-library" title="Link to this heading"></a></h1>
+<p>Homework of the Programming course M1 International Track in EE - Université Évry Paris-Saclay.</p>
+<p>Authored by Long Quang NGUYEN.</p>
+<section id="objective">
+<h2>Objective<a class="headerlink" href="#objective" title="Link to this heading"></a></h2>
+<p>The goal of this project is to design and implement a simplified version of NumPy, called <em>MiniNumPy</em>, to understand how numerical computing and linear algebra libraries are built from scratch. Students will implement core data structures, array operations, and linear algebra routines.</p>
+<p>By the end, students should:</p>
+<p>Understand how arrays are represented in memory.</p>
+<ul class="simple">
+<li><p>Implement basic array manipulation (reshape, transpose, slicing).</p></li>
+<li><p>Write elementwise and matrix operations.</p></li>
+<li><p>Explore algorithms for linear algebra (determinant, inverse, eigenvalues).</p></li>
+</ul>
+</section>
+<section id="project-tasks">
+<h2>Project Tasks<a class="headerlink" href="#project-tasks" title="Link to this heading"></a></h2>
+<section id="part-1-core-array-class">
+<h3>Part 1: Core Array Class<a class="headerlink" href="#part-1-core-array-class" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement a class <a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array">Array</a> that wraps a Python <code class="docutils literal notranslate"><span class="pre">list</span></code> (or nested <code class="docutils literal notranslate"><span class="pre">list</span></code>).</p></li>
+<li><p>Store attributes: <a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.data">.data</a>, <a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.shape">.shape</a>, <a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.ndim">.ndim</a>, <a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.size">.size</a>.</p></li>
+<li><p>Add methods:</p></li>
+<li><p><a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.reshape">reshape(new_shape)</a></p></li>
+<li><p><a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.transpose">transpose()</a></p></li>
+<li><p><a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__str__">__str__</a> for pretty printing</p></li>
+</ul>
+</section>
+<section id="part-2-array-creation">
+<h3>Part 2: Array Creation<a class="headerlink" href="#part-2-array-creation" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement helper functions:</p></li>
+<li><p><a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.array">array(list_or_nested_list)</a></p></li>
+<li><p><a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.zeros">zeros(shape)</a></p></li>
+<li><p><a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.ones">ones(shape)</a></p></li>
+<li><p><a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.eye">eye(n)</a></p></li>
+<li><p><a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.arange">arange(start, stop, step)</a></p></li>
+<li><p><a class="reference external" href="https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.linspace">linspace(start, stop, num)</a></p></li>
+</ul>
+</section>
+<section id="part-3-elementwise-operations">
+<h3>Part 3: Elementwise Operations<a class="headerlink" href="#part-3-elementwise-operations" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Overload Python operators (<code class="docutils literal notranslate"><span class="pre">+,-,/,*,/,**</span></code>).</p></li>
+</ul>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">API reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">mininumpy</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="mininumpy.html">mininumpy package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mininumpy.html">mininumpy package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#module-mininumpy.array">mininumpy.array module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array"><code class="docutils literal notranslate"><span class="pre">Array</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.abs"><code class="docutils literal notranslate"><span class="pre">abs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.arange"><code class="docutils literal notranslate"><span class="pre">arange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.array"><code class="docutils literal notranslate"><span class="pre">array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.dot"><code class="docutils literal notranslate"><span class="pre">dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.exp"><code class="docutils literal notranslate"><span class="pre">exp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.eye"><code class="docutils literal notranslate"><span class="pre">eye()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.flat_index_to_shaped"><code class="docutils literal notranslate"><span class="pre">flat_index_to_shaped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.flatten"><code class="docutils literal notranslate"><span class="pre">flatten()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.linspace"><code class="docutils literal notranslate"><span class="pre">linspace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.log"><code class="docutils literal notranslate"><span class="pre">log()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.matmul_flat_2D"><code class="docutils literal notranslate"><span class="pre">matmul_flat_2D()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.ones"><code class="docutils literal notranslate"><span class="pre">ones()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.shaped_to_flat_index"><code class="docutils literal notranslate"><span class="pre">shaped_to_flat_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.sqrt"><code class="docutils literal notranslate"><span class="pre">sqrt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.transpose_new_index"><code class="docutils literal notranslate"><span class="pre">transpose_new_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.zeros"><code class="docutils literal notranslate"><span class="pre">zeros()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#module-mininumpy.minilinalg">mininumpy.minilinalg module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.LU_decomposition"><code class="docutils literal notranslate"><span class="pre">LU_decomposition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.backward_sub_inverse_LU"><code class="docutils literal notranslate"><span class="pre">backward_sub_inverse_LU()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.compute_rotation_coeff"><code class="docutils literal notranslate"><span class="pre">compute_rotation_coeff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.det"><code class="docutils literal notranslate"><span class="pre">det()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.det_LU"><code class="docutils literal notranslate"><span class="pre">det_LU()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.det_gaussian"><code class="docutils literal notranslate"><span class="pre">det_gaussian()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.dot"><code class="docutils literal notranslate"><span class="pre">dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.eig"><code class="docutils literal notranslate"><span class="pre">eig()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.forward_sub_inverse_LU"><code class="docutils literal notranslate"><span class="pre">forward_sub_inverse_LU()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.inv"><code class="docutils literal notranslate"><span class="pre">inv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.inverse_LU"><code class="docutils literal notranslate"><span class="pre">inverse_LU()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.jacobi_rotate"><code class="docutils literal notranslate"><span class="pre">jacobi_rotate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.matmul"><code class="docutils literal notranslate"><span class="pre">matmul()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.norm"><code class="docutils literal notranslate"><span class="pre">norm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#module-mininumpy">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
+</section>
+</section>
 </section>
 
 
