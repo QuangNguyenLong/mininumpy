@@ -71,65 +71,74 @@
   <h1>Source code for mininumpy.minilinalg</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mininumpy.array</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
+
 <div class="viewcode-block" id="dot">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.dot">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dot</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TODO: Add description.</span>
+<span class="sd">    Perform matrix multiplication between two ``Array`` objects.</span>
+
+<span class="sd">    This is a convenience wrapper around the ``Array.__matmul__()`` operator, similar to</span>
+<span class="sd">    NumPy&#39;s ``np.matmul``. It multiplies two ``Array`` instances if both inputs</span>
+<span class="sd">    are ``Array`` with compatible dimensions.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        a:</span>
-<span class="sd">        b:</span>
+<span class="sd">        a: Left-hand side operand. Must be an ``Array``.</span>
+<span class="sd">        b: Right-hand side operand. Must be an ``Array`` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).</span>
 
-<span class="sd">    Time complexity: O()</span>
-
-<span class="sd">    Space complexity: O()</span>
-
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns: New Array containing the matrix product. Returns None if the operation is invalid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span></div>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Array</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span>
+    <span class="k">return</span></div>
 
 
 
 <div class="viewcode-block" id="matmul">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.matmul">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TODO: Add description.</span>
+<span class="sd">    Perform matrix multiplication between two ``Array`` objects.</span>
+
+<span class="sd">    This is a convenience wrapper around the ``Array.__matmul__()`` operator, similar to</span>
+<span class="sd">    NumPy&#39;s ``np.matmul``. It multiplies two ``Array`` instances if both inputs</span>
+<span class="sd">    are ``Array`` with compatible dimensions.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        a:</span>
-<span class="sd">        b:</span>
+<span class="sd">        a: Left-hand side operand. Must be an ``Array``.</span>
+<span class="sd">        b: Right-hand side operand. Must be an ``Array`` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).</span>
 
-<span class="sd">    Time complexity: O()</span>
-
-<span class="sd">    Space complexity: O()</span>
-
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns: New Array containing the matrix product. Returns None if the operation is invalid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span></div>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Array</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span>
+    <span class="k">return</span></div>
 
 
 
 <div class="viewcode-block" id="norm">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.norm">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">norm</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">norm</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TODO: Add description.</span>
+<span class="sd">    Compute the Euclidean (L2) norm of an ``Array``.</span>
+
+<span class="sd">    This calculates the square root of the sum of squares of all elements, i.e. ||a|| = sqrt(sum(e²)).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        a:</span>
+<span class="sd">        a: Input ``Array``.</span>
 
-<span class="sd">    Time complexity: O()</span>
+<span class="sd">    Time complexity: O(size)</span>
 
-<span class="sd">    Space complexity: O()</span>
+<span class="sd">    Space complexity: O(1)</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns: The Euclidean norm of the array. Returns None if the input is not an ``Array``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">sm</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="k">while</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sm</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
-        <span class="n">sm</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">sm</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">sm</span></div>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+        <span class="k">return</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+        <span class="n">ans</span> <span class="o">+=</span> <span class="n">e</span> <span class="o">*</span> <span class="n">e</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span></div>
 
 
 <span class="c1"># TODO: Optimize PLS</span>
@@ -138,22 +147,22 @@
 
 <div class="viewcode-block" id="det">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.det">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">det</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">det</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TODO: Add description.</span>
+<span class="sd">    Compute the determinant of a square 2D ``Array`` using recursive expansion (Laplace expansion along the first column).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        a:</span>
+<span class="sd">        a: Input array. Must be a 2D square matrix.</span>
 
-<span class="sd">    Time complexity: O()</span>
+<span class="sd">    Time complexity: O(n!) where n is the dimension of the square matrix ``a``</span>
 
-<span class="sd">    Space complexity: O()</span>
+<span class="sd">    Space complexity: O(n^2)</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
         <span class="k">return</span>
-    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">is_square</span><span class="p">():</span>
         <span class="k">return</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -174,29 +183,33 @@
 
 
 <span class="c1"># O(n^3)</span>
+
+
 <div class="viewcode-block" id="det_gaussian">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.det_gaussian">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">det_gaussian</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">det_gaussian</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TODO: Add description.</span>
+<span class="sd">    Compute the determinant of a square 2D ``Array`` using Gaussian elimination.</span>
+<span class="sd">    This algorithm performs row-reduction to upper triangular form, tracking</span>
+<span class="sd">    row swaps and multiplying the diagonal entries to obtain the determinant.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        mat:</span>
+<span class="sd">        a: Input array. Must be a 2D square matrix.</span>
 
-<span class="sd">    Time complexity: O()</span>
+<span class="sd">    Time complexity: O(n^3) where n is the dimension of the square matrix ``a``</span>
 
-<span class="sd">    Space complexity: O()</span>
+<span class="sd">    Space complexity: O(n^2)</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
         <span class="k">return</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">mat</span><span class="o">.</span><span class="n">is_square</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">is_square</span><span class="p">():</span>
         <span class="k">return</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">data</span>
 
-    <span class="n">n</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">row_indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
     <span class="n">prod</span> <span class="o">=</span> <span class="mi">1</span>
@@ -228,18 +241,31 @@
 
 <div class="viewcode-block" id="LU_decomposition">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.LU_decomposition">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">LU_decomposition</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">LU_decomposition</span><span class="p">(</span><span class="n">A</span> <span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TODO: Add description.</span>
+<span class="sd">    Perform LU decomposition of a 2D ``Array`` (matrix).</span>
+
+<span class="sd">    This factorizes a square matrix A into the product of a lower triangular</span>
+<span class="sd">    matrix L and an upper triangular matrix U, such that A = L * U.</span>
+
+<span class="sd">    - L is a unit lower triangular matrix (diagonal entries are 1).</span>
+
+<span class="sd">    - U is an upper triangular matrix.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        A:</span>
+<span class="sd">        A: Input 2D ``Array`` (matrix). Must be two-dimensional.</span>
 
-<span class="sd">    Time complexity: O()</span>
+<span class="sd">    Time complexity: O(n^3)</span>
 
-<span class="sd">    Space complexity: O()</span>
+<span class="sd">    Space complexity: O(n^2)</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns: A tuple (L, U) where:</span>
+
+<span class="sd">            - L is the unit lower triangular matrix.</span>
+
+<span class="sd">            - U is the upper triangular matrix.</span>
+
+<span class="sd">        Returns None if the input is not a 2D ``Array``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
         <span class="k">return</span>
@@ -271,16 +297,21 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.det_LU">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">det_LU</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TODO: Add description.</span>
+<span class="sd">    Compute the determinant of a square 2D ``Array`` using LU decomposition.</span>
+
+<span class="sd">    This function factorizes the matrix A into L and U (via ``LU_decomposition``),</span>
+<span class="sd">    then computes the determinant as the product of the diagonal entries of U.</span>
+<span class="sd">    Since det(A) = det(L) * det(U) and det(L) = 1 for a unit lower triangular L,</span>
+<span class="sd">    the determinant is simply the product of U&#39;s diagonal.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        A:</span>
+<span class="sd">        A: Input 2D ``Array`` (matrix). Must be square.</span>
 
-<span class="sd">    Time complexity: O()</span>
+<span class="sd">    Time complexity: O(n^3)</span>
 
-<span class="sd">    Space complexity: O()</span>
+<span class="sd">    Space complexity: O(n^2)</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">LU_decomposition</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
     <span class="n">det</span> <span class="o">=</span> <span class="mi">1</span>
@@ -425,18 +456,20 @@
     <span class="k">return</span> <span class="n">c</span><span class="p">,</span> <span class="n">s</span></div>
 
 
+
 <div class="viewcode-block" id="jacobi_rotate">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.jacobi_rotate">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">jacobi_rotate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-    <span class="n">A</span> <span class="o">=</span>  <span class="n">Array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">B</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="c1"># rotate only if the current element is not zero</span>
-                <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">compute_rotation_coeff</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">compute_rotation_coeff</span><span class="p">(</span>
+                    <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
 
-                <span class="c1"># do this instead of J^T @ mat @ T because this is O(n) instead of O(n^3)                </span>
+                <span class="c1"># do this instead of J^T @ mat @ T because this is O(n) instead of O(n^3)</span>
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
                     <span class="c1"># mat = J^T @ mat @ T</span>
                     <span class="n">a_ki</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
@@ -457,6 +490,7 @@
                     <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">v_ki</span> <span class="o">-</span> <span class="n">s</span> <span class="o">*</span> <span class="n">v_kj</span>
                     <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">v_ki</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">v_kj</span>
     <span class="k">return</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">data</span></div>
+
 
 
 <div class="viewcode-block" id="eig">
@@ -495,10 +529,10 @@
 
         <span class="n">max_val</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">old</span> <span class="o">-</span> <span class="n">new</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
         <span class="c1"># if the max changes is even smaller than eps, then why bother changes</span>
-        
+
         <span class="k">if</span> <span class="n">max_val</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">:</span>
             <span class="k">break</span>
-        
+
     <span class="k">return</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)],</span> <span class="n">V</span></div>
 
 </pre></div>
