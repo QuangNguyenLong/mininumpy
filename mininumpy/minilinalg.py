@@ -387,4 +387,4 @@ def eig(mat, max_iter=1000, eps=1e-6):
         if max_val < eps:
             break
         
-    return data, V
+    return [data[i][i] for i in range(n)], V

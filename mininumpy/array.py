@@ -15,8 +15,7 @@ def dot(v1: list[float], v2: list[float]) -> float:
     return ans
 
 # nxp x pxm
-
-
+# TODO: Optimize PLS
 def matmul_flat_2D(A: list[float], BT: list[float], n: int, p: int, m: int) -> list[float]:
     ans = [0] * (m * n)
     for i in range(n):
@@ -600,7 +599,6 @@ class Array:
                 max_idx = i
         return max_idx
 
-    # TODO: Optimize PLS
     def __matmul__(self, other):
         """
         TODO: Add description.
