@@ -1,5 +1,8 @@
-Build Your Own MiniNumPy Library ![CI](../../actions/workflows/ci.yml/badge.svg)
-================================
+.. |ci-badge| image:: ../../actions/workflows/ci.yml/badge.svg
+   :alt: CI Status
+
+Build Your Own MiniNumPy Library |ci-badge|
+===========================================
 
 Homework of the Programming course M1 International Track in EE - Université Évry Paris-Saclay. 
 
