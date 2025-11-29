@@ -33,6 +33,6 @@ print(points @ shear)
 
 print(mnp.zeros((3, 2)))
 
-print(mnp.eig(scale))
+print(mnp.minilinalg.eig(scale))
 
 

@@ -6,6 +6,18 @@ import math
 
 
 def dot(v1: list[float], v2: list[float]) -> float:
+    """
+    Compute the dot product of two vectors.
+
+    Args:
+        v1: First input vector.
+        v2: Second input vector. Must have the same length as ``v1``.
+
+    Time complexity: O(n), where n is the length of the vectors.
+    Space complexity: O(1)
+
+    Returns: Dot product of the two vectors. If the vectors have different lengths, returns ``None``.
+    """
     if len(v1) != len(v2):
         return
     n = len(v1)
@@ -16,12 +28,37 @@ def dot(v1: list[float], v2: list[float]) -> float:
 
 # nxp x pxm
 # TODO: Optimize PLS
+
+
 def matmul_flat_2D(A: list[float], BT: list[float], n: int, p: int, m: int) -> list[float]:
+    """
+    Perform 2D matrix multiplication in flattened form.
+
+    This computes C = A @ B, where:
+      - A is an (n * p) matrix stored row-major in a flat list.
+      - BT is the transpose of B, i.e. a (m * p) matrix stored row-major in a flat list.
+        (so each row of BT corresponds to a column of the original B).
+      - The result C is an (n * m) matrix stored row-major in a flat list.
+
+    Args:
+        A: Flattened list representing an (n * p) matrix.
+        BT: Flattened list representing a (m * p) matrix (transpose of B).
+        n: Number of rows in A.
+        p: Number of columns in A (and rows in B).
+        m: Number of columns in B (rows in BT).
+
+    Time complexity: O(n * m * p)
+    Space complexity: O(n * m)
+
+    Returns: Flattened list representing the (n * m) result matrix.
+    """
     ans = [0] * (m * n)
+    # O(n * m * p)
     for i in range(n):
         for j in range(m):
+            # O(p) dot product
             ans[shaped_to_flat_index((i, j), (n, m))] = dot(
-                A[i * p:(i+1) * p], BT[j * p: (j+1) * p])
+                A[i * p:(i+1) * p], BT[j * p:(j+1) * p])
     return ans
 
 
@@ -55,52 +92,57 @@ def transpose_new_index(index: int, shape: tuple[int], axis: list[int]) -> int:
 
 def shaped_to_flat_index(vec: tuple[int], shape: tuple[int]) -> int:
     """
-    TODO: Add description.
+    Convert a multi-dimensional index into a flat index for the given shape.
 
     Args:
-        vec:
-        shape:
+        vec: Multi-dimensional index.
+        shape: Target shape.
 
-    Time complexity: O()
+    Time complexity: O(ndim)
 
-    Space complexity: O()
+    Space complexity: O(ndim)
 
-    Returns:
+    Returns: Flat index corresponding to the multi-dimensional index.
     """
     ndim = len(shape)
+
+    # Precompute product of later dimensions
+    strides = [1] * ndim
+    for i in range(ndim - 2, -1, -1):
+        strides[i] = strides[i + 1] * shape[i + 1]
+
     ans = 0
     for i in range(ndim):
-        prod = 1
-        for j in range(i + 1, ndim):
-            prod *= shape[j]
-        ans += prod * vec[i]
+        ans += vec[i] * strides[i]
 
     return ans
 
 
 def flat_index_to_shaped(index: int, shape: tuple[int]) -> tuple[int]:
     """
-    TODO: Add description.
+    Convert a flat index into a multi-dimensional index for the given shape.
 
     Args:
-        index:
-        shape:
+        index: Flat index.
+        shape: Target shape.
 
-    Time complexity: O()
+    Time complexity: O(ndim)
 
-    Space complexity: O()
+    Space complexity: O(ndim)
 
-    Returns:
+    Returns: Multi-dimensional index corresponding to the flat index.
     """
     ndim = len(shape)
-    ans = [0] * ndim
 
+    # Precompute product of later dimensions
+    strides = [1] * ndim
+    for i in range(ndim - 2, -1, -1):
+        strides[i] = strides[i + 1] * shape[i + 1]
+
+    ans = [0] * ndim
     for i in range(ndim):
-        prod = 1
-        for j in range(i + 1, ndim):
-            prod *= shape[j]
-        ans[i] = int(index / prod)
-        index -= int(index / prod) * prod
+        ans[i] = index // strides[i]
+        index %= strides[i]
 
     return tuple(ans)
 
@@ -109,7 +151,7 @@ def flat_index_to_shaped(index: int, shape: tuple[int]) -> tuple[int]:
 
 def flatten(lst: list) -> list:
     """
-    TODO: Helper function to flat a nested list.
+    Helper function to flat a nested list.
 
     Args:
         lst: nested list to be flatten.
@@ -143,10 +185,29 @@ class Array:
     """
 
     _data = []
+    """
+    The raw flatten data of the ``Array``.
+    """
+
     element_type = None
+    """
+    The type of elements stored in the ``Array``.
+    """
+
     shape = ()
+    """
+    The dimensions of the ``Array``.
+    """
+
     ndim = 0
+    """
+    The number of dimensions of the ``Array``.
+    """
+
     size = 0
+    """
+    The total number of elements in the ``Array``.
+    """
 
     @property
     def data(self) -> list:
@@ -169,7 +230,7 @@ class Array:
 
     def _size(self) -> int:
         """
-        Method to get the number of elements in the array.
+        Compute the number of elements in the array.
 
         Time complexity: O(1)
 
@@ -179,72 +240,77 @@ class Array:
         """
         return len(self._data)
 
-    def _shape(self) -> tuple[int]:
+    def _shape(self, array: list) -> tuple[int]:
         """
-        TODO: Add description.
+        Compute the shape of ``array`` by following the first element at each level of nesting.
 
-        Time complexity: O()
+        Args:
+            array: the input (nested) list needed to compute shape.
 
-        Space complexity: O()
+        Time complexity: O(ndim)
 
-        Returns:
+        Space complexity: O(ndim)
+
+        Returns: The dimensions of ``array``.
         """
-        shape = (len(self._data), )
-        e = self._data[0]
+        shape = (len(array), )
+        e = array[0]
         while isinstance(e, list):
             shape += (len(e), )
             e = e[0]
         return shape
 
-    def _ndim(self):
+    def _ndim(self) -> int:
         """
         TODO: Add description.
 
-        Time complexity: O()
+        Time complexity: O(1)
 
-        Space complexity: O()
+        Space complexity: O(1)
 
         Returns:
         """
         return len(self.shape)
 
-    def __init__(self, lst, shape=None, element_type=None):
+    def __init__(self, data: list, shape: tuple[int] = None, element_type = None):
         """
-        TODO: Add description.
+        Initialize an ``Array`` object from nested list ``data``.
 
         Args:
-            lst:
-            shape:
-            element_type:
+            data: Input nested list.
+            shape: Desired shape. If ``None``, inferred automatically.
+            element_type: Type to cast elements. If ``None``, inferred from data.
 
-        Time complexity: O()
+        Time complexity: O(size * ndim)
 
-        Space complexity: O()
+        Space complexity: O(size)
 
-        Returns:
+        Returns: None
         """
-        if not isinstance(lst, list):
+        if not isinstance(data, list):
             raise ValueError("wtf bro")
 
-        self._data = lst
         if shape:
-            self._data = flatten(lst)
-            size = 1
-            for s in shape:
-                size *= s
+            # O(size * ndim)
+            self._data = flatten(data)
+            # O(ndim)
+            size = math.prod(shape)
             if len(self._data) != size:
                 raise ValueError(
                     f"Error: Can not change size. From {len(self._data)} to {size}.")
             self.shape = shape
         else:
-            self.shape = self._shape()
-            self._data = flatten(lst)
+            # O(ndim)
+            self.shape = self._shape(data)
+            # O(size * ndim)
+            self._data = flatten(data)
 
         self.ndim = self._ndim()
         self.size = self._size()
 
         if element_type:
             self.element_type = element_type
+            # O(size)
             for i in range(self.size):
                 self._data[i] = element_type(self._data[i])
         else:
@@ -279,39 +345,33 @@ class Array:
 
     def __str__(self) -> str:
         """
-        TODO: Add description.
+        Recursive pretty-printer similar to ``numpy.array2string`` (simplified).
 
-        Time complexity: O()
+        Time complexity: O(size)
 
-        Space complexity: O()
+        Space complexity: O(size + ndim)
 
-        Returns:
+        Returns: The string representing the ``Array``.
         """
         return self._format_recursive(self._data, self.shape)
 
     # TODO: add unit test
-    def reshape(self, newshape):
+    def reshape(self, newshape: tuple):
         """
-        TODO: Add description.
+        Reshape the array to the given dimensions if compatible.
 
         Args:
-            newshape:
+            newshape: Target shape.
 
-        Time complexity: O()
+        Time complexity: O(len(newshape))
 
-        Space complexity: O()
+        Space complexity: O(1)
 
-        Returns:
+        Returns: The reshaped array if valid.
         """
-        size = 1
-        for c in newshape:
-            size *= c
-        if size != self.size:
-            return 1
-
-        self.shape = newshape
-        self.ndim = self._ndim()
-        return self
+        if math.prod(newshape) != self.size:
+            return
+        return Array(self._data, shape=newshape)
 
     def __setitem__(self, coor, value):
         idx = shaped_to_flat_index(coor, self.shape)
@@ -321,18 +381,18 @@ class Array:
         idx = shaped_to_flat_index(coor, self.shape)
         return self._data[idx]
 
-    def transpose(self, axis=None):
+    def transpose(self, axis: list | tuple = None):
         """
-        TODO: Add description.
+        Return a new array with axes permuted.
 
         Args:
-            axis:
+            axis: Axis order (e.g. transpose the last 2 axes with ``axis=(0, 1, 3, 2)`` for 4D array). If None, reverses the dimensions.
 
-        Time complexity: O()
+        Time complexity: O(size * ndim)
+        
+        Space complexity: O(size + ndim)
 
-        Space complexity: O()
-
-        Returns:
+        Returns: A new array with transposed shape.
         """
         if axis == None:
             axis = range(self.ndim)[::-1]
@@ -345,33 +405,33 @@ class Array:
         for i in range(self.size):
             new_data[transpose_new_index(i, self.shape, axis)] = self._data[i]
 
-        return Array(lst=new_data, shape=new_shape)
+        return Array(data=new_data, shape=new_shape)
 
     def tolist(self):
         """
-        TODO: Add description.
+        Get the ``list`` representation of the ``Array``. Similar to ``.data``
 
-        Time complexity: O()
+        Time complexity: O(size * ndim)
 
-        Space complexity: O()
+        Space complexity: O(size)
 
-        Returns:
+        Returns: The ``list`` representation of the ``Array``
         """
         return self.data
 
     # TODO: add unit test
     def __add__(self, other):
         """
-        TODO: Add description.
+        Element-wise addition with another ``Array`` or a scalar.
 
         Args:
-            other:
+            other: Array of same shape or scalar to add.
 
-        Time complexity: O()
+        Time complexity: O(size)
 
-        Space complexity: O()
+        Space complexity: O(size)
 
-        Returns:
+        Returns: New ``Array`` with element-wise summation.
         """
         if isinstance(other, Array) and self.shape != other.shape:
             return
@@ -386,16 +446,16 @@ class Array:
 
     def __radd__(self, other):
         """
-        TODO: Add description.
+        Element-wise addition with another ``Array`` or a scalar.
 
         Args:
-            other:
+            other: Array of same shape or scalar to add.
 
-        Time complexity: O()
+        Time complexity: O(size)
 
-        Space complexity: O()
+        Space complexity: O(size)
 
-        Returns:
+        Returns: New ``Array`` with element-wise summation.
         """
         if other == 0:
             return self
@@ -404,213 +464,231 @@ class Array:
     # TODO: add unit test
     def __mul__(self, other):
         """
-        TODO: Add description.
+        Element-wise multiplication with another ``Array`` or a scalar.
 
         Args:
-            other:
+            other: Array of same shape or scalar to multiply.
 
-        Time complexity: O()
+        Time complexity: O(size)
 
-        Space complexity: O()
+        Space complexity: O(size)
 
-        Returns:
+        Returns: The Element-wise product ``Array``.
         """
         if isinstance(other, Array) and self.shape != other.shape:
             return
-        ans = self
+        ans = self._data.copy()
         if isinstance(other, Array):
             for i in range(self.size):
-                ans._data[i] *= other._data[i]
+                ans[i] *= other._data[i]
         else:
             for i in range(self.size):
-                ans._data[i] *= other
-        return ans
+                ans[i] *= other
+        return Array(ans, shape=self.shape)
 
     def __rmul__(self, other):
         """
-        TODO: Add description.
+        Element-wise multiplication with another ``Array`` or a scalar.
 
         Args:
-            other:
+            other: Array of same shape or scalar to multiply.
 
-        Time complexity: O()
+        Time complexity: O(size)
 
-        Space complexity: O()
+        Space complexity: O(size)
 
-        Returns:
+        Returns: The Element-wise product ``Array``.
         """
         return self.__mul__(other)
 
     def __sub__(self, other):
         """
-        TODO: Add description.
+        Element-wise subtraction with another ``Array`` or a scalar.
 
         Args:
-            other:
+            other: Array of same shape or scalar to subtract.
 
-        Time complexity: O()
+        Time complexity: O(size)
 
-        Space complexity: O()
+        Space complexity: O(size)
 
-        Returns:
+        Returns: New ``Array`` with element-wise subtraction.
         """
         return self + other * (-1)
 
     # TODO: add unit test
-    def __pow__(self, other):
+    def __pow__(self, other: int):
         """
-        TODO: Add description.
+        Element-wise exponentiation by a scalar.
 
         Args:
-            other:
+            other: Exponent to apply to each element.
 
-        Time complexity: O()
+        Time complexity: O(size)
 
-        Space complexity: O()
+        Space complexity: O(size)
 
-        Returns:
+        Returns: New array with elements raised to the given power.
         """
-        ans = self
+        ans = self._data.copy()
         for i in range(self.size):
-            ans._data[i] **= other
-        return ans
+            ans[i] **= other
+        return Array(ans, shape=self.shape)
 
     def __truediv__(self, other):
         """
-        TODO: Add description.
+        Element-wise division by another ``Array`` or a scalar.
 
         Args:
-            other:
+            other: Divisor, either scalar or ``Array`` of same shape.
 
-        Time complexity: O()
+        Time complexity: O(size)
 
-        Space complexity: O()
+        Space complexity: O(size)
 
-        Returns:
+        Returns: ``Array`` of element-wise division.
         """
         return self.__mul__(other ** -1)
 
     def is_square(self):
         """
-        TODO: Add description.
+        Check whether the ``Array`` is a square matrix.
 
-        Time complexity: O()
+        Time complexity: O(1)
 
-        Space complexity: O()
+        Space complexity: O(1)
 
-        Returns:
+        Returns: ``True`` if the ``Array`` has 2 dimensions and both are equal, ``False`` otherwise.
         """
         if self.ndim != 2:
             return False
         return self.shape[0] == self.shape[1]
 
-    def sum(self, axis=None, dtype=None, out=None, keepdims=False, initial=0, where=True):
+    def sum(self, axis: int = 0):
         """
-        TODO: Add description.
+        Compute the sum of array elements along a given axis.
 
-        Time complexity: O()
+        Args:
+            axis: Axis along which to sum. Default ``axis`` is 0.
 
-        Space complexity: O()
+        Time complexity: O(size * ndim)
 
-        Returns:
+        Space complexity: O(size)
+
+        Returns: ``Array`` of summed values along the specified axis.
         """
+        result_shape = self.shape[:axis] + self.shape[axis+1:]
+        result_size = 1
+        for s in result_shape:
+            result_size *= s
 
-        tmp = self.transpose(
-            (axis,) + tuple(i for i in range(self.ndim) if i != axis))
+        ans = [0] * result_size
 
-        element_shape = tmp.shape[1:]
-        element_size = int(tmp.size / tmp.shape[0])
-        ans = zeros(element_shape)
+        for flat_index in range(self.size):
 
-        for i in range(tmp.shape[0]):
-            element_ith = tmp._data[i * element_size: (i + 1) * element_size]
-            ans += Array(element_ith, element_shape)
-        return ans
+            # O(ndim)
+            shaped_index = flat_index_to_shaped(flat_index, self.shape)
 
-    def mean(self, axis=None, dtype=None, out=None, keepdims=False, *, where=True):
+            reduced_index = shaped_index[:axis] + shaped_index[axis+1:]
+
+            bucket = shaped_to_flat_index(reduced_index, result_shape)
+
+            ans[bucket] += self._data[flat_index]
+
+        return Array(ans, shape=result_shape)
+
+    def mean(self, axis: int = 0):
         """
-        TODO: Add description.
+        Compute the average value of array elements along a given axis.
 
-        Time complexity: O()
+        Args:
+            axis: Axis along which to take average. Default ``axis`` is 0.
 
-        Space complexity: O()
+        Time complexity: O(size * ndim)
 
-        Returns:
+        Space complexity: O(size)
+
+        Returns: ``Array`` of averaged values along the specified axis.
         """
         return self.sum(axis) / self.shape[axis]
 
     # TODO: add `n` smallest
     def min(self):
         """
-        TODO: Add description.
+        Get the minimum element in the ``Array``.
 
-        Time complexity: O()
+        Time complexity: O(size)
 
-        Space complexity: O()
+        Space complexity: O(1)
 
-        Returns:
+        Returns: The minimum element in the ``Array``.
         """
         return min(self._data)
 
     # TODO: add `n` biggest
     def max(self):
         """
-        TODO: Add description.
+        Get the maximum element in the ``Array``.
 
-        Time complexity: O()
+        Time complexity: O(size)
 
-        Space complexity: O()
+        Space complexity: O(1)
 
-        Returns:
+        Returns: The maximum element in the ``Array``.
         """
         return max(self._data)
 
     # TODO: add `n` biggest
-    def argmax(self):
+    def argmax(self) -> tuple[int]:
         """
-        TODO: Add description.
+        Get the index of the maximum element in the ``Array``.
 
-        Time complexity: O()
+        Time complexity: O(size + ndim)
 
-        Space complexity: O()
+        Space complexity: O(ndim)
 
-        Returns:
+        Returns: The index of the maximum element in the ``Array``.
         """
         max_idx = 0
         for i in range(self.size):
             if self._data[i] > self._data[max_idx]:
                 max_idx = i
-        return max_idx
+        return flat_index_to_shaped(max_idx)
 
     # TODO: add `n` smallest
-    def argmin(self):
+    def argmin(self) -> tuple[int]:
         """
-        TODO: Add description.
+        Get the index of the minimum element in the ``Array``.
 
-        Time complexity: O()
+        Time complexity: O(size + ndim)
 
-        Space complexity: O()
+        Space complexity: O(ndim)
 
-        Returns:
+        Returns: The index of the minimum element in the ``Array``.
         """
-        max_idx = 0
+        min_idx = 0
         for i in range(self.size):
-            if self._data[i] < self._data[max_idx]:
-                max_idx = i
-        return max_idx
+            if self._data[i] < self._data[min_idx]:
+                min_idx = i
+        return flat_index_to_shaped(min_idx)
 
     def __matmul__(self, other):
         """
-        TODO: Add description.
+        Perform matrix multiplication (the ``@`` operator) between two ``Array`` objects.
+
+        This supports batched matrix multiplication:
+        - If ``self`` has shape (..., n, p) and ``other`` has shape (..., p, m),
+            the result will have shape (..., n, m).
+        - The leading dimensions (``...``) must match.
 
         Args:
-            other:
+            other: Right-hand side operand. Must be an ``Array`` with compatible dimensions (``self.shape[-1] == other.shape[-2]``).
 
-        Time complexity: O()
+        Time complexity: O(count * (ndim + n * m * p)) where count  = size / (n * p)
 
-        Space complexity: O()
+        Space complexity: O(n * m * count)
 
-        Returns:
+        Returns: New Array with shape (..., n, m) containing the matrix product. Returns None if ``other`` is not an Array or if dimensions are incompatible.
         """
         if not isinstance(other, Array):
             return
@@ -627,9 +705,13 @@ class Array:
 
         axes = list(range(other.ndim))
         axes[-1], axes[-2] = axes[-2], axes[-1]   # swap last two
+
+        # O(count * m * p * ndim)
         otherT = other.transpose(axis=axes)
 
+        # O(count * (ndim + n * m * p)) where count  = size / (n * p)
         for c in range(count):
+            # O(ndim)
             shaped = flat_index_to_shaped(c, self.shape[:-2])
 
             start_self = shaped_to_flat_index(shaped + (0, 0), self.shape)
@@ -639,6 +721,7 @@ class Array:
             stop_otherT = shaped_to_flat_index(
                 shaped + (m-1, p-1), otherT.shape)
 
+            # O(n * m * p)
             _data_ans += matmul_flat_2D(self._data[start_self:stop_self + 1],
                                         otherT._data[start_otherT:stop_otherT + 1],
                                         n, p, m)
@@ -648,160 +731,154 @@ class Array:
         return Array(_data_ans, shape=tuple(new_shape))
 
 
-def _elementwise(array, func):
+def _elementwise(array: Array, func) -> Array:
     """
-    TODO: Add description.
+    Apply a function element-wise to all entries of an Array.
 
     Args:
-        array:
-        func:
+        array: Input array to transform.
+        func: Function applied to each element.
 
-    Time complexity: O()
+    Time complexity: O(array.size)
 
-    Space complexity: O()
+    Space complexity: O(array.size)
 
-    Returns:
+    Returns: A new ``Array`` with the same shape as the input, where each element is the result of applying ``func`` to the corresponding input element. Returns None if the input is not an Array.
     """
     if not isinstance(array, Array):
         return
-    ans = array
+    ans = array._data.copy()
     for i in range(array.size):
-        ans._data[i] = func(array._data[i])
-    return ans
+        ans[i] = func(array._data[i])
+    return Array(ans, shape=array.shape)
 
 
-def exp(array):
+def exp(array: Array) -> Array:
     """
-    TODO: Add description.
+    Apply the exponential function element-wise to an ``Array``.
 
     Args:
-        array:
+        array: Input array.
 
-    Time complexity: O()
+    Time complexity: O(size)
 
-    Space complexity: O()
+    Space complexity: O(size)
 
-    Returns:
+    Returns: New Array with elements transformed by ``exp(x)``.
     """
     return _elementwise(array, math.exp)
 
 
-def log(array):
+def log(array: Array) -> Array:
     """
-    TODO: Add description.
+    Apply the natural logarithm element-wise to an ``Array``.
 
     Args:
-        array:
+        array: Input array.
 
-    Time complexity: O()
+    Time complexity: O(size)
 
-    Space complexity: O()
+    Space complexity: O(size)
 
-    Returns:
+    Returns: New Array with elements transformed by ``log(x)``.
     """
     return _elementwise(array, math.log)
 
 
-def sqrt(array):
+def sqrt(array: Array) -> Array:
     """
-    TODO: Add description.
+    Apply the square root function element-wise to an ``Array``.
 
     Args:
-        array:
+        array: Input array.
 
-    Time complexity: O()
+    Time complexity: O(size)
 
-    Space complexity: O()
+    Space complexity: O(size)
 
-    Returns:
+    Returns: New Array with elements transformed by ``sqrt(x)``.
     """
     return _elementwise(array, math.sqrt)
 
 
-def abs(array):
+def abs(array: Array) -> Array:
     """
-    TODO: Add description.
+    Apply the absolute value function element-wise to an ``Array``.
 
     Args:
-        array:
+        array (Array): Input array.
 
-    Time complexity: O()
+    Time complexity: O(size)
 
-    Space complexity: O()
+    Space complexity: O(size)
 
-    Returns:
+    Returns: New Array with elements transformed by ``abs(x)``.
     """
     return _elementwise(array, math.fabs)
 
 
-def array(object):
+def array(data: list) -> Array:
     """
-    TODO: Add description.
+    Create a new Array instance from a given (nested) list ``data``. This is a convenience wrapper around the Array constructor, similar to NumPy's ``np.array``.
 
     Args:
-        object:
+        data: Input (nested) list to be converted into an ``Array``.
 
-    Time complexity: O()
+    Time complexity: O(size * ndim)
 
-    Space complexity: O()
+    Space complexity: O(size)
 
-    Returns:
+    Returns: A new ``Array`` instance wrapping the input data.
     """
-    return Array(object)
+    return Array(data)
 
 
-def zeros(shape):
+def zeros(shape: tuple[int]) -> Array:
     """
-    TODO: Add description.
+    Create a new ``Array`` filled with zeros.
 
     Args:
-        shape:
+        shape: Shape of the array to create.
 
-    Time complexity: O()
+    Time complexity: O(prod(shape))
 
-    Space complexity: O()
+    Space complexity: O(prod(shape))
 
     Returns:
+        Array: An ``Array`` of the given ``shape`` filled with zeros.
     """
-    size = 1
-    for s in shape:
-        size *= s
-    zero = [0] * size
-    return Array(zero, shape=shape)
+    return Array([0] * math.prod(shape), shape=shape)
 
 
-def ones(shape):
+def ones(shape: tuple[int]) -> Array:
     """
-    TODO: Add description.
+    Create a new ``Array`` filled with ones.
 
     Args:
-        shape:
+        shape: Shape of the array to create.
 
-    Time complexity: O()
+    Time complexity: O(prod(shape))
 
-    Space complexity: O()
+    Space complexity: O(prod(shape))
 
     Returns:
+        Array: An ``Array`` of the given ``shape`` filled with ones.
     """
-    size = 1
-    for s in shape:
-        size *= s
-    one = [1] * size
-    return Array(one, shape=shape)
+    return Array([1] * math.prod(shape), shape=shape)
 
 
-def eye(n):
+def eye(n: int) -> Array:
     """
-    TODO: Add description.
+    Create an identity matrix of size n * n.
 
     Args:
-        n:
+        n: Dimension of the square identity matrix.
 
-    Time complexity: O()
+    Time complexity: O(n ^ 2)
 
-    Space complexity: O()
+    Space complexity: O(n ^ 2)
 
-    Returns:
+    Returns: An (n * n) identity matrix.
     """
     iden = [[0] * n for _ in range(n)]
     for i in range(n):
@@ -809,20 +886,20 @@ def eye(n):
     return Array(iden)
 
 
-def arange(start, stop, step=1):
+def arange(start: float | int, stop: float | int, step: float | int = 1):
     """
-    TODO: Add description.
+    Create an ``Array`` with evenly spaced values in [start, stop) with given step.
 
     Args:
-        start:
-        stop:
-        step:
+        start: Starting value.
+        stop: End value (exclusive).
+        step: Step size. Default is 1.
 
-    Time complexity: O()
+    Time complexity: O((stop - start) / step)
 
-    Space complexity: O()
+    Space complexity: O((stop - start) / step)
 
-    Returns:
+    Returns: 1D ``Array`` of evenly spaced values.
     """
     arr = []
     for i in range(int((stop - start) / step)):
@@ -830,20 +907,20 @@ def arange(start, stop, step=1):
     return Array(arr)
 
 
-def linspace(start, stop, num=50):
+def linspace(start: float | int, stop: float | int, num: int = 50):
     """
-    TODO: Add description.
+    Create an ``Array`` of evenly spaced values between start and stop (inclusive).
 
     Args:
-        start:
-        stop:
-        num:
+        start: Starting value.
+        stop: End value (inclusive).
+        num: Number of samples to generate. Default is 50.
 
-    Time complexity: O()
+    Time complexity: O(num)
 
-    Space complexity: O()
+    Space complexity: O(num)
 
-    Returns:
+    Returns: 1D ``Array`` of evenly spaced values.
     """
     step = (stop - start) / (num - 1)
     return arange(start, stop + step, step)

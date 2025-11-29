@@ -24,7 +24,7 @@ zero_division_check = [[[1, 2, 3],
 
 def test_array_inv():
     for sample in sample_square[0] + zero_division_check:
-        a = mnp.inv(mnp.array(sample)).tolist()
+        a = mnp.minilinalg.inv(mnp.array(sample)).tolist()
         b = np.linalg.inv(np.array(sample)).tolist()
 
         if not np.allclose(a, b):
@@ -36,7 +36,7 @@ def test_array_inv():
 
 def test_array_inv_LU():
     for sample in sample_square[1] + zero_division_check:
-        a = mnp.inverse_LU(mnp.array(sample)).tolist()
+        a = mnp.minilinalg.inverse_LU(mnp.array(sample)).tolist()
         b = np.linalg.inv(np.array(sample)).tolist()
 
         if not np.allclose(a, b):
@@ -48,7 +48,7 @@ def test_array_inv_LU():
 
 def test_array_det():
     for sample in sample_square[0] + zero_division_check:
-        a = mnp.det(mnp.array(sample))
+        a = mnp.minilinalg.det(mnp.array(sample))
         b = np.linalg.det(np.array(sample))
 
         if not np.allclose(a, b):
@@ -60,7 +60,7 @@ def test_array_det():
 
 def test_array_det_LU():
     for sample in sample_square[1] + zero_division_check:
-        a = mnp.det_LU(mnp.array(sample))
+        a = mnp.minilinalg.det_LU(mnp.array(sample))
         b = np.linalg.det(np.array(sample))
 
         if not np.allclose(a, b):
@@ -71,7 +71,7 @@ def test_array_det_LU():
 
 def test_array_det_gaussian():
     for sample in sample_square[1] + zero_division_check:
-        a = mnp.det_gaussian(mnp.array(sample))
+        a = mnp.minilinalg.det_gaussian(mnp.array(sample))
         b = np.linalg.det(np.array(sample))
 
         if not np.allclose(a, b):

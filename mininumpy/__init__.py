@@ -1,2 +1,2 @@
-from mininumpy.array import *
-from mininumpy.minilinalg import *
+from mininumpy.array import * 
+from .import minilinalg

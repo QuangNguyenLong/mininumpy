@@ -19,7 +19,7 @@ def read_image(path):
 
 def save_image(array, path):
     if not isinstance(array, mnp.Array):
-        raise TypeError("Expected an Array instance.")
+        raise TypeError("Expected an Array or np.array instance.")
     if array.shape[0] != 3:
         raise ValueError(f"Expected shape (3, h, w), got {array.shape}")
 
@@ -40,9 +40,13 @@ def save_image(array, path):
     img.putdata(pixels)
     img.save(path)
 
+
 image = read_image('./sample.jpg')
-grey = mnp.Array([(0.299 * image[0] + 0.587 * image[1] + 0.114 * image[2])._data for _ in range(image.shape[0])], 
-             shape = image.shape, element_type=int)
+data = image.data
+r = mnp.Array(data[0])
+g = mnp.Array(data[1])
+b = mnp.Array(data[2])
+gr = (0.299 * r + 0.587 * g + 0.114 * b)
+grey = mnp.Array([gr._data for _ in range(image.shape[0])], shape = image.shape, element_type=int)
+
 save_image(grey, './grey.jpg')
-
-

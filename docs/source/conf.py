@@ -44,3 +44,10 @@ always_document_param_types = True
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+
+autodoc_member_order = 'bysource'
+
+autodoc_default_options = {
+    "members": True,
+    "special-members": "__init__, __str__, __add__, __mul__, __sub__, __pow__, __truediv__, __matmul__",
+}

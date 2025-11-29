@@ -1,77 +1,86 @@
 from mininumpy.array import *
 
-def dot(a, b):
+
+def dot(a: Array, b: Array) -> Array:
     """
-    TODO: Add description.
+    Perform matrix multiplication between two ``Array`` objects.
+
+    This is a convenience wrapper around the ``Array.__matmul__()`` operator, similar to
+    NumPy's ``np.matmul``. It multiplies two ``Array`` instances if both inputs
+    are ``Array`` with compatible dimensions.
 
     Args:
-        a:
-        b:
+        a: Left-hand side operand. Must be an ``Array``.
+        b: Right-hand side operand. Must be an ``Array`` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).
 
-    Time complexity: O()
-
-    Space complexity: O()
-
-    Returns:
+    Returns: New Array containing the matrix product. Returns None if the operation is invalid.
     """
-    return a @ b
+    if isinstance(a, Array) and isinstance(b, Array):
+        return a @ b
+    return
 
 
-def matmul(a, b):
+def matmul(a: Array, b: Array) -> Array:
     """
-    TODO: Add description.
+    Perform matrix multiplication between two ``Array`` objects.
+
+    This is a convenience wrapper around the ``Array.__matmul__()`` operator, similar to
+    NumPy's ``np.matmul``. It multiplies two ``Array`` instances if both inputs
+    are ``Array`` with compatible dimensions.
 
     Args:
-        a:
-        b:
+        a: Left-hand side operand. Must be an ``Array``.
+        b: Right-hand side operand. Must be an ``Array`` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).
 
-    Time complexity: O()
-
-    Space complexity: O()
-
-    Returns:
+    Returns: New Array containing the matrix product. Returns None if the operation is invalid.
     """
-    return a @ b
+    if isinstance(a, Array) and isinstance(b, Array):
+        return a @ b
+    return
 
 
-def norm(a):
+def norm(a: Array) -> float:
     """
-    TODO: Add description.
+    Compute the Euclidean (L2) norm of an ``Array``.
+
+    This calculates the square root of the sum of squares of all elements, i.e. ||a|| = sqrt(sum(e²)).
 
     Args:
-        a:
+        a: Input ``Array``.
 
-    Time complexity: O()
+    Time complexity: O(size)
 
-    Space complexity: O()
+    Space complexity: O(1)
 
-    Returns:
+    Returns: The Euclidean norm of the array. Returns None if the input is not an ``Array``.
     """
-    sm = sum(a)
-    while isinstance(sm, Array):
-        sm = sum(sm)
-    return a / sm
+    if not isinstance(a, Array):
+        return
+    ans = 0
+    for e in a._data:
+        ans += e * e
+    return math.sqrt(ans)
 
 # TODO: Optimize PLS
 # O(n!)
 
 
-def det(a):
+def det(a: Array) -> float:
     """
-    TODO: Add description.
+    Compute the determinant of a square 2D ``Array`` using recursive expansion (Laplace expansion along the first column).
 
     Args:
-        a:
+        a: Input array. Must be a 2D square matrix.
 
-    Time complexity: O()
+    Time complexity: O(n!) where n is the dimension of the square matrix ``a``
 
-    Space complexity: O()
+    Space complexity: O(n^2)
 
-    Returns:
+    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.
     """
     if not isinstance(a, Array):
         return
-    if a.ndim != 2 or a.shape[0] != a.shape[1]:
+    if a.ndim != 2 or not a.is_square():
         return
     n = a.shape[0]
     if n == 1:
@@ -91,27 +100,31 @@ def det(a):
     return ans
 
 # O(n^3)
-def det_gaussian(mat):
+
+
+def det_gaussian(a : Array) -> float:
     """
-    TODO: Add description.
+    Compute the determinant of a square 2D ``Array`` using Gaussian elimination.
+    This algorithm performs row-reduction to upper triangular form, tracking
+    row swaps and multiplying the diagonal entries to obtain the determinant.
 
     Args:
-        mat:
+        a: Input array. Must be a 2D square matrix.
 
-    Time complexity: O()
+    Time complexity: O(n^3) where n is the dimension of the square matrix ``a``
 
-    Space complexity: O()
+    Space complexity: O(n^2)
 
-    Returns:
+    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.
     """
-    if not isinstance(mat, Array):
+    if not isinstance(a, Array):
         return
-    if not mat.is_square():
+    if not a.is_square():
         return
 
-    data = mat.data
+    data = a.data
 
-    n = mat.shape[0]
+    n = a.shape[0]
     row_indices = range(n)
 
     prod = 1
@@ -140,18 +153,31 @@ def det_gaussian(mat):
     return prod
 
 
-def LU_decomposition(A):
+def LU_decomposition(A : Array) -> tuple[list[list[float]], list[list[float]]]:
     """
-    TODO: Add description.
+    Perform LU decomposition of a 2D ``Array`` (matrix).
+
+    This factorizes a square matrix A into the product of a lower triangular
+    matrix L and an upper triangular matrix U, such that A = L * U.
+
+    - L is a unit lower triangular matrix (diagonal entries are 1).
+
+    - U is an upper triangular matrix.
 
     Args:
-        A:
+        A: Input 2D ``Array`` (matrix). Must be two-dimensional.
 
-    Time complexity: O()
+    Time complexity: O(n^3)
 
-    Space complexity: O()
+    Space complexity: O(n^2)
 
-    Returns:
+    Returns: A tuple (L, U) where:
+
+            - L is the unit lower triangular matrix.
+
+            - U is the upper triangular matrix.
+
+        Returns None if the input is not a 2D ``Array``.
     """
     if not isinstance(A, Array):
         return
@@ -180,16 +206,21 @@ def LU_decomposition(A):
 
 def det_LU(A):
     """
-    TODO: Add description.
+    Compute the determinant of a square 2D ``Array`` using LU decomposition.
+
+    This function factorizes the matrix A into L and U (via ``LU_decomposition``),
+    then computes the determinant as the product of the diagonal entries of U.
+    Since det(A) = det(L) * det(U) and det(L) = 1 for a unit lower triangular L,
+    the determinant is simply the product of U's diagonal.
 
     Args:
-        A:
+        A: Input 2D ``Array`` (matrix). Must be square.
 
-    Time complexity: O()
+    Time complexity: O(n^3)
 
-    Space complexity: O()
+    Space complexity: O(n^2)
 
-    Returns:
+    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.
     """
     _, U = LU_decomposition(A)
     det = 1
@@ -318,16 +349,18 @@ def compute_rotation_coeff(a, b, d):
     s = t * c
     return c, s
 
+
 def jacobi_rotate(data, V, n):
-    A =  Array(data)
+    A = Array(data)
     B = Array(V)
     for i in range(n):
         for j in range(n):
             if i != j and A.data[i][j] != 0:
                 # rotate only if the current element is not zero
-                c, s = compute_rotation_coeff(A.data[i][i], A.data[i][j], A.data[j][j])
+                c, s = compute_rotation_coeff(
+                    A.data[i][i], A.data[i][j], A.data[j][j])
 
-                # do this instead of J^T @ mat @ T because this is O(n) instead of O(n^3)                
+                # do this instead of J^T @ mat @ T because this is O(n) instead of O(n^3)
                 for k in range(n):
                     # mat = J^T @ mat @ T
                     a_ki = data[k][i]
@@ -348,6 +381,7 @@ def jacobi_rotate(data, V, n):
                     V[k][i] = c * v_ki - s * v_kj
                     V[k][j] = s * v_ki + c * v_kj
     return A.data, B.data
+
 
 def eig(mat, max_iter=1000, eps=1e-6):
     """
@@ -383,8 +417,8 @@ def eig(mat, max_iter=1000, eps=1e-6):
 
         max_val = abs(old - new).max()
         # if the max changes is even smaller than eps, then why bother changes
-        
+
         if max_val < eps:
             break
-        
+
     return [data[i][i] for i in range(n)], V
