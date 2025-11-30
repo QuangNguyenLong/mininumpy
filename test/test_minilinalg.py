@@ -78,6 +78,18 @@ def test_array_inv_LU():
         else:
             assert True
 
+def test_array_inv_gaussian():
+    for sample in sample_square[1] + zero_division_check:
+        a = mnp.minilinalg.inv(mnp.array(sample), algo="gaussian").tolist()
+        b = np.linalg.inv(np.array(sample)).tolist()
+
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\nSample: \n", mnp.Array(sample))
+            print("\n mnp: ", a, "\nnp: ", b)
+            assert False
+        else:
+            assert True
+
 
 def test_array_det_laplace():
     for sample in sample_square[0] + zero_division_check:

@@ -77,6 +77,6 @@ Students must demonstrate their library with **practical applications**:
 Deliverables
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   1. Source code of MiniNumPy (mininumpy/array.py, mininumpy/linalg.py).
-   2. A **report (5-10 pages)** explaining design choices and algorithms.
+   1. Source code of MiniNumPy (`mininumpy/array.py <https://github.com/QuangNguyenLong/mininumpy/blob/main/mininumpy/array.py>`_, `mininumpy/minilinalg.py <https://github.com/QuangNguyenLong/mininumpy/blob/main/mininumpy/minilinalg.py>`_).
+   2. A **report (5-10 pages)** explaining design choices and algorithms. 
    3. A `demo notebook <https://github.com/QuangNguyenLong/mininumpy/blob/main/sample.ipynb>`_ showing use cases and comparisons with real NumPy.

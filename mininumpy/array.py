@@ -304,7 +304,7 @@ def flat_index_to_shaped(index: int, shape: tuple[int]) -> tuple[int]:
 
 def flatten(lst: list) -> list:
     """
-    Helper function to flat a nested list.
+    Get the flatten version of a nested list.
 
     Args:
         lst: nested list to be flatten.
@@ -313,7 +313,7 @@ def flatten(lst: list) -> list:
 
     Space complexity: O(size)
 
-    Returns: flatten list.
+    Returns: A new flatten list.
     """
     if not isinstance(lst, list):
         return lst

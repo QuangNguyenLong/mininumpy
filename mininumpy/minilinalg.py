@@ -25,13 +25,10 @@ def matmul(a: Array, b: Array, algo="naive") -> Array:
     """
     Perform matrix multiplication between two ``Array`` objects.
 
-    This is a convenience wrapper around the ``Array.__matmul__()`` operator, similar to
-    NumPy's ``np.matmul``. It multiplies two ``Array`` instances if both inputs
-    are ``Array`` with compatible dimensions.
-
     Args:
         a: Left-hand side operand. Must be an ``Array``.
         b: Right-hand side operand. Must be an ``Array`` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).
+        algo: String identifier for the algorithm used. Could be: ``naive`` (default) | ``strassen``.
 
     Returns: New Array containing the matrix product. Returns None if the operation is invalid.
     """
@@ -98,100 +95,110 @@ def norm(a: Array) -> float:
     return math.sqrt(ans)
 
 
-def det(a: Array, algo: str = "gaussian") -> float:
+def det(a: Array, algo: str = "gaussian") -> float | list[float]:
     """
     Compute the determinant of a square 2D ``Array``.
 
     Args:
         a: Input array. Must be a 2D square matrix.
+        algo: String identifier for the algorithm used. Could be: ``laplace`` | ``LU`` |  ``gaussian`` (default).
 
     Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.
     """
     if not isinstance(a, Array):
         return
-    if a.ndim != 2 or not a.is_square():
+    if a.shape[-1] != a.shape[-2]:
         return
 
     match algo:
         case "laplace":
-            return det_laplace(a)
+            run = det_laplace
         case "LU":
-            return det_LU(a)
+            run = det_LU
         case "gaussian":
-            return det_gaussian(a)
+            run = det_gaussian
         case _:
-            return det_gaussian(a)
+            run = det_gaussian
+
+    count = math.prod(a.shape[:-2])
+
+    if count == 1:
+        return run(a._data, a.shape[-1])
+
+    det_list = []
+
+    n = a.shape[-2]
+
+    for c in range(count):
+        start_a = c * n * n
+        stop_a = start_a + n * n
+        det_list.append(run(a._data[start_a: stop_a], n))
+
+    return Array(det_list, shape=a.shape[:-2])
 
 
 # O(n!)
-def det_laplace(a: Array) -> float:
+def det_laplace(a: list[float], n: int) -> float:
     """
-    Compute the determinant of a square 2D ``Array`` using recursive expansion (Laplace expansion along the first column).
+    Compute the determinant of a flatten square 2D matrix using recursive expansion (Laplace expansion along the first column).
 
     Args:
-        a: Input array. Must be a 2D square matrix.
+        a: Input flat array. Must be a 2D square matrix.
+        n: The matrix dimension.
 
-    Time complexity: O(n!) where n is the dimension of the square matrix ``a``
+    Time complexity: O(n!)
 
     Space complexity: O(n^2)
 
-    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.
+    Returns: Determinant of the matrix. Returns None if the input is not square.
     """
-    if not isinstance(a, Array):
+    if len(a) != n * n:
         return
-    if a.ndim != 2 or not a.is_square():
-        return
-    n = a.shape[0]
-    if n == 1:
-        return a._data[0]
+    A = Array(a, shape=(n, n))
 
-    data = a.data
+    if n == 1:
+        return A._data[0]
 
     ans = 0
     for i in range(n):
-        cooef = Array([
-            data[x][y]
+        cooef = [
+            A[x, y]
             for x in range(n)
             for y in range(1, n)
             if x != i
-        ], shape=(n - 1, n - 1))
-        ans += (-1)**i * data[i][0] * det_laplace(cooef)
+        ]
+        ans += (-1)**i * A[i, 0] * det_laplace(cooef, n - 1)
     return ans
 
 # O(n^3)
 
 
-def det_gaussian(a: Array) -> float:
+def det_gaussian(a: list[float], n: int) -> float:
     """
-    Compute the determinant of a square 2D ``Array`` using Gaussian elimination.
+    Compute the determinant of a flat square 2D matrix using Gaussian elimination.
     This algorithm performs row-reduction to upper triangular form, tracking
     row swaps and multiplying the diagonal entries to obtain the determinant.
 
     Args:
-        a: Input array. Must be a 2D square matrix.
+        a: Input flat array. Must be a 2D square matrix.
+        n: The matrix dimension.
 
-    Time complexity: O(n^3) where n is the dimension of the square matrix ``a``
+    Time complexity: O(n^3)
 
     Space complexity: O(n^2)
 
-    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.
+    Returns: Determinant of the matrix. Returns None if the input is not square.
     """
-    if not isinstance(a, Array):
-        return
-    if not a.is_square():
-        return
+    A = Array(a, shape=(n, n))
 
-    data = a.data
-
-    n = a.shape[0]
     row_indices = list(range(n))
 
     prod = 1
     for k in range(n):
 
-        if data[row_indices[k]][k] == 0:
+        if A[row_indices[k], k] == 0:
             for j in range(k + 1, n):
-                if data[row_indices[j]][k] != 0:
+                if A[row_indices[j], k] != 0:
                     # swap here, swap indice is better that swapping the whole list
                     tmp = row_indices[k]
                     row_indices[k] = row_indices[j]
@@ -199,16 +206,15 @@ def det_gaussian(a: Array) -> float:
                     prod *= -1
                     break
 
-        current_row = data[row_indices[k]]
-        akk = current_row[k]
+        akk = A[row_indices[k], k]
 
         for i in range(k + 1, n):
-            aik = data[row_indices[i]][k]
+            aik = A[row_indices[i], k]
             for l in range(n):
-                data[row_indices[i]][l] -= aik / akk * current_row[l]
+                A[row_indices[i], l] -= aik / akk * A[row_indices[k], l]
 
     for k in range(n):
-        prod *= data[row_indices[k]][k]
+        prod *= A[row_indices[k], k]
     return prod
 
 
@@ -263,46 +269,28 @@ def LU_decomposition(A: Array) -> tuple[list[list[float]], list[list[float]]]:
     return (L, U)
 
 
-def det_LU(A):
+def det_LU(a: list[float], n: int) -> float:
     """
-    Compute the determinant of a square 2D ``Array`` using LU decomposition.
-
-    This function factorizes the matrix A into L and U (via ``LU_decomposition``),
-    then computes the determinant as the product of the diagonal entries of U.
-    Since det(A) = det(L) * det(U) and det(L) = 1 for a unit lower triangular L,
-    the determinant is simply the product of U's diagonal.
+    Compute the determinant of a flat square 2D matrix using LU decomposition.
 
     Args:
-        A: Input 2D ``Array`` (matrix). Must be square.
+        a: Input flat 2D matrix. Must be square.
+        n: The matrix dimension.
 
     Time complexity: O(n^3)
 
     Space complexity: O(n^2)
 
-    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.
+    Returns: Determinant of the matrix. Returns None if the input is not square.
     """
-    _, U = LU_decomposition(A)
+    _, U = LU_decomposition(Array(a, shape=(n, n)))
     det = 1
     for i in range(len(U)):
         det *= U[i][i]
     return det
 
 
-def forward_sub_inverse_LU(L, b):
-    """
-    TODO: Add description.
-
-    Args:
-        A:
-        L:
-        b:
-
-    Time complexity: O()
-
-    Space complexity: O()
-
-    Returns:
-    """
+def _forward_sub_inverse_LU(L, b):
     n = len(L)
     y = [0] * n
     for i in range(n):
@@ -310,28 +298,12 @@ def forward_sub_inverse_LU(L, b):
     return y
 
 
-def backward_sub_inverse_LU(U, y):
-    """
-    TODO: Add description.
-
-    Args:
-        A:
-        U:
-        y:
-
-    Time complexity: O()
-
-    Space complexity: O()
-
-    Returns:
-    """
+def _backward_sub_inverse_LU(U, y):
     n = len(U)
     x = [0] * n
     for i in reversed(range(n)):
         x[i] = (y[i] - sum(U[i][j] * x[j] for j in range(i+1, n))) / U[i][i]
     return x
-
-# TODO: Optimize PLS
 
 
 def inv(a: Array, algo: str = "LU") -> Array:
@@ -340,82 +312,156 @@ def inv(a: Array, algo: str = "LU") -> Array:
 
     Args:
         a: Input array. Must be a 2D square matrix.
+        algo: String identifier for the algorithm used. Could be: ``recursion`` | ``LU`` (default) |  ``gaussian``.
 
     Returns: Inverse of the matrix. Returns None if the input is a non-invertible matrix.
     """
     if not isinstance(a, Array):
         return
-    if a.ndim != 2 or not a.is_square():
+    if a.shape[-1] != a.shape[-2]:
         return
 
     match algo:
         case "recursion":
-            return inverse_recursion(a)
+            inv = inverse_recursion
         case "LU":
-            return inverse_LU(a)
+            inv = inverse_LU
+        case "gaussian":
+            inv = inverse_gaussian
         case _:
-            return inverse_LU(a)
+            inv = inverse_LU
+
+    count = math.prod(a.shape[:-2])
+
+    inv_list = []
+
+    n = a.shape[-2]
+
+    for c in range(count):
+        start_a = c * n * n
+        stop_a = start_a + n * n
+        inv_list += inv(a._data[start_a: stop_a], n)
+
+    return Array(inv_list, shape=a.shape)
 
 
-def inverse_LU(a):
+def inverse_LU(a: list[float], n: int) -> list[float]:
     """
-    TODO: Add description.
+    Compute the inverse of a flat square 2D matrix using LU decomposition.
 
     Args:
-        a:
+        a: Flat list representing the matrix entries row-major.
+        n: Dimension of the square matrix ``a``.
 
-    Time complexity: O()
+    Time complexity: O(n^3)
 
-    Space complexity: O()
+    Space complexity: O(n^2)
 
-    Returns:
+    Returns: Flattened list representing the inverse matrix in row-major order.
+              Returns None if the input is not a square 2D Array.
     """
-    if not isinstance(a, Array):
+    if len(a) != n * n:
         return
-    if not a.is_square():
-        return
+    A = Array(a, shape=(n, n))
 
     identity = [[1 if i == j else 0 for j in range(
-        a.shape[0])] for i in range(a.shape[0])]
+        A.shape[0])] for i in range(A.shape[0])]
     ans = []
-    L, U = LU_decomposition(a)
-    for i in range(a.shape[0]):
-        ans.append(backward_sub_inverse_LU(
-            U, forward_sub_inverse_LU(L, identity[i])))
-    return Array(ans).transpose()
+    L, U = LU_decomposition(A)
+    for i in range(A.shape[0]):
+        ans.append(_backward_sub_inverse_LU(
+            U, _forward_sub_inverse_LU(L, identity[i])))
+    return Array(ans).transpose()._data
 
 
 # O(n!)
-def inverse_recursion(a: Array) -> Array:
+def inverse_recursion(a, n):
     """
-    TODO: Add description.
+    Compute the inverse of a square 2D ``Array`` using recursive cofactor expansion.
 
     Args:
-        a:
+        a: Flat list representing the matrix entries in row-major order.
+        n: Dimension of the square matrix ``a``.
 
-    Time complexity: O()
+    Time complexity: O(n!) 
 
-    Space complexity: O()
+    Space complexity: O(n^2)
 
-    Returns:
+    Returns: Flattened list representing the inverse matrix in row-major order.
     """
-    if not isinstance(a, Array):
-        return
-    if not a.is_square():
-        return
-    n = a.shape[0]
+    A = Array(a, shape=(n, n))
 
     cofactor = Array([
         (-1) ** (i + j) * det(Array([
-            a.data[x][y]
+            A[x, y]
             for x in range(n)
             for y in range(n)
             if x != i and y != j
         ], shape=(n - 1, n - 1)))
         for i in range(n)
-        for j in range(n)], shape=a.shape)
+        for j in range(n)], shape=A.shape)
 
-    return cofactor.transpose() / det(a)
+    return (cofactor.transpose() / det(A))._data
+
+
+def inverse_gaussian(a, n):
+    """
+    Compute the inverse of a square 2D ``Array`` using Gauss-Jordan elimination with partial pivoting.
+
+    Args:
+        a: Flat list representing the matrix entries in row-major order.
+        n: Dimension of the square matrix ``a``.
+
+    Time complexity: O(n^3)
+
+    Space complexity: O(n^2)
+
+    Returns:
+        list: Flattened list representing the inverse matrix in row-major order.
+    """
+    A = Array(a, shape=(n, n))
+    I = eye(n)
+
+    row_indices = list(range(n))
+
+    for k in range(n):
+
+        if A[row_indices[k], k] == 0:
+            for j in range(k + 1, n):
+                if A[row_indices[j], k] != 0:
+                    tmp = row_indices[k]
+                    row_indices[k] = row_indices[j]
+                    row_indices[j] = tmp
+                    break
+
+        pivot = A[row_indices[k], k]
+
+        for l in range(n):
+            A[row_indices[k], l] /= pivot
+            I[row_indices[k], l] /= pivot
+
+        for i in range(k + 1, n):
+            factor = A[row_indices[i], k]
+            if factor != 0:
+                for l in range(n):
+                    A[row_indices[i], l] -= factor * A[row_indices[k], l]
+                    I[row_indices[i], l] -= factor * I[row_indices[k], l]
+
+    for k in range(n - 1, -1, -1):
+        for i in range(k - 1, -1, -1):
+            factor = A[row_indices[i], k]
+            if factor != 0:
+                for l in range(n):
+                    A[row_indices[i], l] -= factor * A[row_indices[k], l]
+                    I[row_indices[i], l] -= factor * I[row_indices[k], l]
+
+    result = Array([0] * n * n, shape=(n, n))
+    for i in range(n):
+        for j in range(n):
+            result[i, j] = I[row_indices[i], j]
+
+    return result._data
+
 
 # # O(n^2)
 # def power_iteration(a, n, max_iter: int = 1000, eps: float = 1e-6):
@@ -489,5 +535,5 @@ def inverse_recursion(a: Array) -> Array:
 #         stop_val = start_val + n
 #         eig_values._data[start_val:stop_val] = l
 #         eig_vectors._data[start_a:stop_a] = flatten(v)
-    
+
 #     return eig_values, eig_vectors

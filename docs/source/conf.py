@@ -49,5 +49,5 @@ autodoc_member_order = 'bysource'
 
 autodoc_default_options = {
     "members": True,
-    "special-members": "__init__, __str__, __add__, __mul__, __sub__, __pow__, __truediv__, __matmul__",
+    "special-members": "__init__, __str__, __add__, __mul__, __sub__, __pow__, __truediv__, __matmul__, __exp__, __sqrt__, __log__, __abs__",
 }
