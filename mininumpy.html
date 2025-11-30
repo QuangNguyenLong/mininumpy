@@ -72,11 +72,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.det_gaussian"><code class="docutils literal notranslate"><span class="pre">det_gaussian()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.LU_decomposition"><code class="docutils literal notranslate"><span class="pre">LU_decomposition()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.det_LU"><code class="docutils literal notranslate"><span class="pre">det_LU()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.forward_sub_inverse_LU"><code class="docutils literal notranslate"><span class="pre">forward_sub_inverse_LU()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.backward_sub_inverse_LU"><code class="docutils literal notranslate"><span class="pre">backward_sub_inverse_LU()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.inv"><code class="docutils literal notranslate"><span class="pre">inv()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.inverse_LU"><code class="docutils literal notranslate"><span class="pre">inverse_LU()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.inverse_recursion"><code class="docutils literal notranslate"><span class="pre">inverse_recursion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.inverse_gaussian"><code class="docutils literal notranslate"><span class="pre">inverse_gaussian()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-mininumpy">Module contents</a></li>
@@ -265,7 +264,7 @@ Space complexity: O(n * m)</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.array.flatten">
 <span class="sig-prename descclassname"><span class="pre">mininumpy.array.</span></span><span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.flatten" title="Link to this definition"></a></dt>
-<dd><p>Helper function to flat a nested list.</p>
+<dd><p>Get the flatten version of a nested list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>lst</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span>) – nested list to be flatten.</p>
@@ -276,7 +275,7 @@ Space complexity: O(n * m)</p>
 </dl>
 <p>Time complexity: O(size * ndim)</p>
 <p>Space complexity: O(size)</p>
-<p>Returns: flatten list.</p>
+<p>Returns: A new flatten list.</p>
 </dd></dl>
 
 <dl class="py class">
@@ -588,6 +587,42 @@ Space complexity: O(n * m)</p>
 <p>Returns: A new <code class="docutils literal notranslate"><span class="pre">Array</span></code> with the same shape as the input, where each element is the result of applying <code class="docutils literal notranslate"><span class="pre">func</span></code> to the corresponding input element.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.__exp__">
+<span class="sig-name descname"><span class="pre">__exp__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.__exp__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.__exp__" title="Link to this definition"></a></dt>
+<dd><p>Apply the exponential function element-wise to an <code class="docutils literal notranslate"><span class="pre">Array</span></code>.</p>
+<p>Time complexity: O(size)</p>
+<p>Space complexity: O(size)</p>
+<p>Returns: New Array with elements transformed by <code class="docutils literal notranslate"><span class="pre">exp(x)</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.__log__">
+<span class="sig-name descname"><span class="pre">__log__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.__log__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.__log__" title="Link to this definition"></a></dt>
+<dd><p>Apply the natural logarithm element-wise to the <code class="docutils literal notranslate"><span class="pre">Array</span></code>.</p>
+<p>Time complexity: O(size)</p>
+<p>Space complexity: O(size)</p>
+<p>Returns: New Array with elements transformed by <code class="docutils literal notranslate"><span class="pre">log(x)</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.__sqrt__">
+<span class="sig-name descname"><span class="pre">__sqrt__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.__sqrt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.__sqrt__" title="Link to this definition"></a></dt>
+<dd><p>Apply the square root function element-wise to the <code class="docutils literal notranslate"><span class="pre">Array</span></code>.</p>
+<p>Time complexity: O(size)</p>
+<p>Space complexity: O(size)</p>
+<p>Returns: New Array with elements transformed by <code class="docutils literal notranslate"><span class="pre">sqrt(x)</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mininumpy.array.Array.__abs__">
+<span class="sig-name descname"><span class="pre">__abs__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.__abs__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.__abs__" title="Link to this definition"></a></dt>
+<dd><p>Apply the absolute value function element-wise to the <code class="docutils literal notranslate"><span class="pre">Array</span></code>.</p>
+<p>Time complexity: O(size)</p>
+<p>Space complexity: O(size)</p>
+<p>Returns: New Array with elements transformed by <code class="docutils literal notranslate"><span class="pre">abs(x)</span></code>.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -742,14 +777,12 @@ are <code class="docutils literal notranslate"><span class="pre">Array</span></c
 <dt class="sig sig-object py" id="mininumpy.minilinalg.matmul">
 <span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">matmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'naive'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#matmul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.matmul" title="Link to this definition"></a></dt>
 <dd><p>Perform matrix multiplication between two <code class="docutils literal notranslate"><span class="pre">Array</span></code> objects.</p>
-<p>This is a convenience wrapper around the <code class="docutils literal notranslate"><span class="pre">Array.__matmul__()</span></code> operator, similar to
-NumPy’s <code class="docutils literal notranslate"><span class="pre">np.matmul</span></code>. It multiplies two <code class="docutils literal notranslate"><span class="pre">Array</span></code> instances if both inputs
-are <code class="docutils literal notranslate"><span class="pre">Array</span></code> with compatible dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">mininumpy.array.Array</span></code></a></span>) – Left-hand side operand. Must be an <code class="docutils literal notranslate"><span class="pre">Array</span></code>.</p></li>
 <li><p><strong>b</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">mininumpy.array.Array</span></code></a></span>) – Right-hand side operand. Must be an <code class="docutils literal notranslate"><span class="pre">Array</span></code> with dimensions compatible with <code class="docutils literal notranslate"><span class="pre">a</span></code> (i.e., <code class="docutils literal notranslate"><span class="pre">a.shape[-1]</span> <span class="pre">==</span> <span class="pre">b.shape[-2]</span></code>).</p></li>
+<li><p><strong>algo</strong> – String identifier for the algorithm used. Could be: <code class="docutils literal notranslate"><span class="pre">naive</span></code> (default) | <code class="docutils literal notranslate"><span class="pre">strassen</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -785,61 +818,56 @@ are <code class="docutils literal notranslate"><span class="pre">Array</span></c
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">mininumpy.array.Array</span></code></a></span>) – Input array. Must be a 2D square matrix.</p></li>
-<li><p><strong>algo</strong> (<em>str</em>)</p></li>
+<li><p><strong>algo</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – String identifier for the algorithm used. Could be: <code class="docutils literal notranslate"><span class="pre">laplace</span></code> | <code class="docutils literal notranslate"><span class="pre">LU</span></code> |  <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> (default).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span></p>
 </dd>
 </dl>
 <p>Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>algo</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>)</p></li>
-<li><p><strong>a</strong> (<a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><em>Array</em></a>)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>float</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.minilinalg.det_laplace">
-<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det_laplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det_laplace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det_laplace" title="Link to this definition"></a></dt>
-<dd><p>Compute the determinant of a square 2D <code class="docutils literal notranslate"><span class="pre">Array</span></code> using recursive expansion (Laplace expansion along the first column).</p>
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det_laplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det_laplace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det_laplace" title="Link to this definition"></a></dt>
+<dd><p>Compute the determinant of a flatten square 2D matrix using recursive expansion (Laplace expansion along the first column).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">mininumpy.array.Array</span></code></a></span>) – Input array. Must be a 2D square matrix.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – Input flat array. Must be a 2D square matrix.</p></li>
+<li><p><strong>n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – The matrix dimension.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
 </dd>
 </dl>
-<p>Time complexity: O(n!) where n is the dimension of the square matrix <code class="docutils literal notranslate"><span class="pre">a</span></code></p>
+<p>Time complexity: O(n!)</p>
 <p>Space complexity: O(n^2)</p>
-<p>Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.</p>
+<p>Returns: Determinant of the matrix. Returns None if the input is not square.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.minilinalg.det_gaussian">
-<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det_gaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det_gaussian" title="Link to this definition"></a></dt>
-<dd><p>Compute the determinant of a square 2D <code class="docutils literal notranslate"><span class="pre">Array</span></code> using Gaussian elimination.
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det_gaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det_gaussian" title="Link to this definition"></a></dt>
+<dd><p>Compute the determinant of a flat square 2D matrix using Gaussian elimination.
 This algorithm performs row-reduction to upper triangular form, tracking
 row swaps and multiplying the diagonal entries to obtain the determinant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">mininumpy.array.Array</span></code></a></span>) – Input array. Must be a 2D square matrix.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – Input flat array. Must be a 2D square matrix.</p></li>
+<li><p><strong>n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – The matrix dimension.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
 </dd>
 </dl>
-<p>Time complexity: O(n^3) where n is the dimension of the square matrix <code class="docutils literal notranslate"><span class="pre">a</span></code></p>
+<p>Time complexity: O(n^3)</p>
 <p>Space complexity: O(n^2)</p>
-<p>Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.</p>
+<p>Returns: Determinant of the matrix. Returns None if the input is not square.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -876,56 +904,22 @@ matrix L and an upper triangular matrix U, such that A = L * U.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.minilinalg.det_LU">
-<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det_LU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det_LU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det_LU" title="Link to this definition"></a></dt>
-<dd><p>Compute the determinant of a square 2D <code class="docutils literal notranslate"><span class="pre">Array</span></code> using LU decomposition.</p>
-<p>This function factorizes the matrix A into L and U (via <code class="docutils literal notranslate"><span class="pre">LU_decomposition</span></code>),
-then computes the determinant as the product of the diagonal entries of U.
-Since det(A) = det(L) * det(U) and det(L) = 1 for a unit lower triangular L,
-the determinant is simply the product of U’s diagonal.</p>
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det_LU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det_LU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det_LU" title="Link to this definition"></a></dt>
+<dd><p>Compute the determinant of a flat square 2D matrix using LU decomposition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>A</strong> – Input 2D <code class="docutils literal notranslate"><span class="pre">Array</span></code> (matrix). Must be square.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – Input flat 2D matrix. Must be square.</p></li>
+<li><p><strong>n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – The matrix dimension.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
 </dd>
 </dl>
 <p>Time complexity: O(n^3)</p>
 <p>Space complexity: O(n^2)</p>
-<p>Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="mininumpy.minilinalg.forward_sub_inverse_LU">
-<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">forward_sub_inverse_LU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#forward_sub_inverse_LU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.forward_sub_inverse_LU" title="Link to this definition"></a></dt>
-<dd><p>TODO: Add description.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong></p></li>
-<li><p><strong>L</strong></p></li>
-<li><p><strong>b</strong></p></li>
-</ul>
-</dd>
-</dl>
-<p>Time complexity: O()</p>
-<p>Space complexity: O()</p>
-<p>Returns:</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="mininumpy.minilinalg.backward_sub_inverse_LU">
-<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">backward_sub_inverse_LU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">U</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#backward_sub_inverse_LU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.backward_sub_inverse_LU" title="Link to this definition"></a></dt>
-<dd><p>TODO: Add description.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong></p></li>
-<li><p><strong>U</strong></p></li>
-<li><p><strong>y</strong></p></li>
-</ul>
-</dd>
-</dl>
-<p>Time complexity: O()</p>
-<p>Space complexity: O()</p>
-<p>Returns:</p>
+<p>Returns: Determinant of the matrix. Returns None if the input is not square.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -936,7 +930,7 @@ the determinant is simply the product of U’s diagonal.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">mininumpy.array.Array</span></code></a></span>) – Input array. Must be a 2D square matrix.</p></li>
-<li><p><strong>algo</strong> (<em>str</em>)</p></li>
+<li><p><strong>algo</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – String identifier for the algorithm used. Could be: <code class="docutils literal notranslate"><span class="pre">recursion</span></code> | <code class="docutils literal notranslate"><span class="pre">LU</span></code> (default) |  <code class="docutils literal notranslate"><span class="pre">gaussian</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -944,48 +938,70 @@ the determinant is simply the product of U’s diagonal.</p>
 </dd>
 </dl>
 <p>Returns: Inverse of the matrix. Returns None if the input is a non-invertible matrix.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>algo</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>)</p></li>
-<li><p><strong>a</strong> (<a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><em>Array</em></a>)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><em>Array</em></a></p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.minilinalg.inverse_LU">
-<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">inverse_LU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#inverse_LU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.inverse_LU" title="Link to this definition"></a></dt>
-<dd><p>TODO: Add description.</p>
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">inverse_LU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#inverse_LU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.inverse_LU" title="Link to this definition"></a></dt>
+<dd><p>Compute the inverse of a flat square 2D matrix using LU decomposition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>a</strong></p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span>) – Flat list representing the matrix entries row-major.</p></li>
+<li><p><strong>n</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – Dimension of the square matrix <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</span></p>
 </dd>
 </dl>
-<p>Time complexity: O()</p>
-<p>Space complexity: O()</p>
-<p>Returns:</p>
+<p>Time complexity: O(n^3)</p>
+<p>Space complexity: O(n^2)</p>
+<dl class="simple">
+<dt>Returns: Flattened list representing the inverse matrix in row-major order.</dt><dd><p>Returns None if the input is not a square 2D Array.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.minilinalg.inverse_recursion">
-<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">inverse_recursion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#inverse_recursion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.inverse_recursion" title="Link to this definition"></a></dt>
-<dd><p>TODO: Add description.</p>
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">inverse_recursion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#inverse_recursion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.inverse_recursion" title="Link to this definition"></a></dt>
+<dd><p>Compute the inverse of a square 2D <code class="docutils literal notranslate"><span class="pre">Array</span></code> using recursive cofactor expansion.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">mininumpy.array.Array</span></code></a></span>)</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">mininumpy.array.Array</span></code></a></span></p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – Flat list representing the matrix entries in row-major order.</p></li>
+<li><p><strong>n</strong> – Dimension of the square matrix <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+</ul>
 </dd>
 </dl>
-<p>Time complexity: O()</p>
-<p>Space complexity: O()</p>
-<p>Returns:</p>
+<p>Time complexity: O(n!)</p>
+<p>Space complexity: O(n^2)</p>
+<p>Returns: Flattened list representing the inverse matrix in row-major order.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.inverse_gaussian">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">inverse_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#inverse_gaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.inverse_gaussian" title="Link to this definition"></a></dt>
+<dd><p>Compute the inverse of a square 2D <code class="docutils literal notranslate"><span class="pre">Array</span></code> using Gauss-Jordan elimination with partial pivoting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – Flat list representing the matrix entries in row-major order.</p></li>
+<li><p><strong>n</strong> – Dimension of the square matrix <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Time complexity: O(n^3)</p>
+<p>Space complexity: O(n^2)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Flattened list representing the inverse matrix in row-major order.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

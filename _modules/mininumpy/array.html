@@ -395,7 +395,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.flatten">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">flatten</span><span class="p">(</span><span class="n">lst</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Helper function to flat a nested list.</span>
+<span class="sd">    Get the flatten version of a nested list.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        lst: nested list to be flatten.</span>
@@ -404,7 +404,7 @@
 
 <span class="sd">    Space complexity: O(size)</span>
 
-<span class="sd">    Returns: flatten list.</span>
+<span class="sd">    Returns: A new flatten list.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">lst</span>
@@ -1059,6 +1059,8 @@
 
 
 
+<div class="viewcode-block" id="Array.__exp__">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__exp__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__exp__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply the exponential function element-wise to an ``Array``.</span>
@@ -1069,9 +1071,12 @@
 
 <span class="sd">        Returns: New Array with elements transformed by ``exp(x)``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elementwise</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elementwise</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="Array.__log__">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__log__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__log__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply the natural logarithm element-wise to the ``Array``.</span>
@@ -1082,9 +1087,12 @@
 
 <span class="sd">        Returns: New Array with elements transformed by ``log(x)``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elementwise</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elementwise</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="Array.__sqrt__">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__sqrt__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__sqrt__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply the square root function element-wise to the ``Array``.</span>
@@ -1095,9 +1103,12 @@
 
 <span class="sd">        Returns: New Array with elements transformed by ``sqrt(x)``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elementwise</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elementwise</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="Array.__abs__">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__abs__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply the absolute value function element-wise to the ``Array``.</span>
@@ -1109,6 +1120,7 @@
 <span class="sd">        Returns: New Array with elements transformed by ``abs(x)``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elementwise</span><span class="p">(</span><span class="nb">abs</span><span class="p">)</span></div>
+</div>
 
 
 
