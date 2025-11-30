@@ -82,6 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="mininumpy.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mininumpy.html#module-mininumpy.array">mininumpy.array module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.dot"><code class="docutils literal notranslate"><span class="pre">dot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.matmul_flat_2D_strassen"><code class="docutils literal notranslate"><span class="pre">matmul_flat_2D_strassen()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.matmul_flat_2D"><code class="docutils literal notranslate"><span class="pre">matmul_flat_2D()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.transpose_new_index"><code class="docutils literal notranslate"><span class="pre">transpose_new_index()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.shaped_to_flat_index"><code class="docutils literal notranslate"><span class="pre">shaped_to_flat_index()</span></code></a></li>
@@ -97,6 +98,7 @@
 <li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.__str__"><code class="docutils literal notranslate"><span class="pre">Array.__str__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.reshape"><code class="docutils literal notranslate"><span class="pre">Array.reshape()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.transpose"><code class="docutils literal notranslate"><span class="pre">Array.transpose()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.conj"><code class="docutils literal notranslate"><span class="pre">Array.conj()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.tolist"><code class="docutils literal notranslate"><span class="pre">Array.tolist()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.__add__"><code class="docutils literal notranslate"><span class="pre">Array.__add__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.__mul__"><code class="docutils literal notranslate"><span class="pre">Array.__mul__()</span></code></a></li>
@@ -111,12 +113,9 @@
 <li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.argmax"><code class="docutils literal notranslate"><span class="pre">Array.argmax()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.argmin"><code class="docutils literal notranslate"><span class="pre">Array.argmin()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.__matmul__"><code class="docutils literal notranslate"><span class="pre">Array.__matmul__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mininumpy.html#mininumpy.array.Array.elementwise"><code class="docutils literal notranslate"><span class="pre">Array.elementwise()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.exp"><code class="docutils literal notranslate"><span class="pre">exp()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.log"><code class="docutils literal notranslate"><span class="pre">log()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.sqrt"><code class="docutils literal notranslate"><span class="pre">sqrt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.abs"><code class="docutils literal notranslate"><span class="pre">abs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.array"><code class="docutils literal notranslate"><span class="pre">array()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.zeros"><code class="docutils literal notranslate"><span class="pre">zeros()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.array.ones"><code class="docutils literal notranslate"><span class="pre">ones()</span></code></a></li>
@@ -130,16 +129,15 @@
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.matmul"><code class="docutils literal notranslate"><span class="pre">matmul()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.norm"><code class="docutils literal notranslate"><span class="pre">norm()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.det"><code class="docutils literal notranslate"><span class="pre">det()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.det_laplace"><code class="docutils literal notranslate"><span class="pre">det_laplace()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.det_gaussian"><code class="docutils literal notranslate"><span class="pre">det_gaussian()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.LU_decomposition"><code class="docutils literal notranslate"><span class="pre">LU_decomposition()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.det_LU"><code class="docutils literal notranslate"><span class="pre">det_LU()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.forward_sub_inverse_LU"><code class="docutils literal notranslate"><span class="pre">forward_sub_inverse_LU()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.backward_sub_inverse_LU"><code class="docutils literal notranslate"><span class="pre">backward_sub_inverse_LU()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.inverse_LU"><code class="docutils literal notranslate"><span class="pre">inverse_LU()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.inv"><code class="docutils literal notranslate"><span class="pre">inv()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.compute_rotation_coeff"><code class="docutils literal notranslate"><span class="pre">compute_rotation_coeff()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.jacobi_rotate"><code class="docutils literal notranslate"><span class="pre">jacobi_rotate()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.eig"><code class="docutils literal notranslate"><span class="pre">eig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.inverse_LU"><code class="docutils literal notranslate"><span class="pre">inverse_LU()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mininumpy.html#mininumpy.minilinalg.inverse_recursion"><code class="docutils literal notranslate"><span class="pre">inverse_recursion()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="mininumpy.html#module-mininumpy">Module contents</a></li>

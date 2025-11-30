@@ -70,6 +70,7 @@
              
   <h1>Source code for mininumpy.minilinalg</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mininumpy.array</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 
 
 <div class="viewcode-block" id="dot">
@@ -96,7 +97,7 @@
 
 <div class="viewcode-block" id="matmul">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.matmul">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="s2">&quot;naive&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform matrix multiplication between two ``Array`` objects.</span>
 
@@ -110,9 +111,44 @@
 
 <span class="sd">    Returns: New Array containing the matrix product. Returns None if the operation is invalid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Array</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span>
-    <span class="k">return</span></div>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="k">return</span>
+
+    <span class="k">match</span> <span class="n">algo</span><span class="p">:</span>
+        <span class="k">case</span> <span class="s2">&quot;naive&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span>
+        <span class="k">case</span> <span class="s2">&quot;strassen&quot;</span><span class="p">:</span>
+            <span class="n">mul</span> <span class="o">=</span> <span class="n">matmul_flat_2D_strassen</span>
+        <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span>
+
+    <span class="n">count</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="n">_data_ans</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># O(count * (ndim + n * m * p)) where count  = size / (n * p)</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+        <span class="c1"># O(ndim)</span>
+        <span class="n">start_a</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">p</span>
+        <span class="n">stop_a</span> <span class="o">=</span> <span class="n">start_a</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">p</span>
+
+        <span class="n">start_b</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">m</span> <span class="o">*</span> <span class="n">p</span>
+        <span class="n">stop_b</span> <span class="o">=</span> <span class="n">start_b</span> <span class="o">+</span> <span class="n">m</span> <span class="o">*</span> <span class="n">p</span>
+
+        <span class="c1"># O(n * m * p)</span>
+        <span class="n">_data_ans</span> <span class="o">+=</span> <span class="n">mul</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">start_a</span><span class="p">:</span><span class="n">stop_a</span><span class="p">],</span>
+                         <span class="n">b</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">start_b</span><span class="p">:</span><span class="n">stop_b</span><span class="p">],</span>
+                         <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+
+    <span class="n">new_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">new_shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span>
+    <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">_data_ans</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">new_shape</span><span class="p">))</span></div>
 
 
 
@@ -137,17 +173,43 @@
         <span class="k">return</span>
     <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
-        <span class="n">ans</span> <span class="o">+=</span> <span class="n">e</span> <span class="o">*</span> <span class="n">e</span>
+        <span class="n">ans</span> <span class="o">+=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span></div>
 
-
-<span class="c1"># TODO: Optimize PLS</span>
-<span class="c1"># O(n!)</span>
 
 
 <div class="viewcode-block" id="det">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.det">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">det</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">det</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;gaussian&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the determinant of a square 2D ``Array``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: Input array. Must be a 2D square matrix.</span>
+
+<span class="sd">    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">is_square</span><span class="p">():</span>
+        <span class="k">return</span>
+
+    <span class="k">match</span> <span class="n">algo</span><span class="p">:</span>
+        <span class="k">case</span> <span class="s2">&quot;laplace&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">det_laplace</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">case</span> <span class="s2">&quot;LU&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">det_LU</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">case</span> <span class="s2">&quot;gaussian&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">det_gaussian</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">det_gaussian</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># O(n!)</span>
+<div class="viewcode-block" id="det_laplace">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.det_laplace">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">det_laplace</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the determinant of a square 2D ``Array`` using recursive expansion (Laplace expansion along the first column).</span>
 
@@ -178,7 +240,7 @@
             <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">i</span>
         <span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-        <span class="n">ans</span> <span class="o">+=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">det</span><span class="p">(</span><span class="n">cooef</span><span class="p">)</span>
+        <span class="n">ans</span> <span class="o">+=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">det_laplace</span><span class="p">(</span><span class="n">cooef</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ans</span></div>
 
 
@@ -187,7 +249,7 @@
 
 <div class="viewcode-block" id="det_gaussian">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.det_gaussian">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">det_gaussian</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">det_gaussian</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the determinant of a square 2D ``Array`` using Gaussian elimination.</span>
 <span class="sd">    This algorithm performs row-reduction to upper triangular form, tracking</span>
@@ -210,7 +272,7 @@
     <span class="n">data</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">data</span>
 
     <span class="n">n</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">row_indices</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">row_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
 
     <span class="n">prod</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -241,7 +303,7 @@
 
 <div class="viewcode-block" id="LU_decomposition">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.LU_decomposition">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">LU_decomposition</span><span class="p">(</span><span class="n">A</span> <span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">LU_decomposition</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform LU decomposition of a 2D ``Array`` (matrix).</span>
 
@@ -370,15 +432,43 @@
     <span class="k">return</span> <span class="n">x</span></div>
 
 
+<span class="c1"># TODO: Optimize PLS</span>
+
+
+<div class="viewcode-block" id="inv">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.inv">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">inv</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;LU&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the inverse of a square 2D ``Array``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: Input array. Must be a 2D square matrix.</span>
+
+<span class="sd">    Returns: Inverse of the matrix. Returns None if the input is a non-invertible matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">is_square</span><span class="p">():</span>
+        <span class="k">return</span>
+
+    <span class="k">match</span> <span class="n">algo</span><span class="p">:</span>
+        <span class="k">case</span> <span class="s2">&quot;recursion&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">inverse_recursion</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">case</span> <span class="s2">&quot;LU&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">inverse_LU</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">inverse_LU</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
+
+
 
 <div class="viewcode-block" id="inverse_LU">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.inverse_LU">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">inverse_LU</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">inverse_LU</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    TODO: Add description.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        A:</span>
+<span class="sd">        a:</span>
 
 <span class="sd">    Time complexity: O()</span>
 
@@ -386,28 +476,26 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
         <span class="k">return</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">A</span><span class="o">.</span><span class="n">is_square</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">is_square</span><span class="p">():</span>
         <span class="k">return</span>
 
     <span class="n">identity</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
-        <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
     <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">LU_decomposition</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">LU_decomposition</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
         <span class="n">ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">backward_sub_inverse_LU</span><span class="p">(</span>
             <span class="n">U</span><span class="p">,</span> <span class="n">forward_sub_inverse_LU</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">identity</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
     <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span></div>
 
 
-<span class="c1"># TODO: Optimize PLS</span>
+
 <span class="c1"># O(n!)</span>
-
-
-<div class="viewcode-block" id="inv">
-<a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.inv">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">inv</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<div class="viewcode-block" id="inverse_recursion">
+<a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.inverse_recursion">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">inverse_recursion</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    TODO: Add description.</span>
 
@@ -439,102 +527,80 @@
     <span class="k">return</span> <span class="n">cofactor</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">/</span> <span class="n">det</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
 
 
-<span class="c1"># TODO: complete eig value and VECTOR PLS, change algo to O(n^3) using TP2</span>
+<span class="c1"># # O(n^2)</span>
+<span class="c1"># def power_iteration(a, n, max_iter: int = 1000, eps: float = 1e-6):</span>
+<span class="c1">#     A = Array(a, shape=(n, n))</span>
+
+<span class="c1">#     v = Array([[random.random() for _ in range(n)]]).transpose()</span>
+
+<span class="c1">#     for _ in range(max_iter):</span>
+<span class="c1">#         w = A @ v</span>
+
+<span class="c1">#         w_norm = norm(w)</span>
+<span class="c1">#         if w_norm == 0:</span>
+<span class="c1">#             break</span>
+
+<span class="c1">#         w = w / w_norm</span>
 
 
-<div class="viewcode-block" id="compute_rotation_coeff">
-<a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.compute_rotation_coeff">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">compute_rotation_coeff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
-    <span class="n">tau</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">tau</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">sign_tau</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">sign_tau</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">sign_tau</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">tau</span> <span class="o">*</span> <span class="n">tau</span><span class="p">))</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">t</span> <span class="o">*</span> <span class="n">c</span>
-    <span class="k">return</span> <span class="n">c</span><span class="p">,</span> <span class="n">s</span></div>
+<span class="c1">#         if (abs(v - w)).max() &lt; eps:</span>
+<span class="c1">#             v = w</span>
+<span class="c1">#             break</span>
+
+<span class="c1">#         v = w</span>
+
+<span class="c1">#     lam = (v.conj().transpose() @ A @ v)[0, 0]</span>
+
+<span class="c1">#     return lam, v</span>
 
 
+<span class="c1"># def eig_flat_2D_power_iteration(a, n, max_iter=1000, eps=1e-6):</span>
 
-<div class="viewcode-block" id="jacobi_rotate">
-<a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.jacobi_rotate">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">jacobi_rotate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="c1"># rotate only if the current element is not zero</span>
-                <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">compute_rotation_coeff</span><span class="p">(</span>
-                    <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+<span class="c1">#     M = Array(a, shape=(n, n))  # make a working copy</span>
+<span class="c1">#     lamda = [0] * n</span>
+<span class="c1">#     VT = []</span>
 
-                <span class="c1"># do this instead of J^T @ mat @ T because this is O(n) instead of O(n^3)</span>
-                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-                    <span class="c1"># mat = J^T @ mat @ T</span>
-                    <span class="n">a_ki</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-                    <span class="n">a_kj</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">a_ki</span> <span class="o">-</span> <span class="n">s</span> <span class="o">*</span> <span class="n">a_kj</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">a_ki</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">a_kj</span>
+<span class="c1">#     for i in range(n):</span>
 
-                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-                    <span class="n">a_ik</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
-                    <span class="n">a_jk</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">a_ik</span> <span class="o">-</span> <span class="n">s</span> <span class="o">*</span> <span class="n">a_jk</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">a_ik</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">a_jk</span>
+<span class="c1">#         lam, v = power_iteration(M._data, n, max_iter=max_iter, eps=eps)</span>
 
-                <span class="c1"># V @= J</span>
-                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-                    <span class="n">v_ki</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-                    <span class="n">v_kj</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
-                    <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">v_ki</span> <span class="o">-</span> <span class="n">s</span> <span class="o">*</span> <span class="n">v_kj</span>
-                    <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">v_ki</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">v_kj</span>
-    <span class="k">return</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">data</span></div>
+<span class="c1">#         lamda[i] = lam</span>
 
+<span class="c1">#         v_norm = v / norm(v)</span>
+<span class="c1">#         VT.append(v_norm.transpose()._data)</span>
 
+<span class="c1">#         M = M - lam * (v_norm @ v_norm.conj().transpose())</span>
 
-<div class="viewcode-block" id="eig">
-<a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.eig">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">eig</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TODO: Add description.</span>
+<span class="c1">#     return lamda, Array(VT).transpose().data</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        a:</span>
-<span class="sd">        max_iter:</span>
-<span class="sd">        eps:</span>
+<span class="c1"># def eig(a, max_iter=1000, eps=1e-6):</span>
+<span class="c1">#     if not isinstance(a, Array):</span>
+<span class="c1">#         return</span>
+<span class="c1">#     if a.shape[-1] != a.shape[-2]:</span>
+<span class="c1">#         return</span>
+<span class="c1">#     n = a.shape[-1]</span>
 
-<span class="sd">    Time complexity: O()</span>
+<span class="c1">#     count = math.prod(a.shape[:-2])</span>
 
-<span class="sd">    Space complexity: O()</span>
+<span class="c1">#     eig_values = Array([0] * (count * n), shape=a.shape[:-1])</span>
+<span class="c1">#     eig_vectors = Array([0] * a.size, shape=a.shape)</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
-        <span class="k">return</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">mat</span><span class="o">.</span><span class="n">is_square</span><span class="p">():</span>
-        <span class="k">return</span>
+<span class="c1">#     n = a.shape[-2]</span>
 
-    <span class="n">n</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">V</span> <span class="o">=</span> <span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#     for c in range(count):</span>
+<span class="c1">#         start_a = c * (n * n)</span>
+<span class="c1">#         stop_a  = start_a + (n * n)</span>
 
-    <span class="c1"># this is O(n^3)</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+<span class="c1">#         # O(n ^ 3)</span>
+<span class="c1">#         l, v = eig_flat_2D_power_iteration(</span>
+<span class="c1">#             a._data[start_a:stop_a], n, max_iter, eps)</span>
 
-        <span class="n">old</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">jacobi_rotate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-        <span class="c1"># Check convergence</span>
-        <span class="n">new</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-        <span class="n">max_val</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">old</span> <span class="o">-</span> <span class="n">new</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-        <span class="c1"># if the max changes is even smaller than eps, then why bother changes</span>
-
-        <span class="k">if</span> <span class="n">max_val</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">:</span>
-            <span class="k">break</span>
-
-    <span class="k">return</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)],</span> <span class="n">V</span></div>
-
+<span class="c1">#         start_val = c * n</span>
+<span class="c1">#         stop_val = start_val + n</span>
+<span class="c1">#         eig_values._data[start_val:stop_val] = l</span>
+<span class="c1">#         eig_vectors._data[start_a:stop_a] = flatten(v)</span>
+    
+<span class="c1">#     return eig_values, eig_vectors</span>
 </pre></div>
 
            </div>
