@@ -2,3 +2,4 @@ numpy
 setuptools
 pytest
 pillow
+matplotlib

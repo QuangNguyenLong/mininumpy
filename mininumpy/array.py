@@ -26,13 +26,166 @@ def dot(v1: list[float], v2: list[float]) -> float:
         ans += v1[i] * v2[i]
     return ans
 
+
+def _part1by1(x: int) -> int:
+
+    x &= 0x0000FFFF
+    x = (x | (x << 8)) & 0x00FF00FF
+    x = (x | (x << 4)) & 0x0F0F0F0F
+    x = (x | (x << 2)) & 0x33333333
+    x = (x | (x << 1)) & 0x55555555
+    return x
+
+
+def _compact1by1(x: int) -> int:
+    x &= 0x55555555
+    x = (x | (x >> 1)) & 0x33333333
+    x = (x | (x >> 2)) & 0x0F0F0F0F
+    x = (x | (x >> 4)) & 0x00FF00FF
+    x = (x | (x >> 8)) & 0x0000FFFF
+    return x
+
+
+def _morton_index(r: int, c: int) -> int:
+    return (_part1by1(r) << 1) | _part1by1(c)
+
+
+def _morton_decode(z: int) -> tuple[int, int]:
+    c = _compact1by1(z)
+    r = _compact1by1(z >> 1)
+    return r, c
+
+
+def _to_morton_iterative(inp: list[float], n: int) -> list[float]:
+    assert n & (n - 1) == 0, "n must be a power of two"
+    out = [0.0] * (n * n)
+    for r in range(n):
+        for c in range(n):
+            idx = _morton_index(r, c)
+            out[idx] = inp[r * n + c]
+    return out
+
+
+def _from_morton_iterative(inp: list[float], n: int) -> list[float]:
+    assert n & (n - 1) == 0, "n must be a power of two"
+    out = [0.0] * (n * n)
+    for z in range(n * n):
+        r, c = _morton_decode(z)
+        out[r * n + c] = inp[z]
+    return out
+
+
+def _strassen_pad_zeros(A: list[float], n: int, m: int, k: int) -> tuple[list[float], int]:
+    ans = []
+    for i in range(n):
+        ans += A[i * m: (i + 1) * m] + [0] * (k - m)
+    ans += [0] * k * (k - n)
+    return ans
+
+
+def _strassen_remove_zeros(A: list[float], n: int, m: int, k: int) -> list[float]:
+    out = []
+    for i in range(n):
+        row_start = i * k
+        out += A[row_start: row_start + m]
+    return out
+
+
+def _strassen_prepare(A: list[float], n: int) -> tuple[list[float]]:
+    return _to_morton_iterative(A, n)
+
+
+def _strassen_add(A, B):
+    return [A[i] + B[i] for i in range(len(A))]
+
+
+def _strassen_sub(A, B):
+    return [A[i] - B[i] for i in range(len(A))]
+
+
+def _strassen_mul(A, B, n):
+    if n == 2:
+        M1 = (A[0] + A[3]) * (B[0] + B[3])
+        M2 = (A[2] + A[3]) * B[0]
+        M3 = A[0] * (B[1] - B[3])
+        M4 = A[3] * (B[2] - B[0])
+        M5 = (A[0] + A[1]) * B[3]
+        M6 = (A[2] - A[0]) * (B[0] + B[1])
+        M7 = (A[1] - A[3]) * (B[2] + B[3])
+        return [M1 + M4 - M5 + M7, M3 + M5, M2 + M4, M1 - M2 + M3 + M6]
+
+    half = n // 2
+
+    Q = (n*n) // 4
+
+    A11 = A[0*Q: 1*Q]
+    A12 = A[1*Q: 2*Q]
+    A21 = A[2*Q: 3*Q]
+    A22 = A[3*Q: 4*Q]
+
+    B11 = B[0*Q: 1*Q]
+    B12 = B[1*Q: 2*Q]
+    B21 = B[2*Q: 3*Q]
+    B22 = B[3*Q: 4*Q]
+
+    M1 = _strassen_mul(_strassen_add(A11, A22), _strassen_add(B11, B22), half)
+    M2 = _strassen_mul(_strassen_add(A21, A22), B11, half)
+    M3 = _strassen_mul(A11, _strassen_sub(B12, B22), half)
+    M4 = _strassen_mul(A22, _strassen_sub(B21, B11), half)
+    M5 = _strassen_mul(_strassen_add(A11, A12), B22, half)
+    M6 = _strassen_mul(_strassen_sub(A21, A11), _strassen_add(B11, B12), half)
+    M7 = _strassen_mul(_strassen_sub(A12, A22), _strassen_add(B21, B22), half)
+
+    C = _strassen_add(_strassen_sub(_strassen_add(M1, M4), M5), M7) + _strassen_add(M3, M5) + \
+        _strassen_add(M2, M4) + \
+        _strassen_add(_strassen_sub(_strassen_add(M1, M3), M2), M6)
+    return C
+
+
+def _next_pow2(x: int) -> int:
+    k = 1
+    while k < x:
+        k <<= 1
+    return k
+
+
+def matmul_flat_2D_strassen(A: list[float], B: list[float], n: int, p: int, m: int) -> list[float]:
+    """
+    Perform 2D matrix Strassen multiplication in flattened form.
+
+    This computes C = A @ B, where:
+      - A is a (n * p) matrix stored row-major in a flat list.
+      - B is a (m * p) matrix stored row-major in a flat list.
+      - The result C is an (n * m) matrix stored row-major in a flat list.
+
+    Args:
+        A: Flattened list representing an (n * p) matrix.
+        B: Flattened list representing a (p * m) matrix.
+        n: Number of rows in A.
+        p: Number of columns in A (and rows in B).
+        m: Number of columns in B.
+
+    Time complexity: O(k ^ log2(7)) where k = 2 ^ int(log2(max(n, p, m)))
+    Space complexity: O(k ^ 2)
+
+    Returns: Flattened list representing the (n * m) result matrix.
+    """
+    q = _next_pow2(max(n, p, m))
+    A2 = _strassen_pad_zeros(A, n, p, q)
+    B2 = _strassen_pad_zeros(B, p, m, q)
+
+    A_mor = _strassen_prepare(A2, q)
+    B_mor = _strassen_prepare(B2, q)
+
+    C_mor = _strassen_mul(A_mor, B_mor, q)
+    return _strassen_remove_zeros(_from_morton_iterative(C_mor, q), n, m, q)
+
 # nxp x pxm
-# TODO: Optimize PLS
 
 
 def matmul_flat_2D(A: list[float], BT: list[float], n: int, p: int, m: int) -> list[float]:
     """
-    Perform 2D matrix multiplication in flattened form.
+    Perform 2D matrix naive multiplication in flattened form.
 
     This computes C = A @ B, where:
       - A is an (n * p) matrix stored row-major in a flat list.
@@ -272,7 +425,7 @@ class Array:
         """
         return len(self.shape)
 
-    def __init__(self, data: list, shape: tuple[int] = None, element_type = None):
+    def __init__(self, data: list, shape: tuple[int] = None, element_type=None):
         """
         Initialize an ``Array`` object from nested list ``data``.
 
@@ -298,7 +451,7 @@ class Array:
             if len(self._data) != size:
                 raise ValueError(
                     f"Error: Can not change size. From {len(self._data)} to {size}.")
-            self.shape = shape
+            self.shape = tuple(shape)
         else:
             # O(ndim)
             self.shape = self._shape(data)
@@ -389,7 +542,7 @@ class Array:
             axis: Axis order (e.g. transpose the last 2 axes with ``axis=(0, 1, 3, 2)`` for 4D array). If None, reverses the dimensions.
 
         Time complexity: O(size * ndim)
-        
+
         Space complexity: O(size + ndim)
 
         Returns: A new array with transposed shape.
@@ -406,6 +559,11 @@ class Array:
             new_data[transpose_new_index(i, self.shape, axis)] = self._data[i]
 
         return Array(data=new_data, shape=new_shape)
+
+    def conj(self):
+        return Array(
+            [complex(x).conjugate() for x in self._data],
+            shape=self.shape)
 
     def tolist(self):
         """
@@ -712,18 +870,15 @@ class Array:
         # O(count * (ndim + n * m * p)) where count  = size / (n * p)
         for c in range(count):
             # O(ndim)
-            shaped = flat_index_to_shaped(c, self.shape[:-2])
+            start_self = c * n * p
+            stop_self = start_self + n * p
 
-            start_self = shaped_to_flat_index(shaped + (0, 0), self.shape)
-            stop_self = shaped_to_flat_index(shaped + (n-1, p-1), self.shape)
-
-            start_otherT = shaped_to_flat_index(shaped + (0, 0), otherT.shape)
-            stop_otherT = shaped_to_flat_index(
-                shaped + (m-1, p-1), otherT.shape)
+            start_otherT = c * m * p
+            stop_otherT = start_otherT + m * p
 
             # O(n * m * p)
-            _data_ans += matmul_flat_2D(self._data[start_self:stop_self + 1],
-                                        otherT._data[start_otherT:stop_otherT + 1],
+            _data_ans += matmul_flat_2D(self._data[start_self:stop_self],
+                                        otherT._data[start_otherT:stop_otherT],
                                         n, p, m)
 
         new_shape = list(self.shape)
@@ -731,90 +886,75 @@ class Array:
         return Array(_data_ans, shape=tuple(new_shape))
 
 
-def _elementwise(array: Array, func) -> Array:
-    """
-    Apply a function element-wise to all entries of an Array.
+    def elementwise(self, func):
+        """
+        Apply a function element-wise to all entries of the ``Array``.
 
-    Args:
-        array: Input array to transform.
-        func: Function applied to each element.
+        Args:
+            func: Function applied to each element.
 
-    Time complexity: O(array.size)
+        Time complexity: O(size)
 
-    Space complexity: O(array.size)
+        Space complexity: O(size)
 
-    Returns: A new ``Array`` with the same shape as the input, where each element is the result of applying ``func`` to the corresponding input element. Returns None if the input is not an Array.
-    """
-    if not isinstance(array, Array):
-        return
-    ans = array._data.copy()
-    for i in range(array.size):
-        ans[i] = func(array._data[i])
-    return Array(ans, shape=array.shape)
+        Returns: A new ``Array`` with the same shape as the input, where each element is the result of applying ``func`` to the corresponding input element.
+        """
+        ans = self._data.copy()
+        for i in range(self.size):
+            ans[i] = func(self._data[i])
+        return Array(ans, shape=self.shape)
 
 
-def exp(array: Array) -> Array:
-    """
-    Apply the exponential function element-wise to an ``Array``.
+    def __exp__(self):
+        """
+        Apply the exponential function element-wise to an ``Array``.
 
-    Args:
-        array: Input array.
+        Time complexity: O(size)
 
-    Time complexity: O(size)
+        Space complexity: O(size)
 
-    Space complexity: O(size)
-
-    Returns: New Array with elements transformed by ``exp(x)``.
-    """
-    return _elementwise(array, math.exp)
+        Returns: New Array with elements transformed by ``exp(x)``.
+        """
+        return self.elementwise(math.exp)
 
 
-def log(array: Array) -> Array:
-    """
-    Apply the natural logarithm element-wise to an ``Array``.
+    def __log__(self):
+        """
+        Apply the natural logarithm element-wise to the ``Array``.
 
-    Args:
-        array: Input array.
+        Time complexity: O(size)
 
-    Time complexity: O(size)
+        Space complexity: O(size)
 
-    Space complexity: O(size)
-
-    Returns: New Array with elements transformed by ``log(x)``.
-    """
-    return _elementwise(array, math.log)
+        Returns: New Array with elements transformed by ``log(x)``.
+        """
+        return self.elementwise(math.log)
 
 
-def sqrt(array: Array) -> Array:
-    """
-    Apply the square root function element-wise to an ``Array``.
+    def __sqrt__(self):
+        """
+        Apply the square root function element-wise to the ``Array``.
 
-    Args:
-        array: Input array.
+        Time complexity: O(size)
 
-    Time complexity: O(size)
+        Space complexity: O(size)
 
-    Space complexity: O(size)
-
-    Returns: New Array with elements transformed by ``sqrt(x)``.
-    """
-    return _elementwise(array, math.sqrt)
+        Returns: New Array with elements transformed by ``sqrt(x)``.
+        """
+        return self.elementwise(math.sqrt)
 
 
-def abs(array: Array) -> Array:
-    """
-    Apply the absolute value function element-wise to an ``Array``.
+    def __abs__(self):
+        """
+        Apply the absolute value function element-wise to the ``Array``.
 
-    Args:
-        array (Array): Input array.
+        Time complexity: O(size)
 
-    Time complexity: O(size)
+        Space complexity: O(size)
 
-    Space complexity: O(size)
-
-    Returns: New Array with elements transformed by ``abs(x)``.
-    """
-    return _elementwise(array, math.fabs)
+        Returns: New Array with elements transformed by ``abs(x)``.
+        """
+        return self.elementwise(abs)
 
 
 def array(data: list) -> Array:

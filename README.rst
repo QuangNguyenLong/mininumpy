@@ -4,7 +4,7 @@
 Build Your Own MiniNumPy Library |ci-badge|
 ===========================================
 
-Homework of the Programming course M1 International Track in EE - Université Évry Paris-Saclay. 
+Homework of the Programming course M1 International Track in EE - Université Évry Paris-Saclay.
 
 Authored by Long Quang NGUYEN.
 
@@ -50,7 +50,7 @@ Part 3: Elementwise Operations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Overload Python operators (`__add__ <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__add__>`_, `__sub__ <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__sub__>`_, `__mul__ <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__mul__>`_, `__truefiv__ <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__truefiv__>`_, `__pow__ <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.__pow__>`_).
 - Implement elementwise functions:
-   - `exp <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.exp>`_, `log <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.log>`_, `sqrt <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.sqrt>`_, `abs <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.abs>`_.
+   - `exp <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.__exp__>`_, `log <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.__log__>`_, `sqrt <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.__sqrt__>`_, `abs <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.__abs__>`_.
 - Implement reductions:
    - `sum <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.sum>`_, `mean <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.mean>`_, `min <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.min>`_, `max <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.max>`_, `argmin <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.argmin>`_, `argmax <https://quangnguyenlong.github.io/mininumpy/mininumpy.html#mininumpy.array.Array.argmax>`_.
 

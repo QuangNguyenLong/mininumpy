@@ -12,7 +12,9 @@ sample_square = [[[[random.random() for _ in range(n)] for _ in range(n)] for n 
                   for n in N_small],
                  [[[random.random() for _ in range(n)] for _ in range(n)]
                   for n in N_large],
-                 [[[random.random() for _ in range(n)] for _ in range(n)] for n in N_real]]
+                 [[[random.random() for _ in range(n)] for _ in range(n)]
+                  for n in N_real]
+                 ]
 
 zero_division_check = [[[1, 2, 3],
                        [0, 2, -34],
@@ -22,13 +24,43 @@ zero_division_check = [[[1, 2, 3],
                         [7/260,	-7/260,	  1/260]]]
 
 
-def test_array_inv():
+def test_array_matmul_naive():
+    for sample in sample_square[1] + zero_division_check:
+
+        a = mnp.minilinalg.matmul(
+            mnp.array(sample), mnp.array(sample), algo="naive").tolist()
+        b = np.linalg.matmul(np.array(sample), np.array(sample)).tolist()
+
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\nSample: \n", mnp.Array(sample))
+            print("\n mnp: ", a, "\nnp: ", b)
+            assert False
+        else:
+            assert True
+
+
+def test_array_matmul_strassen():
+    for sample in sample_square[1] + zero_division_check:
+        a = mnp.minilinalg.matmul(mnp.array(sample), mnp.array(
+            sample), algo="strassen").tolist()
+        b = np.linalg.matmul(np.array(sample), np.array(sample)).tolist()
+
+        if not np.allclose(a, b):
+            print("[TEST FAILED]\nSample: \n", mnp.Array(sample))
+            print("\n mnp: ", a, "\nnp: ", b)
+            assert False
+        else:
+            assert True
+
+
+def test_array_inv_recursion():
     for sample in sample_square[0] + zero_division_check:
-        a = mnp.minilinalg.inv(mnp.array(sample)).tolist()
+        a = mnp.minilinalg.inv(mnp.array(sample), algo="recursion").tolist()
         b = np.linalg.inv(np.array(sample)).tolist()
 
         if not np.allclose(a, b):
-            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+            print("[TEST FAILED]\nSample: \n", mnp.Array(sample))
+            print("\n mnp: ", a, "\nnp: ", b)
             assert False
         else:
             assert True
@@ -36,23 +68,25 @@ def test_array_inv():
 
 def test_array_inv_LU():
     for sample in sample_square[1] + zero_division_check:
-        a = mnp.minilinalg.inverse_LU(mnp.array(sample)).tolist()
+        a = mnp.minilinalg.inv(mnp.array(sample), algo="LU").tolist()
         b = np.linalg.inv(np.array(sample)).tolist()
 
         if not np.allclose(a, b):
-            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+            print("[TEST FAILED]\nSample: \n", mnp.Array(sample))
+            print("\n mnp: ", a, "\nnp: ", b)
             assert False
         else:
             assert True
 
 
-def test_array_det():
+def test_array_det_laplace():
     for sample in sample_square[0] + zero_division_check:
-        a = mnp.minilinalg.det(mnp.array(sample))
+        a = mnp.minilinalg.det(mnp.array(sample), algo="laplace")
         b = np.linalg.det(np.array(sample))
 
         if not np.allclose(a, b):
-            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+            print("[TEST FAILED]\nSample: \n", mnp.Array(sample))
+            print("\n mnp: ", a, "\nnp: ", b)
             assert False
         else:
             assert True
@@ -60,22 +94,25 @@ def test_array_det():
 
 def test_array_det_LU():
     for sample in sample_square[1] + zero_division_check:
-        a = mnp.minilinalg.det_LU(mnp.array(sample))
+        a = mnp.minilinalg.det(mnp.array(sample), algo="LU")
         b = np.linalg.det(np.array(sample))
 
         if not np.allclose(a, b):
-            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+            print("[TEST FAILED]\nSample: \n", mnp.Array(sample))
+            print("\n mnp: ", a, "\nnp: ", b)
             assert False
         else:
             assert True
 
+
 def test_array_det_gaussian():
     for sample in sample_square[1] + zero_division_check:
-        a = mnp.minilinalg.det_gaussian(mnp.array(sample))
+        a = mnp.minilinalg.det(mnp.array(sample), algo="gaussian")
         b = np.linalg.det(np.array(sample))
 
         if not np.allclose(a, b):
-            print("[TEST FAILED]\n mnp: ", a, "\nnp: ", b)
+            print("[TEST FAILED]\nSample: \n", mnp.Array(sample))
+            print("\n mnp: ", a, "\nnp: ", b)
             assert False
         else:
             assert True

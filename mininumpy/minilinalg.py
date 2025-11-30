@@ -1,4 +1,5 @@
 from mininumpy.array import *
+import random
 
 
 def dot(a: Array, b: Array) -> Array:
@@ -20,7 +21,7 @@ def dot(a: Array, b: Array) -> Array:
     return
 
 
-def matmul(a: Array, b: Array) -> Array:
+def matmul(a: Array, b: Array, algo="naive") -> Array:
     """
     Perform matrix multiplication between two ``Array`` objects.
 
@@ -34,9 +35,44 @@ def matmul(a: Array, b: Array) -> Array:
 
     Returns: New Array containing the matrix product. Returns None if the operation is invalid.
     """
-    if isinstance(a, Array) and isinstance(b, Array):
-        return a @ b
-    return
+    if not isinstance(b, Array):
+        return
+    if a.shape[-1] != b.shape[-2]:
+        return
+
+    match algo:
+        case "naive":
+            return a @ b
+        case "strassen":
+            mul = matmul_flat_2D_strassen
+        case _:
+            return a @ b
+
+    count = math.prod(a.shape[:-2])
+
+    _data_ans = []
+
+    n = a.shape[-2]
+    p = a.shape[-1]
+    m = b.shape[-1]
+
+    # O(count * (ndim + n * m * p)) where count  = size / (n * p)
+    for c in range(count):
+        # O(ndim)
+        start_a = c * n * p
+        stop_a = start_a + n * p
+
+        start_b = c * m * p
+        stop_b = start_b + m * p
+
+        # O(n * m * p)
+        _data_ans += mul(a._data[start_a:stop_a],
+                         b._data[start_b:stop_b],
+                         n, p, m)
+
+    new_shape = list(a.shape)
+    new_shape[-1] = m
+    return Array(_data_ans, shape=tuple(new_shape))
 
 
 def norm(a: Array) -> float:
@@ -58,14 +94,37 @@ def norm(a: Array) -> float:
         return
     ans = 0
     for e in a._data:
-        ans += e * e
+        ans += abs(e) ** 2
     return math.sqrt(ans)
 
-# TODO: Optimize PLS
+
+def det(a: Array, algo: str = "gaussian") -> float:
+    """
+    Compute the determinant of a square 2D ``Array``.
+
+    Args:
+        a: Input array. Must be a 2D square matrix.
+
+    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.
+    """
+    if not isinstance(a, Array):
+        return
+    if a.ndim != 2 or not a.is_square():
+        return
+
+    match algo:
+        case "laplace":
+            return det_laplace(a)
+        case "LU":
+            return det_LU(a)
+        case "gaussian":
+            return det_gaussian(a)
+        case _:
+            return det_gaussian(a)
+
+
 # O(n!)
-
-
-def det(a: Array) -> float:
+def det_laplace(a: Array) -> float:
     """
     Compute the determinant of a square 2D ``Array`` using recursive expansion (Laplace expansion along the first column).
 
@@ -96,13 +155,13 @@ def det(a: Array) -> float:
             for y in range(1, n)
             if x != i
         ], shape=(n - 1, n - 1))
-        ans += (-1)**i * data[i][0] * det(cooef)
+        ans += (-1)**i * data[i][0] * det_laplace(cooef)
     return ans
 
 # O(n^3)
 
 
-def det_gaussian(a : Array) -> float:
+def det_gaussian(a: Array) -> float:
     """
     Compute the determinant of a square 2D ``Array`` using Gaussian elimination.
     This algorithm performs row-reduction to upper triangular form, tracking
@@ -125,7 +184,7 @@ def det_gaussian(a : Array) -> float:
     data = a.data
 
     n = a.shape[0]
-    row_indices = range(n)
+    row_indices = list(range(n))
 
     prod = 1
     for k in range(n):
@@ -153,7 +212,7 @@ def det_gaussian(a : Array) -> float:
     return prod
 
 
-def LU_decomposition(A : Array) -> tuple[list[list[float]], list[list[float]]]:
+def LU_decomposition(A: Array) -> tuple[list[list[float]], list[list[float]]]:
     """
     Perform LU decomposition of a 2D ``Array`` (matrix).
 
@@ -272,13 +331,38 @@ def backward_sub_inverse_LU(U, y):
         x[i] = (y[i] - sum(U[i][j] * x[j] for j in range(i+1, n))) / U[i][i]
     return x
 
+# TODO: Optimize PLS
 
-def inverse_LU(A):
+
+def inv(a: Array, algo: str = "LU") -> Array:
+    """
+    Compute the inverse of a square 2D ``Array``.
+
+    Args:
+        a: Input array. Must be a 2D square matrix.
+
+    Returns: Inverse of the matrix. Returns None if the input is a non-invertible matrix.
+    """
+    if not isinstance(a, Array):
+        return
+    if a.ndim != 2 or not a.is_square():
+        return
+
+    match algo:
+        case "recursion":
+            return inverse_recursion(a)
+        case "LU":
+            return inverse_LU(a)
+        case _:
+            return inverse_LU(a)
+
+
+def inverse_LU(a):
     """
     TODO: Add description.
 
     Args:
-        A:
+        a:
 
     Time complexity: O()
 
@@ -286,25 +370,23 @@ def inverse_LU(A):
 
     Returns:
     """
-    if not isinstance(A, Array):
+    if not isinstance(a, Array):
         return
-    if not A.is_square():
+    if not a.is_square():
         return
 
     identity = [[1 if i == j else 0 for j in range(
-        A.shape[0])] for i in range(A.shape[0])]
+        a.shape[0])] for i in range(a.shape[0])]
     ans = []
-    L, U = LU_decomposition(A)
-    for i in range(A.shape[0]):
+    L, U = LU_decomposition(a)
+    for i in range(a.shape[0]):
         ans.append(backward_sub_inverse_LU(
             U, forward_sub_inverse_LU(L, identity[i])))
     return Array(ans).transpose()
 
-# TODO: Optimize PLS
+
 # O(n!)
-
-
-def inv(a):
+def inverse_recursion(a: Array) -> Array:
     """
     TODO: Add description.
 
@@ -335,90 +417,77 @@ def inv(a):
 
     return cofactor.transpose() / det(a)
 
-# TODO: complete eig value and VECTOR PLS, change algo to O(n^3) using TP2
+# # O(n^2)
+# def power_iteration(a, n, max_iter: int = 1000, eps: float = 1e-6):
+#     A = Array(a, shape=(n, n))
+
+#     v = Array([[random.random() for _ in range(n)]]).transpose()
+
+#     for _ in range(max_iter):
+#         w = A @ v
+
+#         w_norm = norm(w)
+#         if w_norm == 0:
+#             break
+
+#         w = w / w_norm
 
 
-def compute_rotation_coeff(a, b, d):
-    tau = (d - a) / (2 * b)
-    if tau < 0:
-        sign_tau = -1
-    else:
-        sign_tau = 1
-    t = sign_tau / (math.fabs(tau) + math.sqrt(1 + tau * tau))
-    c = 1 / (math.sqrt(1 + t * t))
-    s = t * c
-    return c, s
+#         if (abs(v - w)).max() < eps:
+#             v = w
+#             break
+
+#         v = w
+
+#     lam = (v.conj().transpose() @ A @ v)[0, 0]
+
+#     return lam, v
 
 
-def jacobi_rotate(data, V, n):
-    A = Array(data)
-    B = Array(V)
-    for i in range(n):
-        for j in range(n):
-            if i != j and A.data[i][j] != 0:
-                # rotate only if the current element is not zero
-                c, s = compute_rotation_coeff(
-                    A.data[i][i], A.data[i][j], A.data[j][j])
+# def eig_flat_2D_power_iteration(a, n, max_iter=1000, eps=1e-6):
 
-                # do this instead of J^T @ mat @ T because this is O(n) instead of O(n^3)
-                for k in range(n):
-                    # mat = J^T @ mat @ T
-                    a_ki = data[k][i]
-                    a_kj = data[k][j]
-                    data[k][i] = c * a_ki - s * a_kj
-                    data[k][j] = s * a_ki + c * a_kj
+#     M = Array(a, shape=(n, n))  # make a working copy
+#     lamda = [0] * n
+#     VT = []
 
-                for k in range(n):
-                    a_ik = data[i][k]
-                    a_jk = data[j][k]
-                    data[i][k] = c * a_ik - s * a_jk
-                    data[j][k] = s * a_ik + c * a_jk
+#     for i in range(n):
 
-                # V @= J
-                for k in range(n):
-                    v_ki = V[k][i]
-                    v_kj = V[k][j]
-                    V[k][i] = c * v_ki - s * v_kj
-                    V[k][j] = s * v_ki + c * v_kj
-    return A.data, B.data
+#         lam, v = power_iteration(M._data, n, max_iter=max_iter, eps=eps)
 
+#         lamda[i] = lam
 
-def eig(mat, max_iter=1000, eps=1e-6):
-    """
-    TODO: Add description.
+#         v_norm = v / norm(v)
+#         VT.append(v_norm.transpose()._data)
 
-    Args:
-        a:
-        max_iter:
-        eps:
+#         M = M - lam * (v_norm @ v_norm.conj().transpose())
 
-    Time complexity: O()
+#     return lamda, Array(VT).transpose().data
 
-    Space complexity: O()
+# def eig(a, max_iter=1000, eps=1e-6):
+#     if not isinstance(a, Array):
+#         return
+#     if a.shape[-1] != a.shape[-2]:
+#         return
+#     n = a.shape[-1]
 
-    Returns:
-    """
-    if not isinstance(mat, Array):
-        return
-    if not mat.is_square():
-        return
+#     count = math.prod(a.shape[:-2])
 
-    n = mat.shape[0]
-    data = mat.data.copy()
-    V = eye(n).data.copy()
+#     eig_values = Array([0] * (count * n), shape=a.shape[:-1])
+#     eig_vectors = Array([0] * a.size, shape=a.shape)
 
-    # this is O(n^3)
-    for _ in range(max_iter):
+#     n = a.shape[-2]
 
-        old = Array(data)
-        data, V = jacobi_rotate(data, V, n)
-        # Check convergence
-        new = Array(data)
+#     for c in range(count):
+#         start_a = c * (n * n)
+#         stop_a  = start_a + (n * n)
 
-        max_val = abs(old - new).max()
-        # if the max changes is even smaller than eps, then why bother changes
+#         # O(n ^ 3)
+#         l, v = eig_flat_2D_power_iteration(
+#             a._data[start_a:stop_a], n, max_iter, eps)
 
-        if max_val < eps:
-            break
-
-    return [data[i][i] for i in range(n)], V
+#         start_val = c * n
+#         stop_val = start_val + n
+#         eig_values._data[start_val:stop_val] = l
+#         eig_vectors._data[start_a:stop_a] = flatten(v)
+    
+#     return eig_values, eig_vectors
