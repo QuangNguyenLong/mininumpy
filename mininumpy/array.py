@@ -333,27 +333,27 @@ class Array:
 
     _data = []
     """
-    The raw flatten data of the ``Array``.
+    The raw flatten data of the :class:`~mininumpy.array.Array`.
     """
 
     element_type = None
     """
-    The type of elements stored in the ``Array``.
+    The type of elements stored in the :class:`~mininumpy.array.Array`.
     """
 
     shape = ()
     """
-    The dimensions of the ``Array``.
+    The dimensions of the :class:`~mininumpy.array.Array`.
     """
 
     ndim = 0
     """
-    The number of dimensions of the ``Array``.
+    The number of dimensions of the :class:`~mininumpy.array.Array`.
     """
 
     size = 0
     """
-    The total number of elements in the ``Array``.
+    The total number of elements in the :class:`~mininumpy.array.Array`.
     """
 
     @property
@@ -421,7 +421,7 @@ class Array:
 
     def __init__(self, data: list, shape: tuple[int] = None, element_type=None):
         """
-        Initialize an ``Array`` object from nested list ``data``.
+        Initialize an :class:`~mininumpy.array.Array` object from nested list ``data``.
 
         Args:
             data: Input nested list.
@@ -498,7 +498,7 @@ class Array:
 
         Space complexity: O(size + ndim)
 
-        Returns: The string representing the ``Array``.
+        Returns: The string representing the :class:`~mininumpy.array.Array`.
         """
         return self._format_recursive(self._data, self.shape)
 
@@ -556,20 +556,20 @@ class Array:
 
     def tolist(self):
         """
-        Get the ``list`` representation of the ``Array``. Similar to ``.data``
+        Get the ``list`` representation of the :class:`~mininumpy.array.Array`. Similar to ``.data``
 
         Time complexity: O(size * ndim)
 
         Space complexity: O(size)
 
-        Returns: The ``list`` representation of the ``Array``
+        Returns: The ``list`` representation of the :class:`~mininumpy.array.Array`
         """
         return self.data
 
     # TODO: add unit test
     def __add__(self, other):
         """
-        Element-wise addition with another ``Array`` or a scalar.
+        Element-wise addition with another :class:`~mininumpy.array.Array` or a scalar.
 
         Args:
             other: Array of same shape or scalar to add.
@@ -578,7 +578,7 @@ class Array:
 
         Space complexity: O(size)
 
-        Returns: New ``Array`` with element-wise summation.
+        Returns: New :class:`~mininumpy.array.Array` with element-wise summation.
         """
         if isinstance(other, Array) and self.shape != other.shape:
             return
@@ -593,7 +593,7 @@ class Array:
 
     def __radd__(self, other):
         """
-        Element-wise addition with another ``Array`` or a scalar.
+        Element-wise addition with another :class:`~mininumpy.array.Array` or a scalar.
 
         Args:
             other: Array of same shape or scalar to add.
@@ -602,7 +602,7 @@ class Array:
 
         Space complexity: O(size)
 
-        Returns: New ``Array`` with element-wise summation.
+        Returns: New :class:`~mininumpy.array.Array` with element-wise summation.
         """
         if other == 0:
             return self
@@ -611,7 +611,7 @@ class Array:
     # TODO: add unit test
     def __mul__(self, other):
         """
-        Element-wise multiplication with another ``Array`` or a scalar.
+        Element-wise multiplication with another :class:`~mininumpy.array.Array` or a scalar.
 
         Args:
             other: Array of same shape or scalar to multiply.
@@ -620,7 +620,7 @@ class Array:
 
         Space complexity: O(size)
 
-        Returns: The Element-wise product ``Array``.
+        Returns: The Element-wise product :class:`~mininumpy.array.Array`.
         """
         if isinstance(other, Array) and self.shape != other.shape:
             return
@@ -635,7 +635,7 @@ class Array:
 
     def __rmul__(self, other):
         """
-        Element-wise multiplication with another ``Array`` or a scalar.
+        Element-wise multiplication with another :class:`~mininumpy.array.Array` or a scalar.
 
         Args:
             other: Array of same shape or scalar to multiply.
@@ -644,13 +644,13 @@ class Array:
 
         Space complexity: O(size)
 
-        Returns: The Element-wise product ``Array``.
+        Returns: The Element-wise product :class:`~mininumpy.array.Array`.
         """
         return self.__mul__(other)
 
     def __sub__(self, other):
         """
-        Element-wise subtraction with another ``Array`` or a scalar.
+        Element-wise subtraction with another :class:`~mininumpy.array.Array` or a scalar.
 
         Args:
             other: Array of same shape or scalar to subtract.
@@ -659,7 +659,7 @@ class Array:
 
         Space complexity: O(size)
 
-        Returns: New ``Array`` with element-wise subtraction.
+        Returns: New :class:`~mininumpy.array.Array` with element-wise subtraction.
         """
         return self + other * (-1)
 
@@ -684,28 +684,28 @@ class Array:
 
     def __truediv__(self, other):
         """
-        Element-wise division by another ``Array`` or a scalar.
+        Element-wise division by another :class:`~mininumpy.array.Array` or a scalar.
 
         Args:
-            other: Divisor, either scalar or ``Array`` of same shape.
+            other: Divisor, either scalar or :class:`~mininumpy.array.Array` of same shape.
 
         Time complexity: O(size)
 
         Space complexity: O(size)
 
-        Returns: ``Array`` of element-wise division.
+        Returns: :class:`~mininumpy.array.Array` of element-wise division.
         """
         return self.__mul__(other ** -1)
 
     def is_square(self):
         """
-        Check whether the ``Array`` is a square matrix.
+        Check whether the :class:`~mininumpy.array.Array` is a square matrix.
 
         Time complexity: O(1)
 
         Space complexity: O(1)
 
-        Returns: ``True`` if the ``Array`` has 2 dimensions and both are equal, ``False`` otherwise.
+        Returns: ``True`` if the :class:`~mininumpy.array.Array` has 2 dimensions and both are equal, ``False`` otherwise.
         """
         if self.ndim != 2:
             return False
@@ -722,7 +722,7 @@ class Array:
 
         Space complexity: O(size)
 
-        Returns: ``Array`` of summed values along the specified axis.
+        Returns: :class:`~mininumpy.array.Array` of summed values along the specified axis.
         """
         result_shape = self.shape[:axis] + self.shape[axis+1:]
         result_size = 1
@@ -755,46 +755,46 @@ class Array:
 
         Space complexity: O(size)
 
-        Returns: ``Array`` of averaged values along the specified axis.
+        Returns: :class:`~mininumpy.array.Array` of averaged values along the specified axis.
         """
         return self.sum(axis) / self.shape[axis]
 
     # TODO: add `n` smallest
     def min(self):
         """
-        Get the minimum element in the ``Array``.
+        Get the minimum element in the :class:`~mininumpy.array.Array`.
 
         Time complexity: O(size)
 
         Space complexity: O(1)
 
-        Returns: The minimum element in the ``Array``.
+        Returns: The minimum element in the :class:`~mininumpy.array.Array`.
         """
         return min(self._data)
 
     # TODO: add `n` biggest
     def max(self):
         """
-        Get the maximum element in the ``Array``.
+        Get the maximum element in the :class:`~mininumpy.array.Array`.
 
         Time complexity: O(size)
 
         Space complexity: O(1)
 
-        Returns: The maximum element in the ``Array``.
+        Returns: The maximum element in the :class:`~mininumpy.array.Array`.
         """
         return max(self._data)
 
     # TODO: add `n` biggest
     def argmax(self) -> tuple[int]:
         """
-        Get the index of the maximum element in the ``Array``.
+        Get the index of the maximum element in the :class:`~mininumpy.array.Array`.
 
         Time complexity: O(size + ndim)
 
         Space complexity: O(ndim)
 
-        Returns: The index of the maximum element in the ``Array``.
+        Returns: The index of the maximum element in the :class:`~mininumpy.array.Array`.
         """
         max_idx = 0
         for i in range(self.size):
@@ -805,13 +805,13 @@ class Array:
     # TODO: add `n` smallest
     def argmin(self) -> tuple[int]:
         """
-        Get the index of the minimum element in the ``Array``.
+        Get the index of the minimum element in the :class:`~mininumpy.array.Array`.
 
         Time complexity: O(size + ndim)
 
         Space complexity: O(ndim)
 
-        Returns: The index of the minimum element in the ``Array``.
+        Returns: The index of the minimum element in the :class:`~mininumpy.array.Array`.
         """
         min_idx = 0
         for i in range(self.size):
@@ -821,7 +821,7 @@ class Array:
 
     def __matmul__(self, other):
         """
-        Perform matrix multiplication (the ``@`` operator) between two ``Array`` objects.
+        Perform matrix multiplication (the ``@`` operator) between two :class:`~mininumpy.array.Array` objects.
 
         This supports batched matrix multiplication:
         - If ``self`` has shape (..., n, p) and ``other`` has shape (..., p, m),
@@ -829,7 +829,7 @@ class Array:
         - The leading dimensions (``...``) must match.
 
         Args:
-            other: Right-hand side operand. Must be an ``Array`` with compatible dimensions (``self.shape[-1] == other.shape[-2]``).
+            other: Right-hand side operand. Must be an :class:`~mininumpy.array.Array` with compatible dimensions (``self.shape[-1] == other.shape[-2]``).
 
         Time complexity: O(count * (ndim + n * m * p)) where count  = size / (n * p)
 
@@ -876,7 +876,7 @@ class Array:
 
     def elementwise(self, func):
         """
-        Apply a function element-wise to all entries of the ``Array``.
+        Apply a function element-wise to all entries of the :class:`~mininumpy.array.Array`.
 
         Args:
             func: Function applied to each element.
@@ -885,7 +885,7 @@ class Array:
 
         Space complexity: O(size)
 
-        Returns: A new ``Array`` with the same shape as the input, where each element is the result of applying ``func`` to the corresponding input element.
+        Returns: A new :class:`~mininumpy.array.Array` with the same shape as the input, where each element is the result of applying ``func`` to the corresponding input element.
         """
         ans = self._data.copy()
         for i in range(self.size):
@@ -894,7 +894,7 @@ class Array:
 
     def __exp__(self):
         """
-        Apply the exponential function element-wise to an ``Array``.
+        Apply the exponential function element-wise to an :class:`~mininumpy.array.Array`.
 
         Time complexity: O(size)
 
@@ -906,7 +906,7 @@ class Array:
 
     def __log__(self):
         """
-        Apply the natural logarithm element-wise to the ``Array``.
+        Apply the natural logarithm element-wise to the :class:`~mininumpy.array.Array`.
 
         Time complexity: O(size)
 
@@ -918,7 +918,7 @@ class Array:
 
     def __sqrt__(self):
         """
-        Apply the square root function element-wise to the ``Array``.
+        Apply the square root function element-wise to the :class:`~mininumpy.array.Array`.
 
         Time complexity: O(size)
 
@@ -930,7 +930,7 @@ class Array:
 
     def __abs__(self):
         """
-        Apply the absolute value function element-wise to the ``Array``.
+        Apply the absolute value function element-wise to the :class:`~mininumpy.array.Array`.
 
         Time complexity: O(size)
 
@@ -946,20 +946,20 @@ def array(data: list) -> Array:
     Create a new Array instance from a given (nested) list ``data``. This is a convenience wrapper around the Array constructor, similar to NumPy's ``np.array``.
 
     Args:
-        data: Input (nested) list to be converted into an ``Array``.
+        data: Input (nested) list to be converted into an :class:`~mininumpy.array.Array`.
 
     Time complexity: O(size * ndim)
 
     Space complexity: O(size)
 
-    Returns: A new ``Array`` instance wrapping the input data.
+    Returns: A new :class:`~mininumpy.array.Array` instance wrapping the input data.
     """
     return Array(data)
 
 
 def zeros(shape: tuple[int]) -> Array:
     """
-    Create a new ``Array`` filled with zeros.
+    Create a new :class:`~mininumpy.array.Array` filled with zeros.
 
     Args:
         shape: Shape of the array to create.
@@ -969,14 +969,14 @@ def zeros(shape: tuple[int]) -> Array:
     Space complexity: O(prod(shape))
 
     Returns:
-        Array: An ``Array`` of the given ``shape`` filled with zeros.
+        Array: An :class:`~mininumpy.array.Array` of the given ``shape`` filled with zeros.
     """
     return Array([0] * math.prod(shape), shape=shape)
 
 
 def ones(shape: tuple[int]) -> Array:
     """
-    Create a new ``Array`` filled with ones.
+    Create a new :class:`~mininumpy.array.Array` filled with ones.
 
     Args:
         shape: Shape of the array to create.
@@ -986,7 +986,7 @@ def ones(shape: tuple[int]) -> Array:
     Space complexity: O(prod(shape))
 
     Returns:
-        Array: An ``Array`` of the given ``shape`` filled with ones.
+        Array: An :class:`~mininumpy.array.Array` of the given ``shape`` filled with ones.
     """
     return Array([1] * math.prod(shape), shape=shape)
 
@@ -1012,7 +1012,7 @@ def eye(n: int) -> Array:
 
 def arange(start: float | int, stop: float | int, step: float | int = 1):
     """
-    Create an ``Array`` with evenly spaced values in [start, stop) with given step.
+    Create an :class:`~mininumpy.array.Array` with evenly spaced values in [start, stop) with given step.
 
     Args:
         start: Starting value.
@@ -1023,7 +1023,7 @@ def arange(start: float | int, stop: float | int, step: float | int = 1):
 
     Space complexity: O((stop - start) / step)
 
-    Returns: 1D ``Array`` of evenly spaced values.
+    Returns: 1D :class:`~mininumpy.array.Array` of evenly spaced values.
     """
     arr = []
     for i in range(int((stop - start) / step)):
@@ -1033,7 +1033,7 @@ def arange(start: float | int, stop: float | int, step: float | int = 1):
 
 def linspace(start: float | int, stop: float | int, num: int = 50):
     """
-    Create an ``Array`` of evenly spaced values between start and stop (inclusive).
+    Create an :class:`~mininumpy.array.Array` of evenly spaced values between start and stop (inclusive).
 
     Args:
         start: Starting value.
@@ -1044,7 +1044,7 @@ def linspace(start: float | int, stop: float | int, num: int = 50):
 
     Space complexity: O(num)
 
-    Returns: 1D ``Array`` of evenly spaced values.
+    Returns: 1D :class:`~mininumpy.array.Array` of evenly spaced values.
     """
     step = (stop - start) / (num - 1)
     return arange(start, stop + step, step)
