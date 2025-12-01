@@ -101,32 +101,27 @@
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_part1by1</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-
-    <span class="n">x</span> <span class="o">&amp;=</span> <span class="mh">0x0000FFFF</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0x00FF00FF</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0x0F0F0F0F</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0x33333333</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0x55555555</span>
-    <span class="k">return</span> <span class="n">x</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_compact1by1</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">x</span> <span class="o">&amp;=</span> <span class="mh">0x55555555</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0x33333333</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0x0F0F0F0F</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0x00FF00FF</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0x0000FFFF</span>
-    <span class="k">return</span> <span class="n">x</span>
-
-
 <span class="k">def</span><span class="w"> </span><span class="nf">_morton_index</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">_part1by1</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="n">_part1by1</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">shift</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">|=</span> <span class="p">(</span><span class="n">c</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">shift</span>
+        <span class="n">z</span> <span class="o">|=</span> <span class="p">(</span><span class="n">r</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">shift</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+        <span class="n">c</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+        <span class="n">shift</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">z</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_morton_decode</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">_compact1by1</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">_compact1by1</span><span class="p">(</span><span class="n">z</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">bit</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">|=</span> <span class="p">(</span><span class="n">z</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span>
+        <span class="n">r</span> <span class="o">|=</span> <span class="p">((</span><span class="n">z</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span>
+        <span class="n">z</span> <span class="o">&gt;&gt;=</span> <span class="mi">2</span>
+        <span class="n">bit</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span>
 
 
@@ -400,7 +395,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        lst: nested list to be flatten.</span>
 
-<span class="sd">    Time complexity: O(size * ndim)</span>
+<span class="sd">    Time complexity: O(size)</span>
 
 <span class="sd">    Space complexity: O(size)</span>
 
@@ -409,18 +404,17 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">lst</span>
 
-    <span class="n">flat</span> <span class="o">=</span> <span class="n">lst</span>
-    <span class="c1"># O(size * ndim)</span>
-    <span class="k">while</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">flat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">ans</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="c1"># O(size)</span>
-        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">flat</span><span class="p">:</span>
-            <span class="c1"># O(len(e))</span>
-            <span class="n">ans</span> <span class="o">+=</span> <span class="n">e</span>
-        <span class="n">flat</span> <span class="o">=</span> <span class="n">ans</span>
+    <span class="n">flat</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="n">lst</span> <span class="o">=</span> <span class="n">flat</span>
-    <span class="k">return</span> <span class="n">lst</span></div>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sub</span><span class="p">:</span>
+                <span class="n">dfs</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">flat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+
+    <span class="n">dfs</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">flat</span></div>
 
 
 
@@ -471,7 +465,7 @@
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>  <span class="c1"># ndim</span>
             <span class="nb">next</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">curr</span><span class="p">)</span> <span class="o">/</span> <span class="n">c</span><span class="p">)):</span>  <span class="c1"># size / shape[i] = size</span>
-                <span class="nb">next</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">c</span><span class="p">:</span> <span class="n">i</span> <span class="o">*</span> <span class="n">c</span> <span class="o">+</span> <span class="n">c</span><span class="p">])</span>
+                <span class="nb">next</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">c</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span><span class="p">])</span>
             <span class="n">curr</span> <span class="o">=</span> <span class="nb">next</span>
         <span class="k">return</span> <span class="n">curr</span>
 
@@ -530,7 +524,7 @@
 <span class="sd">            shape: Desired shape. If ``None``, inferred automatically.</span>
 <span class="sd">            element_type: Type to cast elements. If ``None``, inferred from data.</span>
 
-<span class="sd">        Time complexity: O(size * ndim)</span>
+<span class="sd">        Time complexity: O(size + ndim)</span>
 
 <span class="sd">        Space complexity: O(size)</span>
 
@@ -540,7 +534,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;wtf bro&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">shape</span><span class="p">:</span>
-            <span class="c1"># O(size * ndim)</span>
+            <span class="c1"># O(size)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="c1"># O(ndim)</span>
             <span class="n">size</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
@@ -551,7 +545,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># O(ndim)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-            <span class="c1"># O(size * ndim)</span>
+            <span class="c1"># O(size)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span><span class="p">()</span>
@@ -664,14 +658,6 @@
             <span class="n">new_data</span><span class="p">[</span><span class="n">transpose_new_index</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">axis</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">new_data</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">new_shape</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Array.conj">
-<a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.conj">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">conj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Array</span><span class="p">(</span>
-            <span class="p">[</span><span class="nb">complex</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">],</span>
-            <span class="n">shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Array.tolist">
@@ -1036,7 +1022,6 @@
         <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">_data_ans</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">new_shape</span><span class="p">))</span></div>
 
 
-
 <div class="viewcode-block" id="Array.elementwise">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.elementwise">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">elementwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
@@ -1058,7 +1043,6 @@
         <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
 
 
-
 <div class="viewcode-block" id="Array.__exp__">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__exp__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__exp__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1072,7 +1056,6 @@
 <span class="sd">        Returns: New Array with elements transformed by ``exp(x)``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elementwise</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span></div>
-
 
 
 <div class="viewcode-block" id="Array.__log__">
@@ -1090,7 +1073,6 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elementwise</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">)</span></div>
 
 
-
 <div class="viewcode-block" id="Array.__sqrt__">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__sqrt__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__sqrt__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1104,7 +1086,6 @@
 <span class="sd">        Returns: New Array with elements transformed by ``sqrt(x)``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elementwise</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">)</span></div>
-
 
 
 <div class="viewcode-block" id="Array.__abs__">
