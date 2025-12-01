@@ -77,15 +77,15 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.dot">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">dot</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Perform matrix multiplication between two :class:`~mininumpy.Array` objects.</span>
+<span class="sd">    Perform matrix multiplication between two :class:`~mininumpy.array.Array` objects.</span>
 
 <span class="sd">    This is a convenience wrapper around the ``Array.__matmul__()`` operator, similar to</span>
-<span class="sd">    NumPy&#39;s ``np.matmul``. It multiplies two :class:`~mininumpy.Array` instances if both inputs</span>
-<span class="sd">    are :class:`~mininumpy.Array` with compatible dimensions.</span>
+<span class="sd">    NumPy&#39;s ``np.matmul``. It multiplies two :class:`~mininumpy.array.Array` instances if both inputs</span>
+<span class="sd">    are :class:`~mininumpy.array.Array` with compatible dimensions.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        a: Left-hand side operand. Must be an :class:`~mininumpy.Array`.</span>
-<span class="sd">        b: Right-hand side operand. Must be an :class:`~mininumpy.Array` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).</span>
+<span class="sd">        a: Left-hand side operand. Must be an :class:`~mininumpy.array.Array`.</span>
+<span class="sd">        b: Right-hand side operand. Must be an :class:`~mininumpy.array.Array` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).</span>
 
 <span class="sd">    Returns: New Array containing the matrix product. Returns None if the operation is invalid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -99,11 +99,11 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.matmul">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">algo</span><span class="o">=</span><span class="s2">&quot;naive&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Perform matrix multiplication between two :class:`~mininumpy.Array` objects.</span>
+<span class="sd">    Perform matrix multiplication between two :class:`~mininumpy.array.Array` objects.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        a: Left-hand side operand. Must be an :class:`~mininumpy.Array`.</span>
-<span class="sd">        b: Right-hand side operand. Must be an :class:`~mininumpy.Array` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).</span>
+<span class="sd">        a: Left-hand side operand. Must be an :class:`~mininumpy.array.Array`.</span>
+<span class="sd">        b: Right-hand side operand. Must be an :class:`~mininumpy.array.Array` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).</span>
 <span class="sd">        algo: String identifier for the algorithm used. Could be: ``naive`` (default) | ``strassen``.</span>
 
 <span class="sd">    Returns: New Array containing the matrix product. Returns None if the operation is invalid.</span>
@@ -153,18 +153,18 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.norm">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">norm</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute the Euclidean (L2) norm of an :class:`~mininumpy.Array`.</span>
+<span class="sd">    Compute the Euclidean (L2) norm of an :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">    This calculates the square root of the sum of squares of all elements, i.e. ||a|| = sqrt(sum(e²)).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        a: Input :class:`~mininumpy.Array`.</span>
+<span class="sd">        a: Input :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">    Time complexity: O(size)</span>
 
 <span class="sd">    Space complexity: O(1)</span>
 
-<span class="sd">    Returns: The Euclidean norm of the array. Returns None if the input is not an :class:`~mininumpy.Array`.</span>
+<span class="sd">    Returns: The Euclidean norm of the array. Returns None if the input is not an :class:`~mininumpy.array.Array`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
         <span class="k">return</span>
@@ -179,7 +179,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.det">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">det</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;gaussian&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute the determinant of a square 2D :class:`~mininumpy.Array`.</span>
+<span class="sd">    Compute the determinant of a square 2D :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        a: Input array. Must be a 2D square matrix.</span>
@@ -315,7 +315,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.LU_decomposition">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">LU_decomposition</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Perform LU decomposition of a 2D :class:`~mininumpy.Array` (matrix) with partial pivoting.</span>
+<span class="sd">    Perform LU decomposition of a 2D :class:`~mininumpy.array.Array` (matrix) with partial pivoting.</span>
 
 <span class="sd">    This factorizes a square matrix A into the product of a permutation</span>
 <span class="sd">    matrix P, a lower triangular matrix L, and an upper triangular matrix U,</span>
@@ -329,7 +329,7 @@
 <span class="sd">      partial pivoting.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        A: Input 2D :class:`~mininumpy.Array` (matrix). Must be two-dimensional and square.</span>
+<span class="sd">        A: Input 2D :class:`~mininumpy.array.Array` (matrix). Must be two-dimensional and square.</span>
 
 <span class="sd">    Time complexity: O(n^3)</span>
 
@@ -345,7 +345,7 @@
 
 <span class="sd">            - ``swap_count`` is the number of row swaps performed.</span>
 
-<span class="sd">        Returns None if the input is not a 2D :class:`~mininumpy.Array`.</span>
+<span class="sd">        Returns None if the input is not a 2D :class:`~mininumpy.array.Array`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Array</span><span class="p">):</span>
         <span class="k">return</span>
@@ -435,7 +435,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.inv">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">inv</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;LU&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute the inverse of a square 2D :class:`~mininumpy.Array`.</span>
+<span class="sd">    Compute the inverse of a square 2D :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        a: Input array. Must be a 2D square matrix.</span>
@@ -508,7 +508,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.inverse_recursion">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">inverse_recursion</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute the inverse of a square 2D :class:`~mininumpy.Array` using recursive cofactor expansion.</span>
+<span class="sd">    Compute the inverse of a square 2D :class:`~mininumpy.array.Array` using recursive cofactor expansion.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        a: Flat list representing the matrix entries in row-major order.</span>
@@ -540,7 +540,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.inverse_gaussian">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">inverse_gaussian</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute the inverse of a square 2D :class:`~mininumpy.Array` using Gauss-Jordan elimination with partial pivoting.</span>
+<span class="sd">    Compute the inverse of a square 2D :class:`~mininumpy.array.Array` using Gauss-Jordan elimination with partial pivoting.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        a: Flat list representing the matrix entries in row-major order.</span>

@@ -427,27 +427,27 @@
 
     <span class="n">_data</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The raw flatten data of the ``Array``.</span>
+<span class="sd">    The raw flatten data of the :class:`~mininumpy.array.Array`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">element_type</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The type of elements stored in the ``Array``.</span>
+<span class="sd">    The type of elements stored in the :class:`~mininumpy.array.Array`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">shape</span> <span class="o">=</span> <span class="p">()</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The dimensions of the ``Array``.</span>
+<span class="sd">    The dimensions of the :class:`~mininumpy.array.Array`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">ndim</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The number of dimensions of the ``Array``.</span>
+<span class="sd">    The number of dimensions of the :class:`~mininumpy.array.Array`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The total number of elements in the ``Array``.</span>
+<span class="sd">    The total number of elements in the :class:`~mininumpy.array.Array`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@property</span>
@@ -517,7 +517,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">element_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize an ``Array`` object from nested list ``data``.</span>
+<span class="sd">        Initialize an :class:`~mininumpy.array.Array` object from nested list ``data``.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            data: Input nested list.</span>
@@ -597,7 +597,7 @@
 
 <span class="sd">        Space complexity: O(size + ndim)</span>
 
-<span class="sd">        Returns: The string representing the ``Array``.</span>
+<span class="sd">        Returns: The string representing the :class:`~mininumpy.array.Array`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_recursive</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
 
@@ -664,13 +664,13 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.tolist">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">tolist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the ``list`` representation of the ``Array``. Similar to ``.data``</span>
+<span class="sd">        Get the ``list`` representation of the :class:`~mininumpy.array.Array`. Similar to ``.data``</span>
 
 <span class="sd">        Time complexity: O(size * ndim)</span>
 
 <span class="sd">        Space complexity: O(size)</span>
 
-<span class="sd">        Returns: The ``list`` representation of the ``Array``</span>
+<span class="sd">        Returns: The ``list`` representation of the :class:`~mininumpy.array.Array`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
 
@@ -680,7 +680,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__add__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Element-wise addition with another ``Array`` or a scalar.</span>
+<span class="sd">        Element-wise addition with another :class:`~mininumpy.array.Array` or a scalar.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            other: Array of same shape or scalar to add.</span>
@@ -689,7 +689,7 @@
 
 <span class="sd">        Space complexity: O(size)</span>
 
-<span class="sd">        Returns: New ``Array`` with element-wise summation.</span>
+<span class="sd">        Returns: New :class:`~mininumpy.array.Array` with element-wise summation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Array</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
             <span class="k">return</span>
@@ -705,7 +705,7 @@
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Element-wise addition with another ``Array`` or a scalar.</span>
+<span class="sd">        Element-wise addition with another :class:`~mininumpy.array.Array` or a scalar.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            other: Array of same shape or scalar to add.</span>
@@ -714,7 +714,7 @@
 
 <span class="sd">        Space complexity: O(size)</span>
 
-<span class="sd">        Returns: New ``Array`` with element-wise summation.</span>
+<span class="sd">        Returns: New :class:`~mininumpy.array.Array` with element-wise summation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">other</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
@@ -725,7 +725,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__mul__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Element-wise multiplication with another ``Array`` or a scalar.</span>
+<span class="sd">        Element-wise multiplication with another :class:`~mininumpy.array.Array` or a scalar.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            other: Array of same shape or scalar to multiply.</span>
@@ -734,7 +734,7 @@
 
 <span class="sd">        Space complexity: O(size)</span>
 
-<span class="sd">        Returns: The Element-wise product ``Array``.</span>
+<span class="sd">        Returns: The Element-wise product :class:`~mininumpy.array.Array`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Array</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
             <span class="k">return</span>
@@ -750,7 +750,7 @@
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Element-wise multiplication with another ``Array`` or a scalar.</span>
+<span class="sd">        Element-wise multiplication with another :class:`~mininumpy.array.Array` or a scalar.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            other: Array of same shape or scalar to multiply.</span>
@@ -759,7 +759,7 @@
 
 <span class="sd">        Space complexity: O(size)</span>
 
-<span class="sd">        Returns: The Element-wise product ``Array``.</span>
+<span class="sd">        Returns: The Element-wise product :class:`~mininumpy.array.Array`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 
@@ -767,7 +767,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__sub__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Element-wise subtraction with another ``Array`` or a scalar.</span>
+<span class="sd">        Element-wise subtraction with another :class:`~mininumpy.array.Array` or a scalar.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            other: Array of same shape or scalar to subtract.</span>
@@ -776,7 +776,7 @@
 
 <span class="sd">        Space complexity: O(size)</span>
 
-<span class="sd">        Returns: New ``Array`` with element-wise subtraction.</span>
+<span class="sd">        Returns: New :class:`~mininumpy.array.Array` with element-wise subtraction.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="n">other</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
@@ -807,16 +807,16 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__truediv__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Element-wise division by another ``Array`` or a scalar.</span>
+<span class="sd">        Element-wise division by another :class:`~mininumpy.array.Array` or a scalar.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            other: Divisor, either scalar or ``Array`` of same shape.</span>
+<span class="sd">            other: Divisor, either scalar or :class:`~mininumpy.array.Array` of same shape.</span>
 
 <span class="sd">        Time complexity: O(size)</span>
 
 <span class="sd">        Space complexity: O(size)</span>
 
-<span class="sd">        Returns: ``Array`` of element-wise division.</span>
+<span class="sd">        Returns: :class:`~mininumpy.array.Array` of element-wise division.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">other</span> <span class="o">**</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
@@ -825,13 +825,13 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.is_square">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_square</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Check whether the ``Array`` is a square matrix.</span>
+<span class="sd">        Check whether the :class:`~mininumpy.array.Array` is a square matrix.</span>
 
 <span class="sd">        Time complexity: O(1)</span>
 
 <span class="sd">        Space complexity: O(1)</span>
 
-<span class="sd">        Returns: ``True`` if the ``Array`` has 2 dimensions and both are equal, ``False`` otherwise.</span>
+<span class="sd">        Returns: ``True`` if the :class:`~mininumpy.array.Array` has 2 dimensions and both are equal, ``False`` otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
@@ -851,7 +851,7 @@
 
 <span class="sd">        Space complexity: O(size)</span>
 
-<span class="sd">        Returns: ``Array`` of summed values along the specified axis.</span>
+<span class="sd">        Returns: :class:`~mininumpy.array.Array` of summed values along the specified axis.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">result_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="n">axis</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
         <span class="n">result_size</span> <span class="o">=</span> <span class="mi">1</span>
@@ -887,7 +887,7 @@
 
 <span class="sd">        Space complexity: O(size)</span>
 
-<span class="sd">        Returns: ``Array`` of averaged values along the specified axis.</span>
+<span class="sd">        Returns: :class:`~mininumpy.array.Array` of averaged values along the specified axis.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span></div>
 
@@ -897,13 +897,13 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.min">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the minimum element in the ``Array``.</span>
+<span class="sd">        Get the minimum element in the :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">        Time complexity: O(size)</span>
 
 <span class="sd">        Space complexity: O(1)</span>
 
-<span class="sd">        Returns: The minimum element in the ``Array``.</span>
+<span class="sd">        Returns: The minimum element in the :class:`~mininumpy.array.Array`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div>
 
@@ -913,13 +913,13 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.max">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the maximum element in the ``Array``.</span>
+<span class="sd">        Get the maximum element in the :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">        Time complexity: O(size)</span>
 
 <span class="sd">        Space complexity: O(1)</span>
 
-<span class="sd">        Returns: The maximum element in the ``Array``.</span>
+<span class="sd">        Returns: The maximum element in the :class:`~mininumpy.array.Array`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div>
 
@@ -929,13 +929,13 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.argmax">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">argmax</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the index of the maximum element in the ``Array``.</span>
+<span class="sd">        Get the index of the maximum element in the :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">        Time complexity: O(size + ndim)</span>
 
 <span class="sd">        Space complexity: O(ndim)</span>
 
-<span class="sd">        Returns: The index of the maximum element in the ``Array``.</span>
+<span class="sd">        Returns: The index of the maximum element in the :class:`~mininumpy.array.Array`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">max_idx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
@@ -949,13 +949,13 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.argmin">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">argmin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the index of the minimum element in the ``Array``.</span>
+<span class="sd">        Get the index of the minimum element in the :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">        Time complexity: O(size + ndim)</span>
 
 <span class="sd">        Space complexity: O(ndim)</span>
 
-<span class="sd">        Returns: The index of the minimum element in the ``Array``.</span>
+<span class="sd">        Returns: The index of the minimum element in the :class:`~mininumpy.array.Array`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">min_idx</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
@@ -968,7 +968,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__matmul__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Perform matrix multiplication (the ``@`` operator) between two ``Array`` objects.</span>
+<span class="sd">        Perform matrix multiplication (the ``@`` operator) between two :class:`~mininumpy.array.Array` objects.</span>
 
 <span class="sd">        This supports batched matrix multiplication:</span>
 <span class="sd">        - If ``self`` has shape (..., n, p) and ``other`` has shape (..., p, m),</span>
@@ -976,7 +976,7 @@
 <span class="sd">        - The leading dimensions (``...``) must match.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            other: Right-hand side operand. Must be an ``Array`` with compatible dimensions (``self.shape[-1] == other.shape[-2]``).</span>
+<span class="sd">            other: Right-hand side operand. Must be an :class:`~mininumpy.array.Array` with compatible dimensions (``self.shape[-1] == other.shape[-2]``).</span>
 
 <span class="sd">        Time complexity: O(count * (ndim + n * m * p)) where count  = size / (n * p)</span>
 
@@ -1026,7 +1026,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.elementwise">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">elementwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Apply a function element-wise to all entries of the ``Array``.</span>
+<span class="sd">        Apply a function element-wise to all entries of the :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            func: Function applied to each element.</span>
@@ -1035,7 +1035,7 @@
 
 <span class="sd">        Space complexity: O(size)</span>
 
-<span class="sd">        Returns: A new ``Array`` with the same shape as the input, where each element is the result of applying ``func`` to the corresponding input element.</span>
+<span class="sd">        Returns: A new :class:`~mininumpy.array.Array` with the same shape as the input, where each element is the result of applying ``func`` to the corresponding input element.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
@@ -1047,7 +1047,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__exp__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__exp__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Apply the exponential function element-wise to an ``Array``.</span>
+<span class="sd">        Apply the exponential function element-wise to an :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">        Time complexity: O(size)</span>
 
@@ -1062,7 +1062,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__log__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__log__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Apply the natural logarithm element-wise to the ``Array``.</span>
+<span class="sd">        Apply the natural logarithm element-wise to the :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">        Time complexity: O(size)</span>
 
@@ -1077,7 +1077,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__sqrt__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">__sqrt__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Apply the square root function element-wise to the ``Array``.</span>
+<span class="sd">        Apply the square root function element-wise to the :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">        Time complexity: O(size)</span>
 
@@ -1092,7 +1092,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.Array.__abs__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Apply the absolute value function element-wise to the ``Array``.</span>
+<span class="sd">        Apply the absolute value function element-wise to the :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">        Time complexity: O(size)</span>
 
@@ -1112,13 +1112,13 @@
 <span class="sd">    Create a new Array instance from a given (nested) list ``data``. This is a convenience wrapper around the Array constructor, similar to NumPy&#39;s ``np.array``.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        data: Input (nested) list to be converted into an ``Array``.</span>
+<span class="sd">        data: Input (nested) list to be converted into an :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">    Time complexity: O(size * ndim)</span>
 
 <span class="sd">    Space complexity: O(size)</span>
 
-<span class="sd">    Returns: A new ``Array`` instance wrapping the input data.</span>
+<span class="sd">    Returns: A new :class:`~mininumpy.array.Array` instance wrapping the input data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
@@ -1128,7 +1128,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.zeros">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create a new ``Array`` filled with zeros.</span>
+<span class="sd">    Create a new :class:`~mininumpy.array.Array` filled with zeros.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        shape: Shape of the array to create.</span>
@@ -1138,7 +1138,7 @@
 <span class="sd">    Space complexity: O(prod(shape))</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Array: An ``Array`` of the given ``shape`` filled with zeros.</span>
+<span class="sd">        Array: An :class:`~mininumpy.array.Array` of the given ``shape`` filled with zeros.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">Array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span></div>
 
@@ -1148,7 +1148,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.ones">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create a new ``Array`` filled with ones.</span>
+<span class="sd">    Create a new :class:`~mininumpy.array.Array` filled with ones.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        shape: Shape of the array to create.</span>
@@ -1158,7 +1158,7 @@
 <span class="sd">    Space complexity: O(prod(shape))</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Array: An ``Array`` of the given ``shape`` filled with ones.</span>
+<span class="sd">        Array: An :class:`~mininumpy.array.Array` of the given ``shape`` filled with ones.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">Array</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span></div>
 
@@ -1190,7 +1190,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.arange">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">arange</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create an ``Array`` with evenly spaced values in [start, stop) with given step.</span>
+<span class="sd">    Create an :class:`~mininumpy.array.Array` with evenly spaced values in [start, stop) with given step.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        start: Starting value.</span>
@@ -1201,7 +1201,7 @@
 
 <span class="sd">    Space complexity: O((stop - start) / step)</span>
 
-<span class="sd">    Returns: 1D ``Array`` of evenly spaced values.</span>
+<span class="sd">    Returns: 1D :class:`~mininumpy.array.Array` of evenly spaced values.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">step</span><span class="p">)):</span>
@@ -1214,7 +1214,7 @@
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.array.linspace">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create an ``Array`` of evenly spaced values between start and stop (inclusive).</span>
+<span class="sd">    Create an :class:`~mininumpy.array.Array` of evenly spaced values between start and stop (inclusive).</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        start: Starting value.</span>
@@ -1225,7 +1225,7 @@
 
 <span class="sd">    Space complexity: O(num)</span>
 
-<span class="sd">    Returns: 1D ``Array`` of evenly spaced values.</span>
+<span class="sd">    Returns: 1D :class:`~mininumpy.array.Array` of evenly spaced values.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span></div>
