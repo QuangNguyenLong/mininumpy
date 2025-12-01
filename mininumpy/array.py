@@ -27,32 +27,27 @@ def dot(v1: list[float], v2: list[float]) -> float:
     return ans
 
 
-def _part1by1(x: int) -> int:
-
-    x &= 0x0000FFFF
-    x = (x | (x << 8)) & 0x00FF00FF
-    x = (x | (x << 4)) & 0x0F0F0F0F
-    x = (x | (x << 2)) & 0x33333333
-    x = (x | (x << 1)) & 0x55555555
-    return x
-
-
-def _compact1by1(x: int) -> int:
-    x &= 0x55555555
-    x = (x | (x >> 1)) & 0x33333333
-    x = (x | (x >> 2)) & 0x0F0F0F0F
-    x = (x | (x >> 4)) & 0x00FF00FF
-    x = (x | (x >> 8)) & 0x0000FFFF
-    return x
-
-
 def _morton_index(r: int, c: int) -> int:
-    return (_part1by1(r) << 1) | _part1by1(c)
+    z = 0
+    shift = 0
+    while r > 0 or c > 0:
+        z |= (c & 1) << shift
+        z |= (r & 1) << (shift + 1)
+        r >>= 1
+        c >>= 1
+        shift += 2
+    return z
 
 
 def _morton_decode(z: int) -> tuple[int, int]:
-    c = _compact1by1(z)
-    r = _compact1by1(z >> 1)
+    r = 0
+    c = 0
+    bit = 0
+    while z > 0:
+        c |= (z & 1) << bit
+        r |= ((z >> 1) & 1) << bit
+        z >>= 2
+        bit += 1
     return r, c
 
 
@@ -309,7 +304,7 @@ def flatten(lst: list) -> list:
     Args:
         lst: nested list to be flatten.
 
-    Time complexity: O(size * ndim)
+    Time complexity: O(size)
 
     Space complexity: O(size)
 
@@ -318,18 +313,17 @@ def flatten(lst: list) -> list:
     if not isinstance(lst, list):
         return lst
 
-    flat = lst
-    # O(size * ndim)
-    while isinstance(flat[0], list):
-        ans = []
-        # O(size)
-        for e in flat:
-            # O(len(e))
-            ans += e
-        flat = ans
+    flat = []
 
-    lst = flat
-    return lst
+    def dfs(sub):
+        if isinstance(sub, list):
+            for e in sub:
+                dfs(e)
+        else:
+            flat.append(sub)
+
+    dfs(lst)
+    return flat
 
 
 class Array:
@@ -377,7 +371,7 @@ class Array:
         for c in self.shape[:0:-1]:  # ndim
             next = []
             for i in range(int(len(curr) / c)):  # size / shape[i] = size
-                next.append(curr[i * c: i * c + c])
+                next.append(curr[i * c: (i + 1) * c])
             curr = next
         return curr
 
@@ -434,7 +428,7 @@ class Array:
             shape: Desired shape. If ``None``, inferred automatically.
             element_type: Type to cast elements. If ``None``, inferred from data.
 
-        Time complexity: O(size * ndim)
+        Time complexity: O(size + ndim)
 
         Space complexity: O(size)
 
@@ -444,7 +438,7 @@ class Array:
             raise ValueError("wtf bro")
 
         if shape:
-            # O(size * ndim)
+            # O(size)
             self._data = flatten(data)
             # O(ndim)
             size = math.prod(shape)
@@ -455,7 +449,7 @@ class Array:
         else:
             # O(ndim)
             self.shape = self._shape(data)
-            # O(size * ndim)
+            # O(size)
             self._data = flatten(data)
 
         self.ndim = self._ndim()
@@ -559,11 +553,6 @@ class Array:
             new_data[transpose_new_index(i, self.shape, axis)] = self._data[i]
 
         return Array(data=new_data, shape=new_shape)
-
-    def conj(self):
-        return Array(
-            [complex(x).conjugate() for x in self._data],
-            shape=self.shape)
 
     def tolist(self):
         """
@@ -885,7 +874,6 @@ class Array:
         new_shape[-1] = m
         return Array(_data_ans, shape=tuple(new_shape))
 
-
     def elementwise(self, func):
         """
         Apply a function element-wise to all entries of the ``Array``.
@@ -904,7 +892,6 @@ class Array:
             ans[i] = func(self._data[i])
         return Array(ans, shape=self.shape)
 
-
     def __exp__(self):
         """
         Apply the exponential function element-wise to an ``Array``.
@@ -916,7 +903,6 @@ class Array:
         Returns: New Array with elements transformed by ``exp(x)``.
         """
         return self.elementwise(math.exp)
-
 
     def __log__(self):
         """
@@ -930,7 +916,6 @@ class Array:
         """
         return self.elementwise(math.log)
 
-
     def __sqrt__(self):
         """
         Apply the square root function element-wise to the ``Array``.
@@ -942,7 +927,6 @@ class Array:
         Returns: New Array with elements transformed by ``sqrt(x)``.
         """
         return self.elementwise(math.sqrt)
-
 
     def __abs__(self):
         """

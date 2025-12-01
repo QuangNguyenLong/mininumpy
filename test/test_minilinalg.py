@@ -17,7 +17,7 @@ sample_square = [[[[random.random() for _ in range(n)] for _ in range(n)] for n 
                  ]
 
 zero_division_check = [[[1, 2, 3],
-                       [0, 2, -34],
+                       [0, 0, -34],
                        [-7, 0, 1]],
                        [[1/260,	-1/260,	-37/260],
                         [119/260,	11/260,	 17/260],

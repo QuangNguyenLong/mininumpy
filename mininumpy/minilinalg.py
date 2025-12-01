@@ -208,6 +208,10 @@ def det_gaussian(a: list[float], n: int) -> float:
 
         akk = A[row_indices[k], k]
 
+        # If it is still zero then the determinant is zero
+        if akk == 0:
+            return 0
+
         for i in range(k + 1, n):
             aik = A[row_indices[i], k]
             for l in range(n):
@@ -250,23 +254,41 @@ def LU_decomposition(A: Array) -> tuple[list[list[float]], list[list[float]]]:
     if A.ndim != 2:
         return
 
-    L = [[1 if i == j else 0 for j in range(
-        A.shape[0])] for i in range(A.shape[0])]
+    n = A.shape[0]
+    m = A.shape[1]
 
-    U = []
-    for i in range(A.shape[0]):
-        row = []
-        for j in range(A.shape[1]):
-            row.append(A.element_type(A.data[i][j]))
-        U.append(row)
+    L = eye(n)
+    U = Array(A._data, shape=A.shape)
 
-    for i in range(A.shape[0] - 1):
-        for j in range(i + 1, A.shape[0]):
-            L[j][i] = U[j][i] / U[i][i]
-            for k in range(A.shape[1]):
-                U[j][k] -= U[i][k] * L[j][i]
+    p = list(range(n))
+    swap_count = 0
 
-    return (L, U)
+    for i in range(n - 1):
+        if U[i, i] == 0:
+            for j in range(i + 1, n):
+                if U[j, i] != 0:
+
+                    for k in range(m):
+                        U[i, k], U[j, k] = U[j, k], U[i, k]
+
+                    for k in range(i):
+                        L[i, k], L[j, k] = L[j, k], L[i, k]
+
+                    p[i], p[j] = p[j], p[i]
+                    swap_count += 1
+
+                    break
+
+        for j in range(i + 1, n):
+            L[j, i] = U[j, i] / U[i, i]
+            for k in range(m):
+                U[j, k] -= U[i, k] * L[j, i]
+
+    P = [[0] * n for _ in range(n)]
+    for i in range(n):
+        P[i][p[i]] = 1
+
+    return P, L.data, U.data, swap_count
 
 
 def det_LU(a: list[float], n: int) -> float:
@@ -283,11 +305,11 @@ def det_LU(a: list[float], n: int) -> float:
 
     Returns: Determinant of the matrix. Returns None if the input is not square.
     """
-    _, U = LU_decomposition(Array(a, shape=(n, n)))
+    _, _, U, swap_count = LU_decomposition(Array(a, shape=(n, n)))
     det = 1
     for i in range(len(U)):
         det *= U[i][i]
-    return det
+    return det * (-1) ** swap_count
 
 
 def _forward_sub_inverse_LU(L, b):
@@ -364,13 +386,11 @@ def inverse_LU(a: list[float], n: int) -> list[float]:
         return
     A = Array(a, shape=(n, n))
 
-    identity = [[1 if i == j else 0 for j in range(
-        A.shape[0])] for i in range(A.shape[0])]
     ans = []
-    L, U = LU_decomposition(A)
+    P, L, U, _ = LU_decomposition(A)
     for i in range(A.shape[0]):
         ans.append(_backward_sub_inverse_LU(
-            U, _forward_sub_inverse_LU(L, identity[i])))
+            U, _forward_sub_inverse_LU(L, P[i])))
     return Array(ans).transpose()._data
 
 
@@ -478,36 +498,60 @@ def inverse_gaussian(a, n):
 
 #         w = w / w_norm
 
-
 #         if (abs(v - w)).max() < eps:
 #             v = w
 #             break
 
 #         v = w
 
-#     lam = (v.conj().transpose() @ A @ v)[0, 0]
+#     lam = (v.transpose() @ A @ v)[0, 0]
 
 #     return lam, v
 
 
+# def power_iteration_left(a, n, max_iter=1000, eps=1e-6):
+#     A = Array(a, shape=(n, n))
+
+#     # Random start vector
+#     w = Array([[random.random() for _ in range(n)]]).transpose()
+
+#     for _ in range(max_iter):
+#         z = A.transpose() @ w
+
+#         z_norm = norm(z)
+#         if z_norm == 0:
+#             break
+
+#         z = z / z_norm
+
+#         if (abs(w - z)).max() < eps:
+#             w = z
+#             break
+
+#         w = z
+
+#     return w
+
 # def eig_flat_2D_power_iteration(a, n, max_iter=1000, eps=1e-6):
 
-#     M = Array(a, shape=(n, n))  # make a working copy
+#     M = Array(a, shape=(n, n))
 #     lamda = [0] * n
 #     VT = []
 
 #     for i in range(n):
-
 #         lam, v = power_iteration(M._data, n, max_iter=max_iter, eps=eps)
+#         v = v / norm(v)
+
+#         w = power_iteration_left(M._data, n, max_iter=max_iter, eps=eps)
+#         w = w / norm(w)
 
 #         lamda[i] = lam
+#         VT.append(v.transpose()._data)
 
-#         v_norm = v / norm(v)
-#         VT.append(v_norm.transpose()._data)
-
-#         M = M - lam * (v_norm @ v_norm.conj().transpose())
+#         M = M - lam * (v @ w.transpose())
 
 #     return lamda, Array(VT).transpose().data
+
 
 # def eig(a, max_iter=1000, eps=1e-6):
 #     if not isinstance(a, Array):
@@ -525,7 +569,7 @@ def inverse_gaussian(a, n):
 
 #     for c in range(count):
 #         start_a = c * (n * n)
-#         stop_a  = start_a + (n * n)
+#         stop_a = start_a + (n * n)
 
 #         # O(n ^ 3)
 #         l, v = eig_flat_2D_power_iteration(
@@ -533,6 +577,7 @@ def inverse_gaussian(a, n):
 
 #         start_val = c * n
 #         stop_val = start_val + n
+
 #         eig_values._data[start_val:stop_val] = l
 #         eig_vectors._data[start_a:stop_a] = flatten(v)
 
