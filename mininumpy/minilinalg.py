@@ -4,15 +4,15 @@ import random
 
 def dot(a: Array, b: Array) -> Array:
     """
-    Perform matrix multiplication between two ``Array`` objects.
+    Perform matrix multiplication between two :class:`~mininumpy.Array` objects.
 
     This is a convenience wrapper around the ``Array.__matmul__()`` operator, similar to
-    NumPy's ``np.matmul``. It multiplies two ``Array`` instances if both inputs
-    are ``Array`` with compatible dimensions.
+    NumPy's ``np.matmul``. It multiplies two :class:`~mininumpy.Array` instances if both inputs
+    are :class:`~mininumpy.Array` with compatible dimensions.
 
     Args:
-        a: Left-hand side operand. Must be an ``Array``.
-        b: Right-hand side operand. Must be an ``Array`` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).
+        a: Left-hand side operand. Must be an :class:`~mininumpy.Array`.
+        b: Right-hand side operand. Must be an :class:`~mininumpy.Array` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).
 
     Returns: New Array containing the matrix product. Returns None if the operation is invalid.
     """
@@ -23,11 +23,11 @@ def dot(a: Array, b: Array) -> Array:
 
 def matmul(a: Array, b: Array, algo="naive") -> Array:
     """
-    Perform matrix multiplication between two ``Array`` objects.
+    Perform matrix multiplication between two :class:`~mininumpy.Array` objects.
 
     Args:
-        a: Left-hand side operand. Must be an ``Array``.
-        b: Right-hand side operand. Must be an ``Array`` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).
+        a: Left-hand side operand. Must be an :class:`~mininumpy.Array`.
+        b: Right-hand side operand. Must be an :class:`~mininumpy.Array` with dimensions compatible with ``a`` (i.e., ``a.shape[-1] == b.shape[-2]``).
         algo: String identifier for the algorithm used. Could be: ``naive`` (default) | ``strassen``.
 
     Returns: New Array containing the matrix product. Returns None if the operation is invalid.
@@ -74,18 +74,18 @@ def matmul(a: Array, b: Array, algo="naive") -> Array:
 
 def norm(a: Array) -> float:
     """
-    Compute the Euclidean (L2) norm of an ``Array``.
+    Compute the Euclidean (L2) norm of an :class:`~mininumpy.Array`.
 
     This calculates the square root of the sum of squares of all elements, i.e. ||a|| = sqrt(sum(e²)).
 
     Args:
-        a: Input ``Array``.
+        a: Input :class:`~mininumpy.Array`.
 
     Time complexity: O(size)
 
     Space complexity: O(1)
 
-    Returns: The Euclidean norm of the array. Returns None if the input is not an ``Array``.
+    Returns: The Euclidean norm of the array. Returns None if the input is not an :class:`~mininumpy.Array`.
     """
     if not isinstance(a, Array):
         return
@@ -97,7 +97,7 @@ def norm(a: Array) -> float:
 
 def det(a: Array, algo: str = "gaussian") -> float | list[float]:
     """
-    Compute the determinant of a square 2D ``Array``.
+    Compute the determinant of a square 2D :class:`~mininumpy.Array`.
 
     Args:
         a: Input array. Must be a 2D square matrix.
@@ -222,31 +222,39 @@ def det_gaussian(a: list[float], n: int) -> float:
     return prod
 
 
-def LU_decomposition(A: Array) -> tuple[list[list[float]], list[list[float]]]:
+def LU_decomposition(A: Array) -> tuple[list[list[float]], list[list[float]], list[list[float]], int]:
     """
-    Perform LU decomposition of a 2D ``Array`` (matrix).
+    Perform LU decomposition of a 2D :class:`~mininumpy.Array` (matrix) with partial pivoting.
 
-    This factorizes a square matrix A into the product of a lower triangular
-    matrix L and an upper triangular matrix U, such that A = L * U.
+    This factorizes a square matrix A into the product of a permutation
+    matrix P, a lower triangular matrix L, and an upper triangular matrix U,
+    such that P * A = L * U.
 
     - L is a unit lower triangular matrix (diagonal entries are 1).
 
     - U is an upper triangular matrix.
 
+    - P is a permutation matrix representing row swaps performed during
+      partial pivoting.
+
     Args:
-        A: Input 2D ``Array`` (matrix). Must be two-dimensional.
+        A: Input 2D :class:`~mininumpy.Array` (matrix). Must be two-dimensional and square.
 
     Time complexity: O(n^3)
 
     Space complexity: O(n^2)
 
-    Returns: A tuple (L, U) where:
+    Returns: A tuple (P, L, U, ``swap_count``) where:
+
+            - P is the permutation matrix.
 
             - L is the unit lower triangular matrix.
 
             - U is the upper triangular matrix.
 
-        Returns None if the input is not a 2D ``Array``.
+            - ``swap_count`` is the number of row swaps performed.
+
+        Returns None if the input is not a 2D :class:`~mininumpy.Array`.
     """
     if not isinstance(A, Array):
         return
@@ -330,7 +338,7 @@ def _backward_sub_inverse_LU(U, y):
 
 def inv(a: Array, algo: str = "LU") -> Array:
     """
-    Compute the inverse of a square 2D ``Array``.
+    Compute the inverse of a square 2D :class:`~mininumpy.Array`.
 
     Args:
         a: Input array. Must be a 2D square matrix.
@@ -397,7 +405,7 @@ def inverse_LU(a: list[float], n: int) -> list[float]:
 # O(n!)
 def inverse_recursion(a, n):
     """
-    Compute the inverse of a square 2D ``Array`` using recursive cofactor expansion.
+    Compute the inverse of a square 2D :class:`~mininumpy.Array` using recursive cofactor expansion.
 
     Args:
         a: Flat list representing the matrix entries in row-major order.
@@ -426,7 +434,7 @@ def inverse_recursion(a, n):
 
 def inverse_gaussian(a, n):
     """
-    Compute the inverse of a square 2D ``Array`` using Gauss-Jordan elimination with partial pivoting.
+    Compute the inverse of a square 2D :class:`~mininumpy.Array` using Gauss-Jordan elimination with partial pivoting.
 
     Args:
         a: Flat list representing the matrix entries in row-major order.
