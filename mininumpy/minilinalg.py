@@ -491,102 +491,102 @@ def inverse_gaussian(a, n):
     return result._data
 
 
-# # O(n^2)
-# def power_iteration(a, n, max_iter: int = 1000, eps: float = 1e-6):
-#     A = Array(a, shape=(n, n))
+# O(n^2)
+def power_iteration(a, n, max_iter: int = 1000, eps: float = 1e-6):
+    A = Array(a, shape=(n, n))
 
-#     v = Array([[random.random() for _ in range(n)]]).transpose()
+    v = Array([[random.random() for _ in range(n)]]).transpose()
 
-#     for _ in range(max_iter):
-#         w = A @ v
+    for _ in range(max_iter):
+        w = A @ v
 
-#         w_norm = norm(w)
-#         if w_norm == 0:
-#             break
+        w_norm = norm(w)
+        if w_norm == 0:
+            break
 
-#         w = w / w_norm
+        w = w / w_norm
 
-#         if (abs(v - w)).max() < eps:
-#             v = w
-#             break
+        if (abs(v - w)).max() < eps:
+            v = w
+            break
 
-#         v = w
+        v = w
 
-#     lam = (v.transpose() @ A @ v)[0, 0]
+    lam = (v.transpose() @ A @ v)[0, 0]
 
-#     return lam, v
-
-
-# def power_iteration_left(a, n, max_iter=1000, eps=1e-6):
-#     A = Array(a, shape=(n, n))
-
-#     # Random start vector
-#     w = Array([[random.random() for _ in range(n)]]).transpose()
-
-#     for _ in range(max_iter):
-#         z = A.transpose() @ w
-
-#         z_norm = norm(z)
-#         if z_norm == 0:
-#             break
-
-#         z = z / z_norm
-
-#         if (abs(w - z)).max() < eps:
-#             w = z
-#             break
-
-#         w = z
-
-#     return w
-
-# def eig_flat_2D_power_iteration(a, n, max_iter=1000, eps=1e-6):
-
-#     M = Array(a, shape=(n, n))
-#     lamda = [0] * n
-#     VT = []
-
-#     for i in range(n):
-#         lam, v = power_iteration(M._data, n, max_iter=max_iter, eps=eps)
-#         v = v / norm(v)
-
-#         w = power_iteration_left(M._data, n, max_iter=max_iter, eps=eps)
-#         w = w / norm(w)
-
-#         lamda[i] = lam
-#         VT.append(v.transpose()._data)
-
-#         M = M - lam * (v @ w.transpose())
-
-#     return lamda, Array(VT).transpose().data
+    return lam, v
 
 
-# def eig(a, max_iter=1000, eps=1e-6):
-#     if not isinstance(a, Array):
-#         return
-#     if a.shape[-1] != a.shape[-2]:
-#         return
-#     n = a.shape[-1]
+def power_iteration_left(a, n, max_iter=1000, eps=1e-6):
+    A = Array(a, shape=(n, n))
 
-#     count = math.prod(a.shape[:-2])
+    # Random start vector
+    w = Array([[random.random() for _ in range(n)]]).transpose()
 
-#     eig_values = Array([0] * (count * n), shape=a.shape[:-1])
-#     eig_vectors = Array([0] * a.size, shape=a.shape)
+    for _ in range(max_iter):
+        z = A.transpose() @ w
 
-#     n = a.shape[-2]
+        z_norm = norm(z)
+        if z_norm == 0:
+            break
 
-#     for c in range(count):
-#         start_a = c * (n * n)
-#         stop_a = start_a + (n * n)
+        z = z / z_norm
 
-#         # O(n ^ 3)
-#         l, v = eig_flat_2D_power_iteration(
-#             a._data[start_a:stop_a], n, max_iter, eps)
+        if (abs(w - z)).max() < eps:
+            w = z
+            break
 
-#         start_val = c * n
-#         stop_val = start_val + n
+        w = z
 
-#         eig_values._data[start_val:stop_val] = l
-#         eig_vectors._data[start_a:stop_a] = flatten(v)
+    return w
 
-#     return eig_values, eig_vectors
+def eig_flat_2D_power_iteration(a, n, max_iter=1000, eps=1e-6):
+
+    M = Array(a, shape=(n, n))
+    lamda = [0] * n
+    VT = []
+
+    for i in range(n):
+        lam, v = power_iteration(M._data, n, max_iter=max_iter, eps=eps)
+        v = v / norm(v)
+
+        w = power_iteration_left(M._data, n, max_iter=max_iter, eps=eps)
+        w = w / norm(w)
+
+        lamda[i] = lam
+        VT.append(v.transpose()._data)
+
+        M = M - lam * (v @ w.transpose())
+
+    return lamda, Array(VT).transpose().data
+
+
+def eig(a, max_iter=1000, eps=1e-6):
+    if not isinstance(a, Array):
+        return
+    if a.shape[-1] != a.shape[-2]:
+        return
+    n = a.shape[-1]
+
+    count = math.prod(a.shape[:-2])
+
+    eig_values = Array([0] * (count * n), shape=a.shape[:-1])
+    eig_vectors = Array([0] * a.size, shape=a.shape)
+
+    n = a.shape[-2]
+
+    for c in range(count):
+        start_a = c * (n * n)
+        stop_a = start_a + (n * n)
+
+        # O(n ^ 3)
+        l, v = eig_flat_2D_power_iteration(
+            a._data[start_a:stop_a], n, max_iter, eps)
+
+        start_val = c * n
+        stop_val = start_val + n
+
+        eig_values._data[start_val:stop_val] = l
+        eig_vectors._data[start_a:stop_a] = flatten(v)
+
+    return eig_values, eig_vectors
