@@ -76,6 +76,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.inverse_LU"><code class="docutils literal notranslate"><span class="pre">inverse_LU()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.inverse_recursion"><code class="docutils literal notranslate"><span class="pre">inverse_recursion()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.inverse_gaussian"><code class="docutils literal notranslate"><span class="pre">inverse_gaussian()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.power_iteration"><code class="docutils literal notranslate"><span class="pre">power_iteration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.power_iteration_left"><code class="docutils literal notranslate"><span class="pre">power_iteration_left()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.eig_flat_2D_power_iteration"><code class="docutils literal notranslate"><span class="pre">eig_flat_2D_power_iteration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mininumpy.minilinalg.eig"><code class="docutils literal notranslate"><span class="pre">eig()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-mininumpy">Module contents</a></li>
@@ -1003,6 +1007,34 @@ partial pivoting.</p></li>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.power_iteration">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">power_iteration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#power_iteration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.power_iteration" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_iter</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>)</p></li>
+<li><p><strong>eps</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.power_iteration_left">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">power_iteration_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#power_iteration_left"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.power_iteration_left" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.eig_flat_2D_power_iteration">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">eig_flat_2D_power_iteration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#eig_flat_2D_power_iteration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.eig_flat_2D_power_iteration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mininumpy.minilinalg.eig">
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">eig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#eig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.eig" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 </section>
 <section id="module-mininumpy">
