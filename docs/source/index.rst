@@ -10,4 +10,5 @@
    :caption: API reference
 
    modules
+   report
 

@@ -95,13 +95,13 @@ def norm(a: Array) -> float:
     return math.sqrt(ans)
 
 
-def det(a: Array, algo: str = "gaussian") -> float | list[float]:
+def det(a: Array, algo: str = "laplace") -> float | list[float]:
     """
     Compute the determinant of a square 2D :class:`~mininumpy.array.Array`.
 
     Args:
         a: Input array. Must be a 2D square matrix.
-        algo: String identifier for the algorithm used. Could be: ``laplace`` | ``LU`` |  ``gaussian`` (default).
+        algo: String identifier for the algorithm used. Could be: ``laplace`` (default) | ``LU`` |  ``gaussian``.
 
     Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.
     """

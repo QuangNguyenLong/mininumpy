@@ -824,8 +824,7 @@ class Array:
         Perform matrix multiplication (the ``@`` operator) between two :class:`~mininumpy.array.Array` objects.
 
         This supports batched matrix multiplication:
-        - If ``self`` has shape (..., n, p) and ``other`` has shape (..., p, m),
-            the result will have shape (..., n, m).
+        - If ``self`` has shape (..., n, p) and ``other`` has shape (..., p, m), the result will have shape (..., n, m).
         - The leading dimensions (``...``) must match.
 
         Args:
