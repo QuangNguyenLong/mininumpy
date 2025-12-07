@@ -42,6 +42,7 @@
               <p class="caption" role="heading"><span class="caption-text">API reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">mininumpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../report.html">Project Report</a></li>
 </ul>
 
         </div>
@@ -177,13 +178,13 @@
 
 <div class="viewcode-block" id="det">
 <a class="viewcode-back" href="../../mininumpy.html#mininumpy.minilinalg.det">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">det</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;gaussian&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">det</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Array</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;laplace&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the determinant of a square 2D :class:`~mininumpy.array.Array`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        a: Input array. Must be a 2D square matrix.</span>
-<span class="sd">        algo: String identifier for the algorithm used. Could be: ``laplace`` | ``LU`` |  ``gaussian`` (default).</span>
+<span class="sd">        algo: String identifier for the algorithm used. Could be: ``laplace`` (default) | ``LU`` |  ``gaussian``.</span>
 
 <span class="sd">    Returns: Determinant of the matrix. Returns None if the input is not a square 2D Array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

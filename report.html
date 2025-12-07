@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Report &mdash; Mininumpy 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="mininumpy package" href="mininumpy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Mininumpy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">mininumpy</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project Report</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-description">2. Project Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modules">3. Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#array">3.1 Array</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#data-structure">3.1.1 Data structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#matrix-operations">3.1.2 Matrix Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#minilinalg">3.2 Minilinalg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#determinant">3.2.1 Determinant</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#inverse">3.2.2 Inverse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#matrix-multiplication">3.2.3 Matrix Multiplication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#benchmark-setup">4. Benchmark Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#benchmark-environment">4.1 Benchmark Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#benchmark-results">5. Benchmark Results</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#matrix-multiplication-benchmark">5.1 Matrix Multiplication Benchmark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#determinant-benchmark">5.2 Determinant Benchmark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inverse-benchmark">5.3 Inverse Benchmark</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">6. Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mininumpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Project Report</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/report.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="project-report">
+<h1>Project Report<a class="headerlink" href="#project-report" title="Link to this heading"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Long Quang NGUYEN</p>
+</dd>
+<dt class="field-even">Course<span class="colon">:</span></dt>
+<dd class="field-even"><p>Programming</p>
+</dd>
+<dt class="field-odd">Student ID<span class="colon">:</span></dt>
+<dd class="field-odd"><p>20255704</p>
+</dd>
+</dl>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>The goal of this project is to design and implement a simplified version of NumPy in pure Python, called <em>MiniNumPy</em>, to understand
+how numerical computing and linear algebra libraries are built from scratch. Here there will be the implementation
+of core data structures, array operations, and linear algebra routines.</p>
+</section>
+<section id="project-description">
+<h2>2. Project Description<a class="headerlink" href="#project-description" title="Link to this heading"></a></h2>
+<p>The detailed description of the project can be found here <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+</section>
+<section id="modules">
+<h2>3. Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h2>
+<p>The project consist of two main modules, <a class="reference internal" href="mininumpy.html#module-mininumpy.array" title="mininumpy.array"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></a>
+and <a class="reference internal" href="mininumpy.html#module-mininumpy.minilinalg" title="mininumpy.minilinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">minilinalg</span></code></a>. The <a class="reference internal" href="mininumpy.html#module-mininumpy.array" title="mininumpy.array"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></a> module consists of
+an <a class="reference internal" href="mininumpy.html#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></a> class which act similar to <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> but has
+only core functionalities. Same goes for <a class="reference internal" href="mininumpy.html#module-mininumpy.minilinalg" title="mininumpy.minilinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">minilinalg</span></code></a>, which
+contains basic matrix/vector operations and factorizations/solvers.</p>
+<section id="array">
+<h3>3.1 Array<a class="headerlink" href="#array" title="Link to this heading"></a></h3>
+<section id="data-structure">
+<h4>3.1.1 Data structure<a class="headerlink" href="#data-structure" title="Link to this heading"></a></h4>
+<p>The <a class="reference internal" href="mininumpy.html#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></a> class should be able to works with any dimension matrix,
+by doing so, it stores the data in flatten list (called <code class="docutils literal notranslate"><span class="pre">_data</span></code>), row-major ordered, once
+the entity is initialized. The main advantage of this is to improve readability and writeability
+of the code, without any impact on performance, since the <a class="reference internal" href="mininumpy.html#mininumpy.array.flatten" title="mininumpy.array.flatten"><code class="xref py py-class docutils literal notranslate"><span class="pre">flatten</span></code></a>
+function has the same time and space complexity as to copying the nested list (original data).</p>
+</section>
+<section id="matrix-operations">
+<h4>3.1.2 Matrix Operations<a class="headerlink" href="#matrix-operations" title="Link to this heading"></a></h4>
+<p>Based on the previous data structure, every matrix operations now have to deal with the flat
+array given its original shape. To do this, we use a row-major indexing in the flat array to
+manipulate the elements easily without affecting the computational complexity.</p>
+<p>Since the original data is now stored in a flat array, the <a class="reference internal" href="mininumpy.html#mininumpy.array.Array.shape" title="mininumpy.array.Array.shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span></code></a> property only store the
+information of the original data and not the flattened, the reshape method will then only have to change the
+<a class="reference internal" href="mininumpy.html#mininumpy.array.Array.shape" title="mininumpy.array.Array.shape"><code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span></code></a> property and will not affecting the actual flat list.</p>
+<p>For <a class="reference internal" href="mininumpy.html#mininumpy.array.Array.transpose" title="mininumpy.array.Array.transpose"><code class="xref py py-class docutils literal notranslate"><span class="pre">transpose</span></code></a>, things stay the same since we have had access to each element using the indexing.</p>
+<p>For matrix multiplication, <a class="reference internal" href="mininumpy.html#mininumpy.array.Array.__matmul__" title="mininumpy.array.Array.__matmul__"><code class="xref py py-class docutils literal notranslate"><span class="pre">__matmul__</span></code></a>, for naive way, this is unchanged, but for strassen matrix
+multiplication, we transfer the current row-major indexing to the morton index before performing
+strassen matrix multiplication.</p>
+<p>For elementwise operations (or scalar) such as <a class="reference internal" href="mininumpy.html#mininumpy.array.Array.__add__" title="mininumpy.array.Array.__add__"><code class="xref py py-class docutils literal notranslate"><span class="pre">__add__</span></code></a>, <a class="reference internal" href="mininumpy.html#mininumpy.array.Array.__sub__" title="mininumpy.array.Array.__sub__"><code class="xref py py-class docutils literal notranslate"><span class="pre">__sub__</span></code></a>,
+<a class="reference internal" href="mininumpy.html#mininumpy.array.Array.__truediv__" title="mininumpy.array.Array.__truediv__"><code class="xref py py-class docutils literal notranslate"><span class="pre">__truediv__</span></code></a>, <a class="reference internal" href="mininumpy.html#mininumpy.array.Array.__mul__" title="mininumpy.array.Array.__mul__"><code class="xref py py-class docutils literal notranslate"><span class="pre">__mul__</span></code></a>,
+we just need to do 1 <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and the job is done.</p>
+</section>
+</section>
+<section id="minilinalg">
+<h3>3.2 Minilinalg<a class="headerlink" href="#minilinalg" title="Link to this heading"></a></h3>
+<p><a class="reference internal" href="mininumpy.html#module-mininumpy.minilinalg" title="mininumpy.minilinalg"><code class="xref py py-class docutils literal notranslate"><span class="pre">minilinalg</span></code></a> contains different approaches for computing the
+matrix inverse, determinant, and matrix multiplication. Its goal is to study the
+complexity and runtime characteristics of these algorithms when executed purely
+in Python, without any low-level optimizations. This makes it possible to
+observe the direct impact of algorithm design on performance in a non-optimized
+environment.</p>
+<section id="determinant">
+<h4>3.2.1 Determinant<a class="headerlink" href="#determinant" title="Link to this heading"></a></h4>
+<p>The determinant is implemented using three different algorithms, each with
+distinct complexity and performance implications:</p>
+<p><strong>Laplace Expansion</strong></p>
+<ul class="simple">
+<li><p>A recursive cofactor expansion method.</p></li>
+<li><p>Complexity: <span class="math notranslate nohighlight">\(O(n!)\)</span>, which grows extremely fast and becomes impractical
+for even moderately sized matrices.</p></li>
+<li><p>Used mainly for educational purposes, as it illustrates the definition of the
+determinant but performs poorly in practice.</p></li>
+</ul>
+<p><strong>LU Decomposition</strong></p>
+<ul class="simple">
+<li><p>Computes the determinant using the product of the diagonal elements of the
+<span class="math notranslate nohighlight">\(U\)</span> matrix in an LU factorization.</p></li>
+<li><p>Complexity: <span class="math notranslate nohighlight">\(O(n^3)\)</span>.</p></li>
+<li><p>Much faster than Laplace expansion and the most efficient among the
+pure-Python implementations.</p></li>
+</ul>
+<p><strong>Gaussian Elimination</strong></p>
+<ul class="simple">
+<li><p>Performs row-reduction to upper triangular form and multiplies the diagonal
+entries to obtain the determinant.</p></li>
+<li><p>Complexity: <span class="math notranslate nohighlight">\(O(n^3)\)</span>.</p></li>
+<li><p>Similar performance to LU decomposition, but typically simpler to implement.</p></li>
+</ul>
+</section>
+<section id="inverse">
+<h4>3.2.2 Inverse<a class="headerlink" href="#inverse" title="Link to this heading"></a></h4>
+<p>Three inversion methods are implemented, reflecting different conceptual and
+computational approaches:</p>
+<p><strong>Recursive (Adjugate / Cofactor-based) Inverse</strong></p>
+<ul class="simple">
+<li><p>Uses the adjugate matrix and Laplace determinant to compute the inverse.</p></li>
+<li><p>Complexity: dominated by repeated determinant computations, effectively
+<span class="math notranslate nohighlight">\(O(n! * n)\)</span>.</p></li>
+<li><p>Very slow in Python; provided for completeness and conceptual clarity.</p></li>
+</ul>
+<p><strong>LU-based Inverse</strong></p>
+<ul class="simple">
+<li><p>Solves <span class="math notranslate nohighlight">\(A x = e_i\)</span> for each column of the inverse using LU
+decomposition.</p></li>
+<li><p>Complexity: <span class="math notranslate nohighlight">\(O(n^3)\)</span>.</p></li>
+<li><p>Typically the fastest and most numerically stable approach among the
+pure-Python implementations.</p></li>
+</ul>
+<p><strong>Gaussian Elimination</strong></p>
+<ul class="simple">
+<li><p>Augments the matrix with an identity matrix and performs row-reduction until
+the left side becomes the identity.</p></li>
+<li><p>Complexity: <span class="math notranslate nohighlight">\(O(n^3)\)</span>.</p></li>
+<li><p>Straightforward to implement and often competitive with LU-based inversion.</p></li>
+</ul>
+</section>
+<section id="matrix-multiplication">
+<h4>3.2.3 Matrix Multiplication<a class="headerlink" href="#matrix-multiplication" title="Link to this heading"></a></h4>
+<p>Two matrix multiplication algorithms are included:</p>
+<p><strong>Naive (Triple Loop) Multiplication</strong></p>
+<ul class="simple">
+<li><p>The standard textbook algorithm using three nested loops.</p></li>
+<li><p>Complexity: <span class="math notranslate nohighlight">\(O(n^3)\)</span>.</p></li>
+<li><p>Easy to understand and implement, but relatively slow for large matrices in
+pure Python.</p></li>
+</ul>
+<p><strong>Strassen’s Algorithm</strong></p>
+<ul class="simple">
+<li><p>A divide-and-conquer algorithm that reduces the number of multiplications,
+achieving complexity <span class="math notranslate nohighlight">\(O(n^{\log_2 7}) \approx O(n^{2.81})\)</span>.</p></li>
+<li><p>Faster in theory, but in raw Python the overhead of recursion, slicing, and
+additional additions often cancels out the theoretical benefits.</p></li>
+<li><p>Included to analyze how algorithmic improvements behave when no low-level
+optimizations exist.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="benchmark-setup">
+<h2>4. Benchmark Setup<a class="headerlink" href="#benchmark-setup" title="Link to this heading"></a></h2>
+<p>Each benchmark was run <strong>three times</strong> using all square 2D matrices, and the reported
+values represent the <strong>average execution time</strong> of the three measurements. All algorithms were
+implemented purely in Python, without NumPy or any optimized C-backed numerical
+libraries. This environment isolates the effect of algorithmic complexity on
+runtime when operating in an unoptimized Python interpreter.</p>
+<section id="benchmark-environment">
+<h3>4.1 Benchmark Environment<a class="headerlink" href="#benchmark-environment" title="Link to this heading"></a></h3>
+<p>All benchmarks were executed on a Windows 11 machine with the following
+specifications:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CPU</span><span class="p">:</span> <span class="n">AMD</span> <span class="p">(</span><span class="n">Family</span> <span class="mi">25</span> <span class="n">Model</span> <span class="mi">117</span><span class="p">,</span> <span class="n">Stepping</span> <span class="mi">2</span><span class="p">)</span> <span class="o">@</span> <span class="mf">3.80</span> <span class="n">GHz</span>
+<span class="n">RAM</span><span class="p">:</span> <span class="mi">32</span> <span class="n">GB</span> <span class="n">DDR5</span> <span class="o">@</span> <span class="mi">5600</span> <span class="n">MT</span><span class="o">/</span><span class="n">s</span>
+<span class="n">Python</span> <span class="n">Version</span><span class="p">:</span> <span class="n">Python</span> <span class="mf">3.13.9</span>
+<span class="n">OS</span><span class="p">:</span> <span class="n">Windows</span> <span class="mi">11</span> <span class="n">Pro</span><span class="p">,</span> <span class="n">Build</span> <span class="mi">26100</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="benchmark-results">
+<h2>5. Benchmark Results<a class="headerlink" href="#benchmark-results" title="Link to this heading"></a></h2>
+<section id="matrix-multiplication-benchmark">
+<h3>5.1 Matrix Multiplication Benchmark<a class="headerlink" href="#matrix-multiplication-benchmark" title="Link to this heading"></a></h3>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/matmul_bm.png"><img alt="Matrix multiplication benchmark results" src="_images/matmul_bm.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 1:</strong> Runtime comparison of matrix multiplication algorithms for increasing matrix sizes
+(<em>n = 10, 50, 100, 150, 200</em>).</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Here we compare the runtime for increasing matrix sizes (<cite>n = 10, 50, 100, 150, 200</cite>).
+First, we notice the mentionable high processing time for the optimized approach when <cite>n</cite> is large. This is because of the constant time complexity executions of Python built-in operations that are unoptimized for performance testing.</p>
+<p>However, we can still validate the time complexity of our optimized approach. Since Strassen’s matrix multiplication has a time complexity of <strong>O(n^2.81)</strong> and the naive approach has <strong>O(n^3)</strong>,
+by dividing the execution time of the Strassen approach by the naive approach, theoretically, we have a number that is equivalent infinitesimal to <strong>O(n^(-0.2))</strong> when <cite>n → +infinity</cite>.
+In other words, this ratio slowly gets smaller when <cite>n</cite> gets larger. This assumption is observed in the <strong>bottom-left figure</strong> of both Figure 1 and Figure 2.</p>
+<p>But then, we also notice a spike of both processing time and memory consumption in the samples of <cite>n = 10</cite> and <cite>n = 150</cite>.
+This can be explained by the fact that this algorithm pads zeros to the matrices until the matrices’ dimensions are powers of 2.
+For the case of <cite>n = 150</cite>, it has to scale the matrices to <cite>n = 256</cite>, making a lot more redundant zero multiplications and additions, although they are O(1), which is not considered theoretically. While for <cite>n = 100</cite>, the matrices need only to be scaled to <cite>n = 128</cite>, which has less zero padding.
+This explains the recorded memory spike on the next sample (<cite>n = 150</cite>).</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="_images/matmul_bm_2.png"><img alt="Matrix multiplication benchmark results" src="_images/matmul_bm_2.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 2:</strong> Runtime comparison of matrix multiplication algorithms for matrix size <em>n = 2^k</em>.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>So, of course, in the case of <cite>n = 2^k</cite>, theoretically, there will be no spike at all, because in these cases, there are no zeros padded.
+Hence, there is no significant difference between the samples. To prove this, we test only the case where <cite>n = 2^k</cite>, or <cite>[16, 32, 64, 128, 256]</cite>.</p>
+<p>Here, we can see that when we remove the spikes, the ratio mentioned above (bottom-left plot of Figure 2) correctly decreases slightly when increasing <cite>n</cite>, as mentioned earlier. Hence, this proves that the Strassen’s approach is optimized compared to the naive one.</p>
+<p>In conclusion, the time complexity in theoretical and in empirical are identical (as proven above).
+Based on the results recorded, we can say that the optimized method here only performs well when <cite>n</cite> is large enough.</p>
+</section>
+<section id="determinant-benchmark">
+<h3>5.2 Determinant Benchmark<a class="headerlink" href="#determinant-benchmark" title="Link to this heading"></a></h3>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="_images/det_bm.png"><img alt="Determinant benchmark results" src="_images/det_bm.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 3:</strong> Runtime comparison for matrix determinant algorithms for increasing matrix sizes.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="_images/det_bm_2.png"><img alt="Determinant benchmark results" src="_images/det_bm_2.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 4:</strong> Runtime comparison for matrix determinant algorithms for increasing matrix sizes in logarite scale.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Theorectically, the determinant calculated via Laplace cofactor expansion has the time complexity of <code class="docutils literal notranslate"><span class="pre">O(n!)</span></code>.
+The practical results also confirm this, by observing the first plot in both Figure 3 and 4, the Laplace determinant
+calculation time grows significant when <code class="docutils literal notranslate"><span class="pre">n</span></code> increase. For example with <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">7</span></code>, the calculation time is
+nearly <code class="docutils literal notranslate"><span class="pre">7</span></code> times the calculation time of <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">6</span></code>. Also, in log scale (Figure 4), the Laplace’s result forms an almost
+straight line with a steep positive slope, meaning exponential growth, which confirms the <code class="docutils literal notranslate"><span class="pre">O(n!)</span></code> time complexity.</p>
+<p>The Gaussian’s method, on the other hand, theoretically has the time complexity of <code class="docutils literal notranslate"><span class="pre">O(n^3)</span></code> (polynomial), in logarite scale, the practical calculation time should shows a logarite curve, which is true based on the third plot of the second figures, hence confirms the theory.</p>
+<p>Similar to the Gaussian’s, LU decomposition also has the time complexity of <code class="docutils literal notranslate"><span class="pre">O(n^3)</span></code>, because in the same plot, we see the practical results also has a logarite curve.</p>
+</section>
+<section id="inverse-benchmark">
+<h3>5.3 Inverse Benchmark<a class="headerlink" href="#inverse-benchmark" title="Link to this heading"></a></h3>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="_images/inv_bm.png"><img alt="Determinant benchmark results" src="_images/inv_bm.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 5:</strong> Runtime comparison for matrix determinant algorithms for increasing matrix sizes.</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="_images/inv_bm_2.png"><img alt="Determinant benchmark results" src="_images/inv_bm_2.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 6:</strong> Runtime comparison for matrix determinant algorithms for increasing matrix sizes in logarite scale.</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Theoretically, the recursive (cofactor/adjugate-based) inverse has a factorial-like cost and is therefore impractical
+beyond very small matrices. The practical results confirm this: in the linear-scale plot the runtime remains small
+for tiny <code class="docutils literal notranslate"><span class="pre">n</span></code> but then increases very rapidly (e.g., the runtime at <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">7</span></code> is many times that at <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">6</span></code>), and in
+the log-scale plot the recursive curve appears as a steep almost-linear trend, consistent with exponential growth.</p>
+<p>Both the LU-based and Gaussian-elimination inverses have theoretical complexity <code class="docutils literal notranslate"><span class="pre">O(n^3)</span></code>. In our implementations,
+the LU decomposition and Gaussian elimination runtimes match the expected polynomial behaviour: on the log-scale plot
+both methods form approximately straight lines, confirming their cubic computational complexity.</p>
+<p>In summary, the recursive method is only suitable for very small matrices, while LU and Gaussian follow the expected
+<code class="docutils literal notranslate"><span class="pre">O(n^3)</span></code> behaviour, with LU slightly faster in our tests despite recomputation.</p>
+</section>
+</section>
+<section id="conclusion">
+<h2>6. Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>Since Python is not a programming language optimized for performance compared to others such as C/C++, every built-in
+operation or function in Python, while still operating with the same time complexity as in other programming languages,
+costs way more time than it should, in both time and memory terms. For example here, the Strassen’s approach is
+<strong>O(k * n^2.81)</strong> with <cite>k</cite> being a very large constant, which then make the <cite>n</cite> to test bigger, hence required more
+RAM to store the tested matrices, e.g. assume a <cite>float</cite> is 8 bytes, with 16GB RAM we could only test <cite>n = 44721</cite> at
+max. This makes the results inaccurate and leads to the assumption that <strong>“optimization at small scale is unnecessary.”</strong>
+While in real-world scenarios, every line of code that is executed or will be executed should always be optimized -
+if not, it will not be executed efficiently when the scale gets bigger (which always happens).</p>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/QuangNguyenLong/mininumpy">https://github.com/QuangNguyenLong/mininumpy</a> . Last access: 12/07/2025</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mininumpy.html" class="btn btn-neutral float-left" title="mininumpy package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Long Quang NGUYEN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -19,6 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Project Report" href="report.html" />
     <link rel="prev" title="mininumpy" href="modules.html" /> 
 </head>
 
@@ -87,6 +88,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="report.html">Project Report</a></li>
 </ul>
 
         </div>
@@ -555,13 +557,8 @@ Space complexity: O(n * m)</p>
 <span class="sig-name descname"><span class="pre">__matmul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/array.html#Array.__matmul__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.array.Array.__matmul__" title="Link to this definition"></a></dt>
 <dd><p>Perform matrix multiplication (the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> operator) between two <a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></a> objects.</p>
 <p>This supports batched matrix multiplication:
-- If <code class="docutils literal notranslate"><span class="pre">self</span></code> has shape (…, n, p) and <code class="docutils literal notranslate"><span class="pre">other</span></code> has shape (…, p, m),</p>
-<blockquote>
-<div><p>the result will have shape (…, n, m).</p>
-</div></blockquote>
-<ul class="simple">
-<li><p>The leading dimensions (<code class="docutils literal notranslate"><span class="pre">...</span></code>) must match.</p></li>
-</ul>
+- If <code class="docutils literal notranslate"><span class="pre">self</span></code> has shape (…, n, p) and <code class="docutils literal notranslate"><span class="pre">other</span></code> has shape (…, p, m), the result will have shape (…, n, m).
+- The leading dimensions (<code class="docutils literal notranslate"><span class="pre">...</span></code>) must match.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – Right-hand side operand. Must be an <a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></a> with compatible dimensions (<code class="docutils literal notranslate"><span class="pre">self.shape[-1]</span> <span class="pre">==</span> <span class="pre">other.shape[-2]</span></code>).</p>
@@ -811,13 +808,13 @@ are <a class="reference internal" href="#mininumpy.array.Array" title="mininumpy
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mininumpy.minilinalg.det">
-<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gaussian'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">mininumpy.minilinalg.</span></span><span class="sig-name descname"><span class="pre">det</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'laplace'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mininumpy/minilinalg.html#det"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mininumpy.minilinalg.det" title="Link to this definition"></a></dt>
 <dd><p>Compute the determinant of a square 2D <a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mininumpy.array.Array" title="mininumpy.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">mininumpy.array.Array</span></code></a></span>) – Input array. Must be a 2D square matrix.</p></li>
-<li><p><strong>algo</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – String identifier for the algorithm used. Could be: <code class="docutils literal notranslate"><span class="pre">laplace</span></code> | <code class="docutils literal notranslate"><span class="pre">LU</span></code> |  <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> (default).</p></li>
+<li><p><strong>algo</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – String identifier for the algorithm used. Could be: <code class="docutils literal notranslate"><span class="pre">laplace</span></code> (default) | <code class="docutils literal notranslate"><span class="pre">LU</span></code> |  <code class="docutils literal notranslate"><span class="pre">gaussian</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -1047,6 +1044,7 @@ partial pivoting.</p></li>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="modules.html" class="btn btn-neutral float-left" title="mininumpy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="report.html" class="btn btn-neutral float-right" title="Project Report" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
